@@ -12,9 +12,11 @@ namespace HotelManagementSystem.Data.Models
         public Reservation()
         {
             this.RoomReserveds = new HashSet<RoomReserved>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         public DateTime StartDate { get; set; }
 
@@ -30,17 +32,19 @@ namespace HotelManagementSystem.Data.Models
 
         public ReservationStatus Status { get; set; }
 
-        public int GuestId { get; set; }
+        [Required]
+        public string GuestId { get; set; }
 
         public virtual Guest Guest { get; set; }
 
-        public int? VoucherId { get; set; }
+        public string VoucherId { get; set; }
 
         public virtual Voucher Voucher { get; set; }
 
         public virtual ICollection<RoomReserved> RoomReserveds { get; set; }
 
-        public int InvoiceId { get; set; }
+        [Required]
+        public string InvoiceId { get; set; }
 
         public virtual Invoice Invoice { get; set; }
     }

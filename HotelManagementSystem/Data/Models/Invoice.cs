@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Data.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,11 +9,18 @@ namespace HotelManagementSystem.Data.Models
 {
     public class Invoice
     {
-        public int Id { get; set; }
+        public Invoice()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
+        [Required]
+        public string Id { get; set; }
 
         public InvoiceStatus Status { get; set; }
 
-        public int ReservationId { get; set; }
+        [Required]
+        public string ReservationId { get; set; }
 
         public virtual Reservation Reservation { get; set; }
 

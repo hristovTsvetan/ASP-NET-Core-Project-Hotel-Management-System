@@ -9,12 +9,12 @@ namespace HotelManagementSystem.Data.Models
     public class RoomReserved
     {
         [Required]
-        public int RoomId { get; set; }
+        public string RoomId { get; set; }
 
         public virtual Room Room { get; set; }
 
         [Required]
-        public int ReservationId { get; set; }
+        public string ReservationId { get; set; }
 
         public Reservation Reservation { get; set; }
 

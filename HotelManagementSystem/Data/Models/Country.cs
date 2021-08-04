@@ -11,9 +11,11 @@ namespace HotelManagementSystem.Data.Models
         public Country()
         {
             this.Cities = new HashSet<City>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         [MaxLength(100)]
         [Required]

@@ -11,9 +11,11 @@ namespace HotelManagementSystem.Data.Models
         public Voucher()
         {
             this.Reservations = new HashSet<Reservation>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(50)]

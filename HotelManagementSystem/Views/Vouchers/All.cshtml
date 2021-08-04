@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ListAllVouchersViewModel>
+
+@{
+    ViewData["Title"] = "All vouchers";
+}
+
+<div class="row">
+    <h1 class="heading-margin text-center">All vouchers</h1>
+    <a class="btn btn-success col-md-2 offset-md-5 heading-margin" asp-controller="Vouchers" asp-action="Add">Add Voucher</a>
+    <div class="col-md-6 offset-md-3 col-sm-12 table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="col-sm-4 col-md-4 text-center" scope="col">Name</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Discount</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Active</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Edit</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">There no vouchers!</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var vc in Model)
+                    {
+                        <tr>
+                            <td class="col-sm-4 col-md-4 text-center">@vc.Name</td>
+                            <td class="col-sm-1 col-md-1 text-center">@vc.Discount%</td>
+                            <td class="col-sm-1 col-md-1 text-center">@vc.Active</td>
+                            <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-warning btn-sm" asp-controller="Vouchers" asp-action="Edit" asp-route-id="@vc.Id" asp-r>Edit</a></td>
+                            <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-danger btn-sm" asp-controller="Vouchers" asp-action="Delete" asp-route-id="@vc.Id">Delete</a></td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

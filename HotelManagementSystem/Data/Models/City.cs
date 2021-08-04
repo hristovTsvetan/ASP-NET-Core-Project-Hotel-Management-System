@@ -13,9 +13,11 @@ namespace HotelManagementSystem.Data.Models
             this.Companies = new HashSet<Company>();
             this.Guests = new HashSet<Guest>();
             this.Hotels = new HashSet<Hotel>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -26,7 +28,7 @@ namespace HotelManagementSystem.Data.Models
         public string PostalCode { get; set; }
         
         [Required]
-        public int CountryId { get; set; }
+        public string CountryId { get; set; }
 
         public virtual Country Country { get; set; }
 

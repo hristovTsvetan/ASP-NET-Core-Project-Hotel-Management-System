@@ -1,5 +1,6 @@
 using HotelManagementSystem.Data;
 using HotelManagementSystem.Infrastructure;
+using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -38,6 +39,8 @@ namespace HotelManagementSystem
             .AddEntityFrameworkStores<HotelManagementDbContext>();
 
             services.AddControllersWithViews();
+
+            services.AddTransient<IVouchersService, VouchersService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

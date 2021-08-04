@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Data.Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,9 +12,11 @@ namespace HotelManagementSystem.Data.Models
         public Rank()
         {
             this.Guests = new HashSet<Guest>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         public Ranks Name { get; set; }
 

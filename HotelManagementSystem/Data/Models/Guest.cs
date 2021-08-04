@@ -11,9 +11,11 @@ namespace HotelManagementSystem.Data.Models
         public Guest()
         {
             this.Reservations = new HashSet<Reservation>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Id { get; set; }
+        [Required]
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -36,11 +38,13 @@ namespace HotelManagementSystem.Data.Models
 
         public string Details { get; set; }
 
-        public int CityId { get; set; }
+        [Required]
+        public string CityId { get; set; }
 
         public virtual City City { get; set; }
 
-        public int RankId { get; set; }
+        [Required]
+        public string RankId { get; set; }
 
         public virtual Rank Rank { get; set; }
 
