@@ -1,9 +1,6 @@
 ﻿using HotelManagementSystem.Models.Vouchers;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Controllers
@@ -41,7 +38,7 @@ namespace HotelManagementSystem.Controllers
 
             this.vcService.UpdateVoucher(voucher);
 
-            return RedirectToAction("All");
+            return RedirectToAction("All", "Vouchers");
         }
 
         public IActionResult Add()
@@ -59,14 +56,14 @@ namespace HotelManagementSystem.Controllers
 
             await vcService.AddVoucherAsync(voucher);
 
-            return this.RedirectToAction("All");
+            return this.RedirectToAction("All", "Vouchers");
         }
 
         public IActionResult Delete(string id)
         {
             this.vcService.Delete(id);
 
-            return RedirectToAction("All");
+            return RedirectToAction("All", "Vouchers");
         }
     }
 }

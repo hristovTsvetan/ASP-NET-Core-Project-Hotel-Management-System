@@ -18,9 +18,13 @@ namespace HotelManagementSystem.Data.Models
         [Required]
         public string Id { get; set; }
 
-        public Ranks Name { get; set; }
+        [Required]
+        [MaxLength(30)]
+        public string Name { get; set; }
 
         public int Discount { get; set; }
+
+        public bool Deleted { get; set; }
 
         public ICollection<Guest> Guests { get; set; }
     }

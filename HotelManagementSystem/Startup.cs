@@ -39,8 +39,9 @@ namespace HotelManagementSystem
             .AddEntityFrameworkStores<HotelManagementDbContext>();
 
             services.AddControllersWithViews();
-
+            
             services.AddTransient<IVouchersService, VouchersService>();
+            services.AddTransient<IGuestRanksService, GuestRanksService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

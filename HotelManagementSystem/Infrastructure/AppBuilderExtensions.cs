@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Infrastructure
 {
-    public static  class AppBuilderExtensions
+    public static class AppBuilderExtensions
     {
         public static IApplicationBuilder PrepareDatabase(this IApplicationBuilder app)
         {
@@ -20,13 +20,28 @@ namespace HotelManagementSystem.Infrastructure
 
             SeedCountries(data);
             SeedCities(data);
+            SeedRanks(data);
 
             return app;
         }
 
+        public static void SeedRanks(HotelManagementDbContext db)
+        {
+            if(db.Ranks.Any())
+            {
+                return;
+            }
+
+            db.Ranks.Add(
+                new Rank { Name = "Regular", Discount = 0, }
+            );
+
+            db.SaveChanges();
+        }
+
         public static void SeedCities(HotelManagementDbContext db)
         {
-            if(db.Cities.Any())
+            if (db.Cities.Any())
             {
                 return;
             }
@@ -44,7 +59,7 @@ namespace HotelManagementSystem.Infrastructure
 
         public static void SeedCountries(HotelManagementDbContext db)
         {
-            if(db.Countries.Any())
+            if (db.Countries.Any())
             {
                 return;
             }

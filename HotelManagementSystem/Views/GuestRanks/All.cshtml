@@ -1,0 +1,54 @@
+﻿@model IEnumerable<AllRanksViewModel>
+
+@{
+    ViewData["Title"] = "All ranks";
+}
+
+<div class="row">
+    <h1 class="heading-margin text-center">All ranks</h1>
+    <div class="row col-md-4 offset-md-4 ">
+        <p class="text-justify">
+            <span class="text-info font-weight-bold">Additional information: </span>Regular rank is default rank for each new Guest in the hotel and by default
+            any new Guest receive it automatically. For that reason nobody can Delete or Edit this rank.
+        </p>
+        <p class="text-justify">
+            <span class="text-danger font-weight-bold">Important: </span>When some rank is delete, on all existing Guests in the system with deleted rank will be assign
+            a Regular rank automatically.
+        </p>
+    </div>
+    <a class="btn btn-success col-md-2 offset-md-5 heading-margin" asp-controller="GuestRanks" asp-action="Add">Add Rank</a>
+    <div class="col-md-6 offset-md-3 col-sm-12 table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="col-sm-4 col-md-4 text-center" scope="col">Name</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Discount</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Edit</th>
+                    <th class="col-sm-1 col-md-1 text-center" scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rank in Model)
+                {
+                <tr>
+                    <td class="col-sm-4 col-md-4 text-center">@rank.Name</td>
+                    <td class="col-sm-1 col-md-1 text-center">@rank.Discount%</td>
+                    @if (rank.Name != "Regular")
+                    {
+                        <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-warning btn-sm btn" asp-controller="GuestRanks" asp-action="Edit" asp-route-id="@rank.Id">Edit</a></td>
+                        <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-danger btn-sm" asp-controller="GuestRanks" asp-action="Delete" asp-route-id="@rank.Id">Delete</a></td>
+                    }
+                    else
+                    {
+                        <td class="col-sm-1 col-md-1 text-center"></td>
+                        <td class="col-sm-1 col-md-1 text-center"></td>
+                    }
+
+                </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
