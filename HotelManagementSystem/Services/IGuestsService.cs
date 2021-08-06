@@ -8,16 +8,18 @@ namespace HotelManagementSystem.Services
 {
     public interface IGuestsService
     {
-        void Add(AddCustomerFormModel customer);
-
         AddCustomerFormModel AddGet();
 
         void AddPost(AddCustomerFormModel customer);
+
+        IEnumerable<ListGuestsViewModel> GetGuests();
 
         bool IsCountryExist(string countryId);
 
         bool IsCityExist(string cityId);
 
         bool IsRankExist(string rankId);
+
+        bool IsIdentityNumberExist(string identityNumber);
     }
 }

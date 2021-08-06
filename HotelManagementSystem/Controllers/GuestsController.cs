@@ -19,8 +19,9 @@ namespace HotelManagementSystem.Controllers
 
         public IActionResult All()
         {
+            var guests = this.guestService.GetGuests();
 
-            return this.View();
+            return this.View(guests);
         }
 
         public IActionResult Add()

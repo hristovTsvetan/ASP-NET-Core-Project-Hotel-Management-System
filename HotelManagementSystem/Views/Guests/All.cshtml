@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<ListGuestsViewModel>
+
 @{
     ViewData["Title"] = "All customers";
 }
@@ -26,6 +27,16 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach (var guest in Model)
+                {
+                <tr>
+                    <td class="col-sm-4 col-md-4 text-center">@guest.FirstName</td>
+                    <td class="col-sm-1 col-md-1 text-center">@guest.LastName</td>
+                    <td class="col-sm-1 col-md-1 text-center">@guest.Phone</td>
+                    <td class="col-sm-1 col-md-1 text-center">@guest.RankName</td>
+                    <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-warning btn-sm" asp-controller="Guests" asp-action="All" asp-route-id="@guest.Id" asp-r>Details</a></td>
+                </tr>
+                }
             </tbody>
         </table>
     </div>

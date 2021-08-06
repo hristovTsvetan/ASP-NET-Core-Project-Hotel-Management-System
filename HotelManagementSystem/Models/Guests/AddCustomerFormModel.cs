@@ -35,6 +35,7 @@ namespace HotelManagementSystem.Models.Guests
         [Required]
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
         [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
+        [IdentityCard]
         public string IdentityCardId { get; set; }
 
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]

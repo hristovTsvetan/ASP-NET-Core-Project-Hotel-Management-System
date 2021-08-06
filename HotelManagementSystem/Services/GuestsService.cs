@@ -18,10 +18,6 @@ namespace HotelManagementSystem.Services
         {
             this.db = dBase;
         }
-        public void Add(AddCustomerFormModel customer)
-        {
-            throw new NotImplementedException();
-        }
 
         public AddCustomerFormModel AddGet()
         {
@@ -58,11 +54,31 @@ namespace HotelManagementSystem.Services
                 IdentityCardId = customer.IdentityCardId,
                 LastName = customer.LastName,
                 Phone = customer.Phone,
-                RankId = customer.RankId
+                RankId = customer.RankId,
+                Created = DateTime.UtcNow
             };
 
             this.db.Guests.Add(guest);
             this.db.SaveChanges();
+        }
+
+        public IEnumerable<ListGuestsViewModel> GetGuests()
+        {
+            return this.db
+                .Guests
+                .Where(g => g.Deleted == false)
+                .Select(g => new ListGuestsViewModel
+                {
+                    FirstName = g.FirstName,
+                    LastName = g.LastName,
+                    Phone = g.Phone,
+                    RankName = g.Rank.Name,
+                    Id = g.Id,
+                    Created = g.Created
+                })
+                .OrderByDescending(g => g.Created)
+                .ToList();
+                
         }
 
         public bool IsCityExist(string cityId)
@@ -79,11 +95,18 @@ namespace HotelManagementSystem.Services
                 .Any(c => c.Id == countryId);
         }
 
+        public bool IsIdentityNumberExist(string identityNumber)
+        {
+            return this.db.Guests.Any(g => g.IdentityCardId == identityNumber);
+        }
+
         public bool IsRankExist(string rankId)
         {
             return this.db
                 .Ranks
                 .Any(r => r.Id == rankId);
         }
+
+
     }
 }

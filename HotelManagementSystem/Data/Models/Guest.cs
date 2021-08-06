@@ -42,6 +42,10 @@ namespace HotelManagementSystem.Data.Models
 
         public string Details { get; set; }
 
+        public bool Deleted { get; set; }
+
+        public DateTime Created { get; set; }
+
         [Required]
         public string CityId { get; set; }
 

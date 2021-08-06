@@ -132,6 +132,8 @@ namespace HotelManagementSystem.Data.Migrations
                     Phone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CityId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RankId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
