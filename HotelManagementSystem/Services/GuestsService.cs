@@ -3,6 +3,7 @@ using HotelManagementSystem.Data.Models;
 using HotelManagementSystem.Models.Countries;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Models.Guests;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,11 +63,13 @@ namespace HotelManagementSystem.Services
             this.db.SaveChanges();
         }
 
-        public IEnumerable<ListGuestsViewModel> GetGuests()
+        public ListGuestsQueryModel GetGuests(ListGuestsQueryModel query)
         {
-            return this.db
-                .Guests
+            var allGuests = this.db.Guests
                 .Where(g => g.Deleted == false)
+                .OrderByDescending(g => g.Created)
+                .Skip((query.CurrentPage - 1) * query.ItemsPerPage)
+                .Take(query.ItemsPerPage)
                 .Select(g => new ListGuestsViewModel
                 {
                     FirstName = g.FirstName,
@@ -76,9 +79,18 @@ namespace HotelManagementSystem.Services
                     Id = g.Id,
                     Created = g.Created
                 })
-                .OrderByDescending(g => g.Created)
                 .ToList();
-                
+
+            var guestQueryModel = new ListGuestsQueryModel
+            {
+                AllGuests = allGuests,
+                CurrentPage = query.CurrentPage,
+                TotalPages = (int)Math.Ceiling((double)this.db.Guests.ToList().Count / query.ItemsPerPage)
+            };
+
+            guestQueryModel.CurrentPage = query.CurrentPage;
+
+            return guestQueryModel;
         }
 
         public bool IsCityExist(string cityId)

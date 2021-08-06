@@ -11,7 +11,7 @@ namespace HotelManagementSystem.Models.Vouchers
     {
         [Required]
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
-        [MinLength(5, ErrorMessage = ValidatorConstants.minLength)]
+        [MinLength(2, ErrorMessage = ValidatorConstants.minLength)]
         public string Name { get; init; }
 
         [Range(1, 50)]

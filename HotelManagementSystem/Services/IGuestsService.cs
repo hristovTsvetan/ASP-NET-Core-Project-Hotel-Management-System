@@ -12,7 +12,7 @@ namespace HotelManagementSystem.Services
 
         void AddPost(AddCustomerFormModel customer);
 
-        IEnumerable<ListGuestsViewModel> GetGuests();
+        ListGuestsQueryModel GetGuests(ListGuestsQueryModel query);
 
         bool IsCountryExist(string countryId);
 

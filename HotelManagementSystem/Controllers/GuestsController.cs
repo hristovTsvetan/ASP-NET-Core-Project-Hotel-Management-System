@@ -17,9 +17,9 @@ namespace HotelManagementSystem.Controllers
             this.guestService = gService;
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] ListGuestsQueryModel query)
         {
-            var guests = this.guestService.GetGuests();
+            var guests = this.guestService.GetGuests(query);
 
             return this.View(guests);
         }

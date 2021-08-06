@@ -1,11 +1,11 @@
-﻿@model IEnumerable<ListGuestsViewModel>
+﻿@model ListGuestsQueryModel
 
 @{
     ViewData["Title"] = "All customers";
 }
 
 <div class="row">
-    <h1 class="heading-margin text-center">All customers</h1>
+    <h4 class="heading-margin text-center">All customers</h4>
     <div class="row col-md-4 offset-md-4 ">
         <p class="text-justify">
             <span class="text-info font-weight-bold">Additional information: </span>
@@ -27,17 +27,68 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var guest in Model)
+                @foreach (var guest in Model.AllGuests)
                 {
-                <tr>
-                    <td class="col-sm-4 col-md-4 text-center">@guest.FirstName</td>
-                    <td class="col-sm-1 col-md-1 text-center">@guest.LastName</td>
-                    <td class="col-sm-1 col-md-1 text-center">@guest.Phone</td>
-                    <td class="col-sm-1 col-md-1 text-center">@guest.RankName</td>
-                    <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-warning btn-sm" asp-controller="Guests" asp-action="All" asp-route-id="@guest.Id" asp-r>Details</a></td>
-                </tr>
+                    <tr>
+                        <td class="col-sm-4 col-md-4 text-center">@guest.FirstName</td>
+                        <td class="col-sm-1 col-md-1 text-center">@guest.LastName</td>
+                        <td class="col-sm-1 col-md-1 text-center">@guest.Phone</td>
+                        <td class="col-sm-1 col-md-1 text-center">@guest.RankName</td>
+                        <td class="col-sm-1 col-md-1 text-center"><a class="btn btn-primary btn-sm" asp-controller="Guests" asp-action="All" asp-route-id="@guest.Id" asp-r>Details</a></td>
+                    </tr>
                 }
             </tbody>
         </table>
+
+        @{
+            int next = Model.CurrentPage;
+            next++;
+            int previous = Model.CurrentPage;
+            previous--;
+        }
+
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                @if (previous < 1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" asp-controller="Guests" asp-action="All" asp-route-currentPage="@previous" tabindex="-1">Previous</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Guests" asp-action="All" asp-route-currentPage="@previous" tabindex="-1">Previous</a>
+                    </li>
+                }
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    if (Model.CurrentPage == i)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" asp-controller="Guests" asp-action="All" asp-route-currentPage="@Model.CurrentPage">@i <span class="sr-only">(current)</span></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a class="page-link" asp-controller="Guests" asp-action="All" asp-route-currentPage="@i">@i</a></li>
+                    }
+
+                }
+                @if (Model.CurrentPage == Model.TotalPages)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link">Next</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Guests" asp-action="All" asp-route-currentPage="@next">Next</a>
+                    </li>
+                }
+
+            </ul>
+        </nav>
     </div>
 </div>
