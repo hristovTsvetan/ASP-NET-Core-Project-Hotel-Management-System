@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "All customers";
+}
+
+<div class="row">
+    <h1 class="heading-margin text-center">All customers</h1>
+    <div class="row col-md-4 offset-md-4 ">
+        <p class="text-justify">
+            <span class="text-info font-weight-bold">Additional information: </span>
+            From here you can manage all current and ex guests on hotel. You can view all client data from Details button.
+            Also from there you can edit current customer data or delete client record in the system.
+
+        </p>
+    </div>
+    <a class="btn btn-success col-md-2 offset-md-5  col-sm-2 offset-sm-5 heading-margin" asp-controller="Guests" asp-action="Add">Add cutomer</a>
+    <div class="col-md-6 offset-md-3 col-sm-12 table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="col-sm-3 col-md-3 text-center" scope="col">First Name</th>
+                    <th class="col-sm-3 col-md-3 text-center" scope="col">Last Name</th>
+                    <th class="col-sm-3 col-md-3 text-center" scope="col">Phone</th>
+                    <th class="col-sm-2 col-md-2 text-center" scope="col">Rank</th>
+                    <th class="col-sm-2 col-md-1 text-center" scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>

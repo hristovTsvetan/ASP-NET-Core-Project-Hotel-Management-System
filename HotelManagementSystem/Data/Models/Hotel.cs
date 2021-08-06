@@ -21,6 +21,8 @@ namespace HotelManagementSystem.Data.Models
         [MaxLength(100)]
         public string Name { get; set; }
 
+        public bool Active { get; set; }
+
         public string Description { get; set; }
         
         [MaxLength(100)]

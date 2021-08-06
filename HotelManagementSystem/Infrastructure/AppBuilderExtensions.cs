@@ -51,7 +51,9 @@ namespace HotelManagementSystem.Infrastructure
                 new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Bulgaria"), Name = "Sofia", PostalCode = "1000" },
                 new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Bulgaria"), Name = "Plovdiv", PostalCode = "4000" },
                 new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Bulgaria"), Name = "Burgas", PostalCode = "8000" },
-                new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Bulgaria"), Name = "Varna", PostalCode = "9000" }
+                new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Bulgaria"), Name = "Varna", PostalCode = "9000" },
+                new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Uk"), Name = "London", PostalCode = "2FF 11" },
+                new City { Country = db.Countries.FirstOrDefault(c => c.Name == "Uk"), Name = "Liverpool", PostalCode = "5AB 22" }
             });
 
             db.SaveChanges();
@@ -64,9 +66,10 @@ namespace HotelManagementSystem.Infrastructure
                 return;
             }
 
-            db.Countries.Add(new Country
+            db.Countries.AddRange(new[]
             {
-                Name = "Bulgaria"
+                new Country { Name = "Bulgaria" },
+                new Country { Name = "Uk" }
             });
 
             db.SaveChanges();

@@ -21,6 +21,8 @@ namespace HotelManagementSystem.Data.Models
         [Required]
         public string Name { get; set; }
 
+        public bool Deleted { get; set; }
+
         public virtual ICollection<City> Cities { get; set; }
     }
 }

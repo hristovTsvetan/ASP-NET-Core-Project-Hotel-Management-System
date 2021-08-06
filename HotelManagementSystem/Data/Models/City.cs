@@ -26,7 +26,9 @@ namespace HotelManagementSystem.Data.Models
         [MaxLength(30)]
         [Required]
         public string PostalCode { get; set; }
-        
+
+        public bool Deleted { get; set; }
+
         [Required]
         public string CountryId { get; set; }
 

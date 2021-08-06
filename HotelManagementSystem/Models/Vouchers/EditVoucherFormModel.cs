@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManagementSystem.Validators.Messages;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace HotelManagementSystem.Models.Vouchers
@@ -8,8 +9,8 @@ namespace HotelManagementSystem.Models.Vouchers
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(50, ErrorMessage = "Max length should be maximum {1} symbols!")]
-        [MinLength(5, ErrorMessage = "Min length should be minimum {1} symbols!")]
+        [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
+        [MinLength(5, ErrorMessage = ValidatorConstants.minLength)]
         public string Name { get; set; }
 
         [Range(1, 50)]

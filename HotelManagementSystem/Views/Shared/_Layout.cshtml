@@ -36,7 +36,7 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Vouchers" asp-action="All">
                     <img class="navMenuIcon" src="~/images/voucherButton.png">Vouchers
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Guests" asp-action="All">
                     <img class="navMenuIcon" src="~/images/guestButton.png">Guests
                 </a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="GuestRanks" asp-action="All">
@@ -62,8 +62,8 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container-fluid">
                     <button class="btn btn-light" id="sidebarToggle">
-                        <img class="menuIcon" src="~/images/menuIcon.png"/>
-                        
+                        <img class="menuIcon" src="~/images/menuIcon.png" />
+
                     </button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -78,11 +78,13 @@
         </div>
     </div>
 
-     <footer class="border-top footer text-muted">
+
+    <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.UtcNow.Year - Hotel Management System
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

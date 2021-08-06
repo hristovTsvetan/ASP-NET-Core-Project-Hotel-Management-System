@@ -42,6 +42,8 @@ namespace HotelManagementSystem
             
             services.AddTransient<IVouchersService, VouchersService>();
             services.AddTransient<IGuestRanksService, GuestRanksService>();
+            services.AddTransient<ICitiesService, CitiesService>();
+            services.AddTransient<IGuestsService, GuestsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

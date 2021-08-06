@@ -25,6 +25,10 @@ namespace HotelManagementSystem.Data.Models
         [MaxLength(50)]
         public string LastName { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        public string IdentityCardId { get; set; }
+
         [MaxLength(50)]
         public string Email { get; set; }
 

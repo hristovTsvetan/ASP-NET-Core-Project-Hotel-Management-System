@@ -1,0 +1,166 @@
+﻿@model AddCustomerFormModel
+
+@{
+    ViewData["Title"] = "Add customer";
+}
+
+<div class="row">
+    <h1 class="heading-margin text-center">Add customer</h1>
+    <form class="col-md-6 offset-md-3 col-sm-12" method="post">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control">
+                <span asp-validation-for="FirstName" class="text-danger small"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control">
+                <span asp-validation-for="LastName" class="text-danger small"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="IdentityCardId"></label>
+                <input asp-for="IdentityCardId" class="form-control">
+                <span asp-validation-for="IdentityCardId" class="text-danger small"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control">
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" class="form-control">
+                <span asp-validation-for="Phone" class="text-danger small"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" class="form-control">
+                <span asp-validation-for="Address" class="text-danger small"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Details"></label>
+            <textarea asp-for="Details" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label asp-for="RankId"></label>
+                <select asp-for="RankId" class="form-control">
+                    @foreach (var rank in Model.Ranks)
+                    {
+                        if (rank.Name == "Regular" && rank.Id == null)
+                        {
+                            <option value="@rank.Id" selected>@rank.Name</option>
+                        }
+                        else if (Model.RankId != null && rank.Id == Model.RankId)
+                        {
+                            <option value="@rank.Id" selected>@rank.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@rank.Id">@rank.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="RankId" class="text-danger small"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="CountryId"></label>
+                <select asp-for="CountryId" class="form-control" id="country">
+                    @foreach (var country in Model.Countries)
+                    {
+                        if (country.Name == "Bulgaria" && Model.CountryId == null)
+                        {
+                            <option value="@country.Id" selected>@country.Name</option>
+                        }
+                        else if (Model.CountryId != null && Model.CountryId == country.Id)
+                        {
+                            <option value="@country.Id" selected>@country.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@country.Id">@country.Name</option>
+                        }
+
+                    }
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger small"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="CityId"></label>
+                <select asp-for="CityId" class="form-control" id="city">
+                </select>
+                <span asp-validation-for="CityId" class="text-danger small"></span>
+            </div>
+        </div>
+        <input type="submit" value="Add" class="btn btn-primary col-md-4 offset-md-4 col-sm-4 offset-sm-4 mt-5" />
+        <input type="hidden" id="cityId" value="@Model.CityId">
+    </form>
+</div>
+
+@section Scripts
+{
+    <script>
+        window.onload = (event) => {
+
+            if (document.getElementById("country") !== null) {
+
+
+                const cId = document.getElementById("country").value;
+
+                async function getData(countryId) {
+                    const url = '/api/cities?countryId=' + countryId;
+
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+
+                    let result = await response.json();
+
+                    const citySelect = document.getElementById('city');
+
+                    const cId = document.getElementById('cityId').value;
+
+                    result.forEach(function (c) {
+                        const newOption = document.createElement('option');
+                        newOption.value = c.id;
+                        newOption.label = c.name;
+                        if (cId.length > 0 && c.id == cId) {
+                            newOption.selected = true;
+                        }
+                        citySelect.appendChild(newOption);
+                    });
+                }
+
+                getData(cId);
+
+                function cleanOptions() {
+                    const citySelect = document.getElementById('city');
+
+                    while (citySelect.firstChild) {
+                        citySelect.removeChild(citySelect.firstChild);
+                    }
+
+                }
+
+                const countrySelect = document.getElementById("country");
+                countrySelect.addEventListener('change', function () {
+                    const currentCountryId = document.getElementById("country").value;
+                    cleanOptions();
+                    getData(currentCountryId)
+                });
+            }
+        };
+    </script>
+}
+
+
+
