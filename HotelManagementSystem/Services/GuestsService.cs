@@ -40,7 +40,7 @@ namespace HotelManagementSystem.Services
                     Name = r.Name
                 })
                 .ToList()
-        };
+            };
         }
 
         public void AddPost(AddCustomerFormModel customer)
@@ -65,9 +65,10 @@ namespace HotelManagementSystem.Services
 
         public ListGuestsQueryModel GetGuests(ListGuestsQueryModel query)
         {
-            var allGuests = this.db.Guests
+            var dBase = Sort(query);
+
+            var allGuests = dBase
                 .Where(g => g.Deleted == false)
-                .OrderByDescending(g => g.Created)
                 .Skip((query.CurrentPage - 1) * query.ItemsPerPage)
                 .Take(query.ItemsPerPage)
                 .Select(g => new ListGuestsViewModel
@@ -77,20 +78,52 @@ namespace HotelManagementSystem.Services
                     Phone = g.Phone,
                     RankName = g.Rank.Name,
                     Id = g.Id,
-                    Created = g.Created
+                    Created = g.Created.Date,
+                    City = g.City.Name
                 })
                 .ToList();
 
             var guestQueryModel = new ListGuestsQueryModel
             {
-                AllGuests = allGuests,
                 CurrentPage = query.CurrentPage,
-                TotalPages = (int)Math.Ceiling((double)this.db.Guests.ToList().Count / query.ItemsPerPage)
+                AllGuests = allGuests,
+                TotalPages = (int)Math.Ceiling((double)this.db.Guests.ToList().Count / query.ItemsPerPage),
+                AscOrDesc = query.AscOrDesc
             };
 
-            guestQueryModel.CurrentPage = query.CurrentPage;
+            guestQueryModel.SortBy = query.SortBy;
 
             return guestQueryModel;
+        }
+
+        private IQueryable<Guest> Sort(ListGuestsQueryModel query)
+        {
+            switch (query.SortBy)
+            {
+                case SortBy.None:
+                    return this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Created);
+                case SortBy.FName:
+                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.FirstName)
+                        : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.FirstName);
+                case SortBy.LName:
+                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.LastName)
+                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.LastName);
+                case SortBy.Phone:
+                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.Phone)
+                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Phone);
+                case SortBy.Rank:
+                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.Rank.Name)
+                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Rank.Name);
+                case SortBy.City:
+                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.City.Name)
+                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.City.Name);
+                case SortBy.CreatedOn:
+                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.Created)
+                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Created);
+                default:
+                    return this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Created);
+            }
+
         }
 
         public bool IsCityExist(string cityId)

@@ -24,6 +24,10 @@ namespace HotelManagementSystem.Models.Guests
 
         public int ItemsPerPage { get; set; }
 
+        public SortBy SortBy { get; set; }
+
+        public int AscOrDesc { get; set; }
+
         public IEnumerable<ListGuestsViewModel> AllGuests { get; set; }
     }
 }

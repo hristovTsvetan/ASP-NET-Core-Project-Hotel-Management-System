@@ -18,6 +18,8 @@ namespace HotelManagementSystem.Models.Guests
 
         public string RankName { get; set; }
 
+        public string  City { get; set; }
+
         public DateTime Created { get; set; }
     }
 }
