@@ -1,5 +1,6 @@
 ﻿using HotelManagementSystem.Data;
 using HotelManagementSystem.Data.Models;
+using HotelManagementSystem.Data.Models.Enums;
 using HotelManagementSystem.Models.Countries;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Models.Guests;
@@ -102,17 +103,17 @@ namespace HotelManagementSystem.Services
 
         private IQueryable<Guest> Search(ListGuestsQueryModel query, IQueryable<Guest> currentDb)
         {
-            if(string.IsNullOrWhiteSpace(query.Search))
+            if (string.IsNullOrWhiteSpace(query.Search))
             {
                 return currentDb;
             }
 
             return currentDb
-                .Where(g => (g.FirstName + " " + g.LastName).Contains(query.Search) ||
-                        g.IdentityCardId.Contains(query.Search) || g.Phone.Contains(query.Search) ||
-                        g.Rank.Name.Contains(query.Search) || g.Email.Contains(query.Search) ||
-                        g.City.Name.Contains(query.Search) || g.Address.Contains(query.Search) ||
-                        g.City.Country.Name.Contains(query.Search));
+                .Where(g => (g.FirstName.ToLower() + " " + g.LastName.ToLower()).Contains(query.Search.ToLower()) ||
+                        g.IdentityCardId.ToLower().Contains(query.Search.ToLower()) || g.Phone.ToLower().Contains(query.Search.ToLower()) ||
+                        g.Rank.Name.ToLower().Contains(query.Search.ToLower()) || g.Email.ToLower().Contains(query.Search.ToLower()) ||
+                        g.City.Name.ToLower().Contains(query.Search.ToLower()) || g.Address.ToLower().Contains(query.Search.ToLower()) ||
+                        g.City.Country.Name.ToLower().Contains(query.Search.ToLower()));
 
         }
 
@@ -172,6 +173,54 @@ namespace HotelManagementSystem.Services
                 .Any(r => r.Id == rankId);
         }
 
+        public DetailsGuestViewModel Details(string id)
+        {
+            return this.db.Guests
+                .Where(g => g.Id == id)
+                .Select(g => new DetailsGuestViewModel
+                {
+                    FirstName = g.FirstName,
+                    Address = g.Address,
+                    City = g.City.Name,
+                    Country = g.City.Country.Name,
+                    Created = g.Created.ToString("dd-MM-yyyy"),
+                    CreatedReservationsCount = g.Reservations.Where(r => r.Status == ReservationStatus.Active).Count(),
+                    Details = g.Details,
+                    Email = g.Email,
+                    IdentityCardId = g.IdentityCardId,
+                    LastName = g.LastName,
+                    Phone = g.Phone,
+                    Rank = g.Rank.Name,
+                    Id = g.Id
+                }).FirstOrDefault();
+        }
 
+        public void Delete(string id)
+        {
+            ChangeReservationStatus(id);
+
+            var guest = this.db.Guests.Where(g => g.Id == id).FirstOrDefault();
+
+            guest.Deleted = true;
+
+            this.db.Update(guest);
+            this.db.SaveChanges();
+        }
+
+        public void ChangeReservationStatus(string id)
+        {
+            var reservations = this.db
+                .Reservations
+                .Where(r => r.GuestId == id && r.StartDate >= DateTime.UtcNow)
+                .ToList();
+
+            foreach(var res in reservations)
+            {
+                res.Status = ReservationStatus.Canceled;
+            }
+
+            this.db.Reservations.UpdateRange(reservations);
+            this.db.SaveChanges();
+        }
     }
 }

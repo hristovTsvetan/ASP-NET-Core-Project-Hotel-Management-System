@@ -1,70 +1,76 @@
-﻿<div class="row">
+﻿@model DetailsGuestViewModel
+
+
+<div class="row col-md-8 offset-md-2 col-sm-12">
     <h4 class="heading-margin text-center">Details customer</h4>
-    <form class="col-md-10 offset-md-1 col-sm-12" method="post">
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-            <div class="form-group col-md-4">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-            <div class="form-group col-md-4" disabled>
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
+    <div class="row col-md-6 offset-md-3 ">
+        <p class="text-justify">
+            <span class="text-danger font-weight-bold">Important: </span>If you delete client who has reservation which is not in the past,
+            the reservation will change status automatically to canceled.
+        </p>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.FirstName"></label>
+            <input asp-for="@Model.FirstName" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.LastName"></label>
+            <input asp-for="@Model.LastName" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4" disabled>
+            <label asp-for="@Model.IdentityCardId"></label>
+            <input asp-for="@Model.IdentityCardId" class="form-control" disabled>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Email"></label>
+            <input asp-for="@Model.Email" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Phone"></label>
+            <input asp-for="@Model.Phone" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4" disabled>
+            <label asp-for="@Model.Address"></label>
+            <input asp-for="@Model.Address" class="form-control" disabled>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Created"></label>
+            <input asp-for="@Model.Created" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.City"></label>
+            <input asp-for="@Model.City" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4" disabled>
+            <label asp-for="@Model.Country"></label>
+            <input asp-for="@Model.Country" class="form-control" disabled>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-4" disabled>
+            <label asp-for="@Model.Rank"></label>
+            <input asp-for="@Model.Rank" class="form-control" disabled>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Details"></label>
+            <textarea asp-for="@Model.Details" class="form-control" rows="2" disabled></textarea>
+        </div>
+        <div class="form-group col-md-4" disabled>
+            <label asp-for="@Model.CreatedReservationsCount"></label>
+            <input asp-for="@Model.CreatedReservationsCount" class="form-control" disabled>
+        </div>
+    </div>
+    <div class="row editGuestBtn">
+        <div class="form-group form-group col-md-6 offset-md-3 mt-5">
+            <div class="container">
+                <a class="btn btn-warning btn-lg ml-5 col-md-4 col-sm-12" asp-route-id="@Model.Id">Edit</a>
+                <a class="btn btn-danger btn-lg ml-5 col-md-4 col-sm-12" asp-route-id="@Model.Id" asp-controller="Guests" asp-action="Delete">Delete</a>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-            <div class="form-group col-md-4">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-            <div class="form-group col-md-4" disabled>
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-            <div class="form-group col-md-4">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-            <div class="form-group col-md-4" disabled>
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-2 offset-5">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-2 offset-5">
-                <label></label>
-                <input class="form-control" disabled>
-                <span class="text-danger small"></span>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>

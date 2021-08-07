@@ -14,6 +14,12 @@ namespace HotelManagementSystem.Services
 
         ListGuestsQueryModel GetGuests(ListGuestsQueryModel query);
 
+        DetailsGuestViewModel Details(string id);
+
+        void ChangeReservationStatus(string id);
+
+        void Delete(string id);
+
         bool IsCountryExist(string countryId);
 
         bool IsCityExist(string cityId);

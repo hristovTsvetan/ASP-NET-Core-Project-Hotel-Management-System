@@ -17,11 +17,18 @@ namespace HotelManagementSystem.Controllers
             this.guestService = gService;
         }
 
+        public IActionResult Delete(string id)
+        {
+            this.guestService.Delete(id);
+
+            return this.RedirectToAction("All", "Guests");
+        }
+
         public IActionResult Details(string id)
         {
+            var currentClient = this.guestService.Details(id);
 
-
-            return this.View();
+            return this.View(currentClient);
         }
 
         public IActionResult All([FromQuery] ListGuestsQueryModel query)
@@ -55,5 +62,6 @@ namespace HotelManagementSystem.Controllers
 
             return RedirectToAction("All", "Guests");
         }
+
     }
 }
