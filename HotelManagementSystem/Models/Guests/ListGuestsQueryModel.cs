@@ -28,6 +28,8 @@ namespace HotelManagementSystem.Models.Guests
 
         public int AscOrDesc { get; set; }
 
+        public string Search { get; set; }
+
         public IEnumerable<ListGuestsViewModel> AllGuests { get; set; }
     }
 }

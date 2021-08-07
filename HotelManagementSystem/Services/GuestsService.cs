@@ -65,7 +65,10 @@ namespace HotelManagementSystem.Services
 
         public ListGuestsQueryModel GetGuests(ListGuestsQueryModel query)
         {
-            var dBase = Sort(query);
+            var dBase = this.db.Guests.Where(g => g.Deleted == false);
+
+            dBase = Search(query, dBase);
+            dBase = Sort(query, dBase);
 
             var allGuests = dBase
                 .Where(g => g.Deleted == false)
@@ -87,41 +90,58 @@ namespace HotelManagementSystem.Services
             {
                 CurrentPage = query.CurrentPage,
                 AllGuests = allGuests,
-                TotalPages = (int)Math.Ceiling((double)this.db.Guests.ToList().Count / query.ItemsPerPage),
+                TotalPages = (int)Math.Ceiling((double)dBase.ToList().Count / query.ItemsPerPage),
                 AscOrDesc = query.AscOrDesc
             };
 
             guestQueryModel.SortBy = query.SortBy;
+            guestQueryModel.Search = query.Search;
 
             return guestQueryModel;
         }
 
-        private IQueryable<Guest> Sort(ListGuestsQueryModel query)
+        private IQueryable<Guest> Search(ListGuestsQueryModel query, IQueryable<Guest> currentDb)
+        {
+            if(string.IsNullOrWhiteSpace(query.Search))
+            {
+                return currentDb;
+            }
+
+            return currentDb
+                .Where(g => (g.FirstName + " " + g.LastName).Contains(query.Search) ||
+                        g.IdentityCardId.Contains(query.Search) || g.Phone.Contains(query.Search) ||
+                        g.Rank.Name.Contains(query.Search) || g.Email.Contains(query.Search) ||
+                        g.City.Name.Contains(query.Search) || g.Address.Contains(query.Search) ||
+                        g.City.Country.Name.Contains(query.Search));
+
+        }
+
+        private IQueryable<Guest> Sort(ListGuestsQueryModel query, IQueryable<Guest> dbase)
         {
             switch (query.SortBy)
             {
                 case SortBy.None:
-                    return this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Created);
+                    return dbase.OrderByDescending(g => g.Created);
                 case SortBy.FName:
-                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.FirstName)
-                        : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.FirstName);
+                    return query.AscOrDesc == 1 ? dbase.OrderBy(g => g.FirstName)
+                        : dbase.OrderByDescending(g => g.FirstName);
                 case SortBy.LName:
-                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.LastName)
-                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.LastName);
+                    return query.AscOrDesc == 1 ? dbase.OrderBy(g => g.LastName)
+                            : dbase.OrderByDescending(g => g.LastName);
                 case SortBy.Phone:
-                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.Phone)
-                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Phone);
+                    return query.AscOrDesc == 1 ? dbase.OrderBy(g => g.Phone)
+                            : dbase.OrderByDescending(g => g.Phone);
                 case SortBy.Rank:
-                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.Rank.Name)
-                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Rank.Name);
+                    return query.AscOrDesc == 1 ? dbase.OrderBy(g => g.Rank.Name)
+                            : dbase.OrderByDescending(g => g.Rank.Name);
                 case SortBy.City:
-                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.City.Name)
-                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.City.Name);
+                    return query.AscOrDesc == 1 ? dbase.OrderBy(g => g.City.Name)
+                            : dbase.OrderByDescending(g => g.City.Name);
                 case SortBy.CreatedOn:
-                    return query.AscOrDesc == 1 ? this.db.Guests.Where(g => g.Deleted == false).OrderBy(g => g.Created)
-                            : this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Created);
+                    return query.AscOrDesc == 1 ? dbase.OrderBy(g => g.Created)
+                            : dbase.OrderByDescending(g => g.Created);
                 default:
-                    return this.db.Guests.Where(g => g.Deleted == false).OrderByDescending(g => g.Created);
+                    return dbase.OrderByDescending(g => g.Created);
             }
 
         }
