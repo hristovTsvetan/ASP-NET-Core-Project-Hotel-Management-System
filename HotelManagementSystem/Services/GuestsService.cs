@@ -21,11 +21,9 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
-        public AddCustomerFormModel AddGet()
+        public IEnumerable<CountriesViewModel> GetCountries()
         {
-            return new AddCustomerFormModel
-            {
-                Countries = this.db
+            return this.db
                 .Countries
                 .Select(c => new CountriesViewModel
                 {
@@ -33,18 +31,21 @@ namespace HotelManagementSystem.Services
                     Name = c.Name
                 })
                 .OrderBy(c => c.Name)
-                .ToList(),
-                Ranks = this.db
+                .ToList();
+        }
+
+        public IEnumerable<RankViewModel> GetRanks()
+        {
+            return this.db
                 .Ranks.Select(r => new RankViewModel
                 {
                     Id = r.Id,
                     Name = r.Name
                 })
-                .ToList()
-            };
+                .ToList();
         }
 
-        public void AddPost(AddCustomerFormModel customer)
+        public void Add(AddCustomerFormModel customer)
         {
             var guest = new Guest
             {
@@ -220,6 +221,62 @@ namespace HotelManagementSystem.Services
             }
 
             this.db.Reservations.UpdateRange(reservations);
+            this.db.SaveChanges();
+        }
+
+        public EditGuestFormModel GetGuest(string id)
+        {
+            var editGuest = this.db
+                .Guests
+                .Where(g => g.Id == id)
+                .Select(g => new EditGuestFormModel
+                {
+                    Address = g.Address,
+                    CityId = g.CityId,
+                    Details = g.Details,
+                    Email = g.Email,
+                    FirstName = g.FirstName,
+                    Id = g.Id,
+                    IdentityCardId = g.IdentityCardId,
+                    LastName = g.LastName,
+                    Phone = g.Phone,
+                    CountryId = g.City.CountryId,
+                    RankId = g.RankId
+                })
+                .FirstOrDefault();
+
+            editGuest.Countries = this.GetCountries();
+            editGuest.Ranks = this.GetRanks();
+
+            return editGuest;
+        }
+
+        public bool IsIdentityNumExistExceptSelf(string identityNumber, string id)
+        {
+            var dBase =this.db
+                .Guests
+                .Where(g => g.Id != id)
+                .AsQueryable();
+
+            return dBase.Any(g => g.IdentityCardId == identityNumber);
+        }
+
+        public void Edit(EditGuestFormModel guest)
+        {
+            var currentGuest = this.db
+                .Guests.FirstOrDefault(g => g.Id == guest.Id);
+
+            currentGuest.FirstName = guest.FirstName;
+            currentGuest.Address = guest.Address;
+            currentGuest.CityId = guest.CityId;
+            currentGuest.Details = guest.Details;
+            currentGuest.Email = guest.Email;
+            currentGuest.IdentityCardId = guest.IdentityCardId;
+            currentGuest.LastName = guest.LastName;
+            currentGuest.Phone = guest.Phone;
+            currentGuest.RankId = guest.RankId;
+
+            this.db.Update(currentGuest);
             this.db.SaveChanges();
         }
     }

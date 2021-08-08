@@ -6,22 +6,22 @@ using System.Linq;
 
 namespace HotelManagementSystem.Validators
 {
-    public class RankNameForEditAttribute : ValidationAttribute
+    public class IdentityCardAttributeForEdit : ValidationAttribute
     {
+
         public override bool RequiresValidationContext { get { return true; } }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
-            var guestRankService = (IGuestRanksService)validationContext.GetService(typeof(IGuestRanksService));
-
+            var guestService = (IGuestsService)validationContext.GetService(typeof(IGuestsService));
             var httpAccesor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
 
-            string rankId = httpAccesor.HttpContext.Request.RouteValues.Values.Last().ToString();
+            string IdentityId = httpAccesor.HttpContext.Request.RouteValues.Values.Last().ToString();
 
-            if (guestRankService.IsNameExistWhenEdit(value?.ToString().Trim(), rankId))
+            if (guestService.IsIdentityNumExistExceptSelf(value?.ToString().Trim(), IdentityId))
             {
-                return new ValidationResult(ValidatorConstants.validateRankNameErrMsg);
+                return new ValidationResult(ValidatorConstants.validateIdentityId);
             }
 
             return ValidationResult.Success;

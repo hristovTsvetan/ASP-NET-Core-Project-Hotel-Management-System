@@ -1,61 +1,59 @@
-﻿@model AddCustomerFormModel
+﻿@model EditGuestFormModel
 
 @{
-    ViewData["Title"] = "Add customer";
+    ViewData["Title"] = "Edit customer";
 }
 
-<div class="row">
-    <h4 class="heading-margin text-center">Add customer</h4>
-    <form class="col-md-6 offset-md-3 col-sm-12" method="post">
+<div class="row col-md-8 offset-md-2 col-sm-12">
+    <h4 class="heading-margin text-center">Edit customer</h4>
+    <form method="post">
+        <div class="row col-md-6 offset-md-3 ">
+            <p class="text-justify">
+                <span class="text-warning font-weight-bold">Warning: </span>If you try to change the identity card id to another existing in the system, the
+                system will reject request!
+            </p>
+        </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <label asp-for="FirstName"></label>
-                <input asp-for="FirstName" class="form-control">
-                <span asp-validation-for="FirstName" class="text-danger small"></span>
+                <label asp-for="@Model.FirstName"></label>
+                <input asp-for="@Model.FirstName" class="form-control">
+                <span asp-validation-for="@Model.FirstName" class="text-danger small"></span>
             </div>
             <div class="form-group col-md-4">
-                <label asp-for="LastName"></label>
-                <input asp-for="LastName" class="form-control">
-                <span asp-validation-for="LastName" class="text-danger small"></span>
+                <label asp-for="@Model.LastName"></label>
+                <input asp-for="@Model.LastName" class="form-control">
+                <span asp-validation-for="@Model.LastName" class="text-danger small"></span>
             </div>
             <div class="form-group col-md-4">
-                <label asp-for="IdentityCardId"></label>
-                <input asp-for="IdentityCardId" class="form-control">
-                <span asp-validation-for="IdentityCardId" class="text-danger small"></span>
+                <label asp-for="@Model.IdentityCardId"></label>
+                <input asp-for="@Model.IdentityCardId" class="form-control">
+                <span asp-validation-for="@Model.IdentityCardId" class="text-danger small"></span>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control">
-                <span asp-validation-for="Email" class="text-danger small"></span>
+                <label asp-for="@Model.Email"></label>
+                <input asp-for="@Model.Email" class="form-control">
+                <span asp-validation-for="@Model.Email" class="text-danger small"></span>
             </div>
             <div class="form-group col-md-4">
-                <label asp-for="Phone"></label>
-                <input asp-for="Phone" class="form-control">
-                <span asp-validation-for="Phone" class="text-danger small"></span>
+                <label asp-for="@Model.Phone"></label>
+                <input asp-for="@Model.Phone" class="form-control">
+                <span asp-validation-for="@Model.Phone" class="text-danger small"></span>
             </div>
-            <div class="form-group col-md-4">
-                <label asp-for="Address"></label>
-                <input asp-for="Address" class="form-control">
-                <span asp-validation-for="Address" class="text-danger small"></span>
+            <div class="form-group col-md-4" disabled>
+                <label asp-for="@Model.Address"></label>
+                <input asp-for="@Model.Address" class="form-control">
+                <span asp-validation-for="@Model.Address" class="text-danger small"></span>
             </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Details"></label>
-            <textarea asp-for="Details" class="form-control" rows="3"></textarea>
         </div>
         <div class="row">
             <div class="form-group col-md-4">
-                <label asp-for="RankId"></label>
-                <select asp-for="RankId" class="form-control">
+                <label asp-for="@Model.RankId"></label>
+                <select asp-for="@Model.RankId" class="form-control">
                     @foreach (var rank in Model.Ranks)
                     {
-                        if (rank.Name == "Regular" && Model.RankId == null)
-                        {
-                            <option value="@rank.Id" selected>@rank.Name</option>
-                        }
-                        else if (Model.RankId != null && rank.Id == Model.RankId)
+                        if (Model.RankId != null && rank.Id == Model.RankId)
                         {
                             <option value="@rank.Id" selected>@rank.Name</option>
                         }
@@ -65,18 +63,14 @@
                         }
                     }
                 </select>
-                <span asp-validation-for="RankId" class="text-danger small"></span>
+                <span asp-validation-for="@Model.RankId" class="text-danger small"></span>
             </div>
             <div class="form-group col-md-4">
-                <label asp-for="CountryId"></label>
-                <select asp-for="CountryId" class="form-control" id="country">
+                <label asp-for="@Model.CountryId"></label>
+                <select asp-for="@Model.CountryId" class="form-control" id="country">
                     @foreach (var country in Model.Countries)
                     {
-                        if (country.Name == "Bulgaria" && Model.CountryId == null)
-                        {
-                            <option value="@country.Id" selected>@country.Name</option>
-                        }
-                        else if (Model.CountryId != null && Model.CountryId == country.Id)
+                        if (Model.CountryId != null && Model.CountryId == country.Id)
                         {
                             <option value="@country.Id" selected>@country.Name</option>
                         }
@@ -87,16 +81,29 @@
 
                     }
                 </select>
-                <span asp-validation-for="CountryId" class="text-danger small"></span>
+                <span asp-validation-for="@Model.CountryId" class="text-danger small"></span>
             </div>
             <div class="form-group col-md-4">
-                <label asp-for="CityId"></label>
-                <select asp-for="CityId" class="form-control" id="city">
+                <label asp-for="@Model.CityId"></label>
+                <select asp-for="@Model.CityId" class="form-control" id="city">
                 </select>
-                <span asp-validation-for="CityId" class="text-danger small"></span>
+                <span asp-validation-for="@Model.CityId" class="text-danger small"></span>
             </div>
         </div>
-        <input type="submit" value="Add" class="btn btn-primary col-md-4 offset-md-4 col-sm-4 offset-sm-4 mt-5" />
+        <div class="row">
+
+            <div class="form-group col-md-4 offset-md-4">
+                <label asp-for="@Model.Details"></label>
+                <textarea asp-for="@Model.Details" class="form-control" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="row editGuestBtn">
+            <div class="form-group form-group col-md-6 offset-md-3 mt-5">
+                <div class="col-md-8 offset-md-3">
+                    <input type="submit" class="btn btn-success btn-lg ml-5 col-md-4 col-sm-12" asp-route-id="@Model.Id" asp-controller="Guests" asp-action="Edit" value="Save"/>
+                </div>
+            </div>
+        </div>
         <input type="hidden" id="cityId" value="@Model.CityId">
     </form>
 </div>
@@ -160,6 +167,3 @@
         };
     </script>
 }
-
-
-

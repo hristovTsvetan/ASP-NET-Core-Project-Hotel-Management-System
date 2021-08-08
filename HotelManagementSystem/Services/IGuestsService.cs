@@ -1,4 +1,6 @@
-﻿using HotelManagementSystem.Models.Guests;
+﻿using HotelManagementSystem.Models.Countries;
+using HotelManagementSystem.Models.GuestRanks;
+using HotelManagementSystem.Models.Guests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +10,19 @@ namespace HotelManagementSystem.Services
 {
     public interface IGuestsService
     {
-        AddCustomerFormModel AddGet();
+        void Edit(EditGuestFormModel guest);
 
-        void AddPost(AddCustomerFormModel customer);
+        void Add(AddCustomerFormModel customer);
 
         ListGuestsQueryModel GetGuests(ListGuestsQueryModel query);
 
         DetailsGuestViewModel Details(string id);
+
+        EditGuestFormModel GetGuest(string id);
+
+        IEnumerable<CountriesViewModel> GetCountries();
+
+        IEnumerable<RankViewModel> GetRanks();
 
         void ChangeReservationStatus(string id);
 
@@ -27,5 +35,7 @@ namespace HotelManagementSystem.Services
         bool IsRankExist(string rankId);
 
         bool IsIdentityNumberExist(string identityNumber);
+
+        bool IsIdentityNumExistExceptSelf(string identityNumber, string id);
     }
 }

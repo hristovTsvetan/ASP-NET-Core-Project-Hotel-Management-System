@@ -40,9 +40,13 @@ namespace HotelManagementSystem.Controllers
 
         public IActionResult Add()
         {
-            var customer = this.guestService.AddGet();
+            var cityAndCountries = new AddCustomerFormModel
+            {
+                Countries = this.guestService.GetCountries(),
+                Ranks = this.guestService.GetRanks()
+            };
 
-            return this.View(customer);
+            return this.View(cityAndCountries);
         }
 
         [HttpPost]
@@ -50,17 +54,39 @@ namespace HotelManagementSystem.Controllers
         {
             if(!ModelState.IsValid)
             {
-                var guest = this.guestService.AddGet();
 
-                customer.Countries = guest.Countries;
-                customer.Ranks = guest.Ranks;
+                customer.Countries = this.guestService.GetCountries();
+                customer.Ranks = this.guestService.GetRanks();
 
                 return this.View(customer);
             }
 
-            this.guestService.AddPost(customer);
+            this.guestService.Add(customer);
 
             return RedirectToAction("All", "Guests");
+        }
+
+        public IActionResult Edit(string id)
+        {
+            var guest = this.guestService.GetGuest(id);
+
+            return this.View(guest);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EditGuestFormModel guest)
+        {
+            if(!ModelState.IsValid)
+            {
+                guest.Countries = this.guestService.GetCountries();
+                guest.Ranks = this.guestService.GetRanks();
+
+                return this.View(guest);
+            }
+
+            this.guestService.Edit(guest);
+
+            return this.RedirectToAction("All", "Guests");
         }
 
     }

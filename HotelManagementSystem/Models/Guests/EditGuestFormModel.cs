@@ -1,4 +1,5 @@
-﻿using HotelManagementSystem.Models.Countries;
+﻿using HotelManagementSystem.Models.Cities;
+using HotelManagementSystem.Models.Countries;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Validators;
 using HotelManagementSystem.Validators.Messages;
@@ -10,17 +11,17 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Models.Guests
 {
-    public class AddCustomerFormModel
+    public class EditGuestFormModel
     {
-
-        public AddCustomerFormModel()
+        public EditGuestFormModel()
         {
             this.Countries = new List<CountriesViewModel>();
             this.Ranks = new List<RankViewModel>();
         }
 
-        [Display(Name ="First Name")]
         [Required]
+        public string Id { get; set; }
+
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
         [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
         public string FirstName { get; set; }
@@ -35,7 +36,7 @@ namespace HotelManagementSystem.Models.Guests
         [Required]
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
         [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
-        [IdentityCard]
+        [IdentityCardAttributeForEdit]
         public string IdentityCardId { get; set; }
 
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
@@ -56,11 +57,6 @@ namespace HotelManagementSystem.Models.Guests
 
         public string Details { get; set; }
 
-        [CountryId]
-        [Display(Name = "Country")]
-        [Required]
-        public string CountryId { get; set; }
-
         [CityId]
         [Display(Name = "City")]
         [Required]
@@ -71,8 +67,13 @@ namespace HotelManagementSystem.Models.Guests
         [Required]
         public string RankId { get; set; }
 
-        public IEnumerable<RankViewModel> Ranks { get; set; }
+        public virtual IEnumerable<RankViewModel> Ranks { get; set; }
 
-        public IEnumerable<CountriesViewModel> Countries { get; set; }
+        [CountryId]
+        [Display(Name = "Country")]
+        [Required]
+        public string CountryId { get; set; }
+
+        public virtual IEnumerable<CountriesViewModel> Countries { get; set; }
     }
 }
