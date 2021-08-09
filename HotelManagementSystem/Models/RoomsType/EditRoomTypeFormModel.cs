@@ -5,32 +5,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelManagementSystem.Data.Models
+namespace HotelManagementSystem.Models.RoomsType
 {
-    public class RoomType
+    public class EditRoomTypeFormModel
     {
-        public RoomType()
-        {
-            this.Rooms = new HashSet<Room>();
-            this.Id = Guid.NewGuid().ToString();
-        }
-
         [Required]
         public string Id { get; set; }
 
         [Required]
         [MaxLength(50)]
+        [MinLength(3)]
         public string Name { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
+        [Range(10, 500)]
         public decimal Price { get; set; }
 
+        [Range(1,10)]
         public int NumberOfBeds { get; set; }
 
         public string Image { get; set; }
-
-        public bool Deleted { get; set; }
-
-        public virtual ICollection<Room> Rooms { get; set; }
     }
 }

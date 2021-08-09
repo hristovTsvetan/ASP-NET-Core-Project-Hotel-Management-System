@@ -25,6 +25,7 @@ namespace HotelManagementSystem.Infrastructure
             SeedCompany(data);
             SeedHotel(data);
             SeedGuests(data);
+            SeedRoomTypes(data);
 
             return app;
         }
@@ -179,6 +180,24 @@ namespace HotelManagementSystem.Infrastructure
                 new Country { Name = "Uk" }
             });
 
+            db.SaveChanges();
+        }
+
+        public static void SeedRoomTypes(HotelManagementDbContext db)
+        {
+            if(db.RoomTypes.Any())
+            {
+                return;
+            }
+
+            var roomTypes = new[]
+            {
+                new RoomType { Name = "Single", NumberOfBeds=1, Price = 50 },
+                new RoomType { Name = "Delux", NumberOfBeds=2, Price = 80 },
+                new RoomType { Name = "Studio", NumberOfBeds=3, Price = 100 }
+            };
+
+            db.AddRange(roomTypes);
             db.SaveChanges();
         }
     }

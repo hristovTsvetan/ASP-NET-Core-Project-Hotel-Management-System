@@ -56,7 +56,11 @@ namespace HotelManagementSystem.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    NumberOfBeds = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -230,8 +234,6 @@ namespace HotelManagementSystem.Data.Migrations
                     Floor = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HasAirCondition = table.Column<bool>(type: "bit", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HotelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RoomTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },

@@ -27,11 +27,6 @@ namespace HotelManagementSystem.Data.Models
 
         public bool HasAirCondition { get; set; }
 
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal Price { get; set; }
-
-        public string Image { get; set; }
-
         [Required]
         public string HotelId { get; set; }
 
