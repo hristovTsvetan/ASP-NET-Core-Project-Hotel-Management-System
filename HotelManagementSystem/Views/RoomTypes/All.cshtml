@@ -11,7 +11,7 @@
         <div class="card col-md-12 col-sm-12 col-12 col-lg-12 col-xl-3 ml-xl-5" style="width: 18rem;">
             <img src="@roomType.Image" class="card-img-top">
             <div class="card-body">
-                <h5 class="card-title" >@roomType.Name</h5>
+                <h5 class="card-title">@roomType.Name</h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Price: @roomType.Price</li>
@@ -25,6 +25,9 @@
         </div>
     }
 
+    <div class="row justify-content-left">
+    <a class="btn btn-success col-md-2 offset-md-5 heading-margin" asp-controller="RoomTypes" asp-action="Add">Add Room type</a>
+    </div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center mt-5">

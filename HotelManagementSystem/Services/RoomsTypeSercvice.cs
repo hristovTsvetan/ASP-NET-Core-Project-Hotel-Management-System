@@ -1,4 +1,5 @@
 ﻿using HotelManagementSystem.Data;
+using HotelManagementSystem.Data.Models;
 using HotelManagementSystem.Models.RoomsType;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,29 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
+        public void Add(AddRoomTypeFormModel roomType)
+        {
+            var rType = new RoomType
+            {
+                Image = roomType.Image,
+                Name = roomType.Name,
+                NumberOfBeds = roomType.NumberOfBeds,
+                Price = roomType.Price,
+            };
+
+            this.db.RoomTypes.Add(rType);
+            this.db.SaveChanges();
+        }
+
+        public void Delete(string id)
+        {
+            var rTypeForDelete = this.db.RoomTypes.FirstOrDefault(rt => rt.Id == id);
+
+            this.db.RoomTypes.Remove(rTypeForDelete);
+            this.db.SaveChanges();
+
+        }
+
         public EditRoomTypeFormModel GetRoomType(string id)
         {
             var a = this.db
@@ -31,6 +55,11 @@ namespace HotelManagementSystem.Services
                 }).FirstOrDefault();
 
             return a;
+        }
+
+        public bool IsRoomExist(string name)
+        {
+            return this.db.RoomTypes.Any(r => r.Name == name);
         }
 
         public IEnumerable<ListRoomTypeViewModel> ListTypes()

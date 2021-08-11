@@ -22,5 +22,7 @@ namespace HotelManagementSystem.Validators.Messages
         public const string maxLength = "Maximum length should be {1}!";
 
         public const string phone = "Phone can contain only numbers, spaces and +!";
+
+        public const string roomType = "Room name already exist, use different name!";
     }
 }

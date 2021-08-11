@@ -29,6 +29,26 @@ namespace HotelManagementSystem.Controllers
             return this.View();
         }
 
+        [HttpPost]
+        public IActionResult Add(AddRoomTypeFormModel room)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(room);
+            }
+
+            this.roomTypeService.Add(room);
+
+            return this.RedirectToAction("All", "RoomTypes");
+        }
+
+        public IActionResult Delete(string id)
+        {
+            this.roomTypeService.Delete(id);
+
+            return this.RedirectToAction("All", "RoomTypes");
+        }
+
         public IActionResult Edit(string id)
         {
             var currentType = this.roomTypeService.GetRoomType(id);
@@ -47,11 +67,6 @@ namespace HotelManagementSystem.Controllers
             this.roomTypeService.Update(rType);
 
             return this.RedirectToAction("All", "RoomTypes");
-        }
-
-        public IActionResult Delete()
-        {
-            return this.View();
         }
     }
 }
