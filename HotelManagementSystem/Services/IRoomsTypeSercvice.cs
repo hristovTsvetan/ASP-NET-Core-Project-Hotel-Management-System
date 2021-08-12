@@ -8,7 +8,7 @@ namespace HotelManagementSystem.Services
 {
     public interface IRoomsTypeSercvice
     {
-        IEnumerable<ListRoomTypeViewModel> ListTypes();
+        ListRoomTypeQueryModel ListTypes(ListRoomTypeQueryModel rTQuery);
 
         EditRoomTypeFormModel GetRoomType(string id);
 
@@ -16,7 +16,9 @@ namespace HotelManagementSystem.Services
 
         void Add(AddRoomTypeFormModel roomType);
 
-        bool IsRoomExist(string name);
+        bool IsRoomNameExistForAdd(string name);
+
+        bool IsRoomNameExistForEdit(string name, string id);
 
         void Delete(string id);
     }

@@ -26,6 +26,7 @@ namespace HotelManagementSystem.Infrastructure
             SeedHotel(data);
             SeedGuests(data);
             SeedRoomTypes(data);
+            SeedRooms(data);
 
             return app;
         }
@@ -151,7 +152,7 @@ namespace HotelManagementSystem.Infrastructure
 
         public static void SeedHotel(HotelManagementDbContext db)
         {
-            if (db.Companies.Any())
+            if (db.Hotels.Any())
             {
                 return;
             }
@@ -165,6 +166,8 @@ namespace HotelManagementSystem.Infrastructure
                 Company = db.Companies.FirstOrDefault(),
             };
 
+            db.Hotels.Add(hotel);
+            db.SaveChanges();
         }
 
         public static void SeedCountries(HotelManagementDbContext db)
@@ -198,6 +201,42 @@ namespace HotelManagementSystem.Infrastructure
             };
 
             db.AddRange(roomTypes);
+            db.SaveChanges();
+        }
+
+        public static void SeedRooms(HotelManagementDbContext db)
+        {
+            if(db.Rooms.Any())
+            {
+                return;
+            }
+
+            var currentActiveHotel = db.Hotels.FirstOrDefault(h => h.Active == true);
+            var singleRoom = db.RoomTypes.FirstOrDefault(rt => rt.Name == "Single");
+            var deluxRoom = db.RoomTypes.FirstOrDefault(rt => rt.Name == "Delux");
+            var studioRoom = db.RoomTypes.FirstOrDefault(rt => rt.Name == "Studio");
+
+            var allRooms = new[]
+            {
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "101", RoomType = singleRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "102", RoomType = singleRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "103", RoomType = deluxRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "104", RoomType = deluxRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "105", RoomType = studioRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "106", RoomType = singleRoom },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "201", RoomType = singleRoom },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "202", RoomType = deluxRoom  },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "203", RoomType = deluxRoom  },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "204", RoomType = studioRoom },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "205", RoomType = singleRoom },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "301", RoomType = singleRoom },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "302", RoomType = deluxRoom  },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "303", RoomType = deluxRoom  },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "304", RoomType = studioRoom },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "305", RoomType = singleRoom },
+            };
+
+            db.Rooms.AddRange(allRooms);
             db.SaveChanges();
         }
     }

@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Data;
 using HotelManagementSystem.Data.Models;
 using HotelManagementSystem.Models.RoomsType;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,16 +58,31 @@ namespace HotelManagementSystem.Services
             return a;
         }
 
-        public bool IsRoomExist(string name)
+        public bool IsRoomNameExistForAdd(string name)
         {
             return this.db.RoomTypes.Any(r => r.Name == name);
         }
 
-        public IEnumerable<ListRoomTypeViewModel> ListTypes()
+        public bool IsRoomNameExistForEdit(string name, string id)
         {
             return this.db
                 .RoomTypes
-                .Where(t => t.Deleted == false)
+                .Where(rt => rt.Id != id)
+                .Any(rt => rt.Name == name);
+        }
+
+        public ListRoomTypeQueryModel ListTypes(ListRoomTypeQueryModel rTQuery)
+        {
+            var rtDb = this.db
+                .RoomTypes
+                .Where(rt => rt.Deleted == false)
+                .AsQueryable();
+
+
+
+            var allRoomTypes = rtDb
+                .Skip((rTQuery.CurrentPage - 1) * rTQuery.ItemsPerPage)
+                .Take(rTQuery.ItemsPerPage)
                 .Select(t => new ListRoomTypeViewModel
                 {
                     Id = t.Id,
@@ -75,8 +91,16 @@ namespace HotelManagementSystem.Services
                     NumberOfBeds = t.NumberOfBeds,
                     Price = t.Price,
                     RoomsCount = t.Rooms.Count
-                })
-                .ToList();
+                }).ToList();
+
+            var roomTypeQModel = new ListRoomTypeQueryModel
+            {
+                CurrentPage = rTQuery.CurrentPage,
+                TotalPages = (int)Math.Ceiling((double)rtDb.ToList().Count / rTQuery.ItemsPerPage),
+                RoomTypes = allRoomTypes
+            };
+
+            return roomTypeQModel;
         }
 
         public void Update(EditRoomTypeFormModel roomType)
@@ -94,5 +118,6 @@ namespace HotelManagementSystem.Services
             this.db.RoomTypes.Update(currentRoomType);
             this.db.SaveChanges();
         }
+
     }
 }

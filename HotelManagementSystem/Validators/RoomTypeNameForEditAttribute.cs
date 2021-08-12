@@ -1,5 +1,6 @@
 ﻿using HotelManagementSystem.Services;
 using HotelManagementSystem.Validators.Messages;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,16 +9,20 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Validators
 {
-    public class RoomTypeNameForAddAttribute : ValidationAttribute
+    public class RoomTypeNameForEditAttribute : ValidationAttribute
     {
         public override bool RequiresValidationContext { get { return true; } }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
-            var guestRankService = (IRoomsTypeSercvice)validationContext.GetService(typeof(IRoomsTypeSercvice));
+            var roomTypeService = (IRoomsTypeSercvice)validationContext.GetService(typeof(IRoomsTypeSercvice));
 
-            if (guestRankService.IsRoomNameExistForAdd(value?.ToString().Trim()))
+            var httpAccesor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
+
+            string rTyprId = httpAccesor.HttpContext.Request.RouteValues.Values.Last().ToString();
+
+            if (roomTypeService.IsRoomNameExistForEdit(value?.ToString().Trim(), rTyprId))
             {
                 return new ValidationResult(ValidatorConstants.roomType);
             }

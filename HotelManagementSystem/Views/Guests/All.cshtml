@@ -109,8 +109,7 @@
                     if (Model.CurrentPage == i)
                     {
                         <li class="page-item active">
-                            <a class="page-link" asp-controller="Guests" asp-action="All" asp-route-currentPage="@Model.CurrentPage"
-                               asp-route-SortBy="@Model.SortBy" asp-route-ascOrDesc="@Model.AscOrDesc" asp-route-Search="@Model.Search">@i <span class="sr-only">(current)</span></a>
+                            <a class="page-link disableCursor">@i <span class="sr-only">(current)</span></a>
                         </li>
                     }
                     else

@@ -21,8 +21,11 @@ namespace HotelManagementSystem.Models.RoomsType
         public decimal Price { get; set; }
 
         [Range(1, 10)]
+        [Display(Name ="Number of beds")]
         public int NumberOfBeds { get; set; }
 
+        [Url]
+        [RegularExpression(@"(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)")]
         public string Image { get; set; }
 
     }

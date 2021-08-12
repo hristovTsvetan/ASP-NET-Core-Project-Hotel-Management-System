@@ -90,3 +90,6 @@ th, td {
 p {
     font-size: 14px;
 }
+.disableCursor {
+    cursor: not-allowed;
+}

@@ -17,9 +17,9 @@ namespace HotelManagementSystem.Controllers
             this.roomTypeService = rTService;
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] ListRoomTypeQueryModel rTQuery)
         {
-            var allRoomTypes = this.roomTypeService.ListTypes();
+            var allRoomTypes = this.roomTypeService.ListTypes(rTQuery);
 
             return this.View(allRoomTypes);
         }

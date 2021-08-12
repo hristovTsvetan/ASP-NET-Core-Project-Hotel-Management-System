@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HotelManagementSystem.Validators;
+using HotelManagementSystem.Validators.Messages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,8 +15,9 @@ namespace HotelManagementSystem.Models.RoomsType
         public string Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        [MinLength(3)]
+        [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
+        [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
+        [RoomTypeNameForEdit]
         public string Name { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
@@ -22,8 +25,11 @@ namespace HotelManagementSystem.Models.RoomsType
         public decimal Price { get; set; }
 
         [Range(1,10)]
+        [Display(Name = "Number of beds")]
         public int NumberOfBeds { get; set; }
 
+        [Url]
+        [RegularExpression(@"(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)")]
         public string Image { get; set; }
     }
 }
