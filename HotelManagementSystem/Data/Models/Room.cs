@@ -27,6 +27,8 @@ namespace HotelManagementSystem.Data.Models
 
         public bool HasAirCondition { get; set; }
 
+        public bool Deleted { get; set; }
+
         [Required]
         public string HotelId { get; set; }
 

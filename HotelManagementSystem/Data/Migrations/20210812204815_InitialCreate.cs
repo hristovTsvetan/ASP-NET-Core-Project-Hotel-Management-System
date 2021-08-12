@@ -234,6 +234,7 @@ namespace HotelManagementSystem.Data.Migrations
                     Floor = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HasAirCondition = table.Column<bool>(type: "bit", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
                     HotelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RoomTypeId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },

@@ -218,22 +218,22 @@ namespace HotelManagementSystem.Infrastructure
 
             var allRooms = new[]
             {
-                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "101", RoomType = singleRoom },
-                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "102", RoomType = singleRoom },
-                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "103", RoomType = deluxRoom },
-                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "104", RoomType = deluxRoom },
-                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "105", RoomType = studioRoom },
-                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "106", RoomType = singleRoom },
-                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "201", RoomType = singleRoom },
-                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "202", RoomType = deluxRoom  },
-                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "203", RoomType = deluxRoom  },
-                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "204", RoomType = studioRoom },
-                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "205", RoomType = singleRoom },
-                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "301", RoomType = singleRoom },
-                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "302", RoomType = deluxRoom  },
-                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "303", RoomType = deluxRoom  },
-                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "304", RoomType = studioRoom },
-                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "305", RoomType = singleRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "Room 101", RoomType = singleRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "Room 102", RoomType = singleRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "Room 103", RoomType = deluxRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "Room 104", RoomType = deluxRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "Room 105", RoomType = studioRoom },
+                new Room{ Floor=1, Hotel = currentActiveHotel, Number= "Room 106", RoomType = singleRoom },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "Room 201", RoomType = singleRoom },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "Room 202", RoomType = deluxRoom  },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "Room 203", RoomType = deluxRoom  },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "Room 204", RoomType = studioRoom },
+                new Room{ Floor=2, Hotel = currentActiveHotel, Number= "Room 205", RoomType = singleRoom },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "Room 301", RoomType = singleRoom },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "Room 302", RoomType = deluxRoom  },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "Room 303", RoomType = deluxRoom  },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "Room 304", RoomType = studioRoom },
+                new Room{ Floor=3, Hotel = currentActiveHotel, Number= "Room 305", RoomType = singleRoom },
             };
 
             db.Rooms.AddRange(allRooms);

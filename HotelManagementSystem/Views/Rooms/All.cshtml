@@ -1,1 +1,34 @@
-﻿
+﻿@model IEnumerable<ListRoomsViewModel>
+
+@{
+    ViewData["Title"] = "All rooms";
+}
+
+<h4 class="heading-margin text-center">All rooms</h4>
+<div class="row col-8 offset-3">
+    <div class="border col-4 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Room number
+    </div>
+    <div class="border col-2 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Room type
+    </div>
+    <div class="border font-weight-bold col-2 text-center bg-primary text-white" style="word-wrap:break-word">
+        Details
+    </div>
+</div>
+@foreach (var room in @Model)
+{
+<div class="row col-8 offset-3">
+    <div class="border col-4 text-center bg-light" style="word-wrap:break-word">
+        @room.RoomNumber
+    </div>
+    <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+        @room.RoomType
+    </div>
+    <div class="border col-2 text-center bg-light text-decoration-none" style="word-wrap:break-word">
+        <a asp-route-id="@room.Id" asp-controller="Rooms" asp-action="Details">Details</a>
+    </div>
+</div>
+}
+
+
