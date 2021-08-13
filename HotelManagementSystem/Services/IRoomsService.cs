@@ -11,5 +11,14 @@ namespace HotelManagementSystem.Services
         ListRoomsQueryModel All(ListRoomsQueryModel rooms);
 
         DetailsRoomViewModel Details(string id);
+
+        EditRoomFormModel Edit(string id);
+
+        bool GetRoomNameForEdit(string name, string id);
+
+        IEnumerable<RoomTypeViewModel> GetRoomTypes();
+
+        void Add(EditRoomFormModel room);
+
     }
 }

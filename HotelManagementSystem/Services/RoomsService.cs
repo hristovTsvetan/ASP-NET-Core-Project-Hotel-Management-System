@@ -23,16 +23,17 @@ namespace HotelManagementSystem.Services
 
             var allRoomsDb = this.db.Rooms
                 .Where(r => r.Deleted == false && r.Hotel == activeHotel)
-                .OrderBy(r => r.Number)
+                .OrderBy(r => r.Floor)
+                .ThenBy(r => r.Number)
                 .AsQueryable();
 
             if(!string.IsNullOrWhiteSpace(rooms.Search))
             {
                 allRoomsDb = allRoomsDb
-                    .Where(r => r.Number.Contains(rooms.Search) ||
-                    r.Description.Contains(rooms.Search) ||
-                    r.Hotel.Name.Contains(rooms.Search) ||
-                    r.RoomType.Name.Contains(rooms.Search));
+                    .Where(r => r.Number.ToLower().Contains(rooms.Search.ToLower()) ||
+                    r.Description.ToLower().Contains(rooms.Search.ToLower()) ||
+                    r.Hotel.Name.ToLower().Contains(rooms.Search.ToLower()) ||
+                    r.RoomType.Name.ToLower().Contains(rooms.Search.ToLower()));
             }
 
             var allRooms = allRoomsDb
@@ -82,12 +83,77 @@ namespace HotelManagementSystem.Services
             return currentRoom;
         }
 
+        public EditRoomFormModel Edit(string id)
+        {
+            var allRoomTypes = GetRoomTypes();
+
+            var currentRoom = GetRoom(id);
+
+            var roomForEdit = new EditRoomFormModel
+            {
+                Description = currentRoom.Description,
+                Floor = currentRoom.Floor,
+                HasAirCondition = currentRoom.HasAirCondition ? "Yes" : "No",
+                Id = currentRoom.Id,
+                Number = currentRoom.Number,
+                RoomTypes = allRoomTypes,
+                CurrentRoomTypeId = currentRoom.RoomTypeId
+            };
+
+            return roomForEdit;
+        }
+
+        private Room GetRoom(string id)
+        {
+            return this.db
+                .Rooms
+                .FirstOrDefault(r => r.Id == id);
+        }
+
+        public IEnumerable<RoomTypeViewModel> GetRoomTypes()
+        {
+            return this.db
+                .RoomTypes
+                .Where(rt => rt.Deleted == false)
+                .Select(rt => new RoomTypeViewModel
+                {
+                    Id = rt.Id,
+                    Name = rt.Name
+                })
+                .ToList();
+        }
+
+        public bool GetRoomNameForEdit(string name, string id)
+        {
+            return this.db
+                .Rooms
+                .Where(r => r.Id != id)
+                .Any(r => r.Number == name);
+        }
+
         Hotel GetActiveHotel()
         {
             return this.db
                 .Hotels
                 .Where(h => h.Active == true)
                 .FirstOrDefault();
+        }
+
+        public void Add(EditRoomFormModel room)
+        {
+            var currentRoom = this.GetRoom(room.Id);
+            var currentHotel = this.GetActiveHotel();
+
+            currentRoom.Description = room.Description;
+            currentRoom.Floor = room.Floor;
+            currentRoom.HasAirCondition = room.HasAirCondition == "Yes" ? true : false;
+            currentRoom.Number = room.Number;
+            currentRoom.RoomTypeId = room.CurrentRoomTypeId;
+            currentRoom.Hotel = currentHotel;
+
+            this.db.Rooms.Update(currentRoom);
+            this.db.SaveChanges();
+         
         }
     }
 }

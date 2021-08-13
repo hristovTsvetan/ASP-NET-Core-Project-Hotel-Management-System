@@ -74,6 +74,6 @@ namespace HotelManagementSystem.Models.Guests
         [Required]
         public string CountryId { get; set; }
 
-        public virtual IEnumerable<CountriesViewModel> Countries { get; set; }
+        public IEnumerable<CountriesViewModel> Countries { get; set; }
     }
 }

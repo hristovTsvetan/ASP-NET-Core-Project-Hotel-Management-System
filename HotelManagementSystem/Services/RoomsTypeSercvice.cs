@@ -75,6 +75,7 @@ namespace HotelManagementSystem.Services
         {
             var rtDb = this.db
                 .RoomTypes
+                .OrderBy(rt => rt.Price)
                 .Where(rt => rt.Deleted == false)
                 .AsQueryable();
 

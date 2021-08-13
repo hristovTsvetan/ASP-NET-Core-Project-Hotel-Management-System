@@ -9,6 +9,8 @@ namespace HotelManagementSystem.Validators.Messages
     {
         public const string validateRankNameErrMsg = "Rank name already exist!";
 
+        public const string validateRoomName = "Room name lready exist!";
+
         public const string validateRankId = "Rank doesn't exist!";
 
         public const string validateCountryId = "Country doesn't exist!";
