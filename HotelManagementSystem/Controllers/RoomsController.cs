@@ -1,4 +1,5 @@
-﻿using HotelManagementSystem.Services;
+﻿using HotelManagementSystem.Models.Rooms;
+using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace HotelManagementSystem.Controllers
             this.rService = roomsService;
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] ListRoomsQueryModel rms)
         {
-            var allRooms = rService.All();
+            var allRooms = rService.All(rms);
 
             return this.View(allRooms);
         }

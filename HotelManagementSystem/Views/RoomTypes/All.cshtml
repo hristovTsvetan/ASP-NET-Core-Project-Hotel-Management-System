@@ -70,13 +70,15 @@
             @if (Model.CurrentPage == Model.TotalPages)
             {
                 <li class="page-item disabled">
-                    <a class="page-link" asp-route-CurrentPage="@next" asp-controller="RoomTypes">Next</a>
+                    <a class="page-link" asp-route-CurrentPage="@next" asp-controller="RoomTypes"
+                       asp-action="All">Next</a>
                 </li>
             }
             else
             {
                 <li class="page-item">
-                    <a class="page-link" asp-route-CurrentPage="@next" asp-controller="RoomTypes">Next</a>
+                    <a class="page-link" asp-route-CurrentPage="@next" asp-controller="RoomTypes"
+                       asp-action="All">Next</a>
                 </li>
             }
 

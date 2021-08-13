@@ -17,21 +17,47 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
-        public IEnumerable<ListRoomsViewModel> All()
+        public ListRoomsQueryModel All(ListRoomsQueryModel rooms)
         {
             var activeHotel = this.GetActiveHotel();
 
-            var allRooms = this.db
-                .Rooms
+            var allRoomsDb = this.db.Rooms
                 .Where(r => r.Deleted == false && r.Hotel == activeHotel)
+                .OrderBy(r => r.Number)
+                .AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(rooms.Search))
+            {
+                allRoomsDb = allRoomsDb
+                    .Where(r => r.Number.Contains(rooms.Search) ||
+                    r.Description.Contains(rooms.Search) ||
+                    r.Hotel.Name.Contains(rooms.Search) ||
+                    r.RoomType.Name.Contains(rooms.Search));
+            }
+
+            var allRooms = allRoomsDb
+                .Skip((rooms.CurrentPage - 1) * rooms.ItemsOnPage)
+                .Take(rooms.ItemsOnPage)
                 .Select(r => new ListRoomsViewModel
                 {
                     RoomNumber = r.Number,
                     Id = r.Id,
                     RoomType = r.RoomType.Name
-                });
+                })
+                .ToList();
 
-            return allRooms;
+            var roomQueryModel = new ListRoomsQueryModel
+            {
+                Rooms = allRooms,
+                TotalItems = (int)Math.Ceiling((double)allRoomsDb.Count() / rooms.ItemsOnPage),
+                CurrentPage = rooms.CurrentPage,
+                PreviousPage = rooms.PreviousPage,
+                NextPage = rooms.NextPage
+            };
+
+            
+
+            return roomQueryModel;
         }
 
         public DetailsRoomViewModel Details(string id)

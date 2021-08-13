@@ -8,7 +8,7 @@ namespace HotelManagementSystem.Services
 {
     public interface IRoomsService
     {
-        IEnumerable<ListRoomsViewModel> All();
+        ListRoomsQueryModel All(ListRoomsQueryModel rooms);
 
         DetailsRoomViewModel Details(string id);
     }
