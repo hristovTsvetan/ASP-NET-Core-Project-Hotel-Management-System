@@ -1,1 +1,62 @@
-﻿
+﻿@model AddRoomFormModel
+
+@{
+    ViewData["Title"] = "Ad room";
+}
+
+<div class="row col-md-8 offset-md-2 col-sm-12">
+    <h4 class="heading-margin text-center">
+        Add room
+    </h4>
+    <form method="post" class="col-md-4 offset-md-4 col-sm-12">
+        <div class="form-group">
+            <label asp-for="Number"></label>
+            <input asp-for="Number" class="form-control" value="@Model.Number">
+            <span asp-validation-for="Number" class="text-danger small"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Floor"></label>
+            <input asp-for="Floor" class="form-control" value="@Model.Floor">
+            <span asp-validation-for="Floor" class="text-danger small"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="HasAirCondition"></label><br />
+            <select asp-for="HasAirCondition">
+                @foreach (var choice in Model.HasAirConditionCol)
+                {
+                    if (Model.HasAirCondition == choice)
+                    {
+                        <option value="@choice" selected>@choice</option>
+                    }
+                    else
+                    {
+                        <option value="@choice">@choice</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="HasAirCondition" class="text-danger small"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="HotelName"></label><br />
+            <input asp-for="HotelName" class="form-control" value="@Model.HotelName" disabled>
+            <span asp-validation-for="HotelName" class="text-danger small"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RoomTypeId"></label><br />
+            <select asp-for="RoomTypeId">
+                @foreach (var rt in Model.RoomTypes)
+                {
+                    <option value="@rt.Id">@rt.Name</option>
+                }
+            </select>
+            <span asp-validation-for="RoomTypeId" class="text-danger small"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" rows="2"></textarea>
+        </div>
+        <input type="hidden" value="@Model.HotelId">
+        <input type="submit" value="Add" class="btn btn-success col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
+    </form>
+</div>

@@ -35,6 +35,7 @@
                     }
                 }
             </select>
+            <span asp-validation-for="HasAirCondition" class="text-danger small"></span>
         </div>
         <div class="form-group">
             <label asp-for="CurrentRoomTypeId"></label><br />
@@ -44,7 +45,7 @@
                     <option value="@rt.Id">@rt.Name</option>
                 }
             </select>
-            <span asp-validation-for="RoomTypes" class="text-danger small"></span>
+            <span asp-validation-for="CurrentRoomTypeId" class="text-danger small"></span>
         </div>
         <div class="form-group">
             <label asp-for="Description"></label>

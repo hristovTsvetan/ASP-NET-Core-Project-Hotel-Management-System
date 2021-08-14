@@ -48,14 +48,16 @@ namespace HotelManagementSystem.Controllers
                 return this.View(room);
             }
 
-            this.rService.Add(room);
+            this.rService.Update(room);
 
             return this.RedirectToAction("All", "Rooms");
         }
 
         public IActionResult Add()
         {
-            return this.View();
+            var room = this.rService.FillRoomAddForm();
+
+            return this.View(room);
         }
     }
 }

@@ -3,12 +3,14 @@ using HotelManagementSystem.Validators.Messages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Models.Rooms
 {
-    public class EditRoomFormModel
+    public class AddRoomFormModel
     {
-        public EditRoomFormModel()
+        public AddRoomFormModel()
         {
             this.RoomTypes = new List<RoomTypeViewModel>();
             this.HasAirConditionCol = new List<string>
@@ -16,11 +18,7 @@ namespace HotelManagementSystem.Models.Rooms
                     "Yes",
                     "No"
                 };
-
         }
-
-        [Required]
-        public string Id { get; set; }
 
         [Required]
         [MinLength(1, ErrorMessage = ValidatorConstants.minLength)]
@@ -34,16 +32,22 @@ namespace HotelManagementSystem.Models.Rooms
 
         public string Description { get; set; }
 
-        [Required]
-        public List<string> HasAirConditionCol { get; set; }
-
-        [Required]
         [Display(Name = "Has air condition")]
         public string HasAirCondition { get; set; }
 
         [Required]
+        public List<string> HasAirConditionCol { get; set; }
+
+        [Required]
+        [Display(Name = "Hotel")]
+        public string HotelId { get; set; }
+
+        [Required]
+        public string HotelName { get; set; }
+
+        [Required]
         [Display(Name = "Current room type")]
-        public string CurrentRoomTypeId { get; set; }
+        public string RoomTypeId { get; set; }
 
         [Required]
         public IEnumerable<RoomTypeViewModel> RoomTypes { get; set; }

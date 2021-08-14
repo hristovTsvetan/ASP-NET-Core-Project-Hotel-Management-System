@@ -139,7 +139,7 @@ namespace HotelManagementSystem.Services
                 .FirstOrDefault();
         }
 
-        public void Add(EditRoomFormModel room)
+        public void Update(EditRoomFormModel room)
         {
             var currentRoom = this.GetRoom(room.Id);
             var currentHotel = this.GetActiveHotel();
@@ -154,6 +154,38 @@ namespace HotelManagementSystem.Services
             this.db.Rooms.Update(currentRoom);
             this.db.SaveChanges();
          
+        }
+
+        public void Add(AddRoomFormModel room)
+        {
+            var newRoom = new Room
+            {
+                Deleted = false,
+                Description = room.Description,
+                Floor = room.Floor,
+                HasAirCondition = room.HasAirCondition == "Yes" ? true : false,
+                HotelId = room.HotelId,
+                Number = room.Number,
+                RoomTypeId = room.RoomTypeId,
+            };
+
+            this.db.Rooms.Add(newRoom);
+            this.db.SaveChanges();
+        }
+
+        public AddRoomFormModel FillRoomAddForm()
+        {
+            var currentHotel = this.GetActiveHotel();
+            var roomTypes = this.GetRoomTypes();
+
+            var room = new AddRoomFormModel
+            {
+                HotelName = currentHotel.Name,
+                HotelId = currentHotel.Id,
+                RoomTypes = this.GetRoomTypes()
+            };
+
+            return room;
         }
     }
 }
