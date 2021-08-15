@@ -1,0 +1,58 @@
+﻿@model ReservationsQueryModel
+
+@{
+    ViewData["Title"] = "All reservations";
+}
+
+<h4 class="heading-margin text-center">All reservations</h4>
+<form method="get">
+    <div class="row">
+        <div class="form-group form-group col-md-3 offset-md-4">
+            <label></label>
+            <input class="form-control" id="searchField" asp-for="@Model.Search">
+        </div>
+        <div class="form-group col-md-3 mt-1 ml-4">
+            <input type="submit" class="btn btn-md btn-success heading-margin" id="searchBtn" value="Search" />
+        </div>
+    </div>
+</form>
+<div class="row col-12">
+    <div class="border col-4 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Reservation for room
+    </div>
+    <div class="border col-2 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Guest name
+    </div>
+    <div class="border font-weight-bold col-2 text-center bg-primary text-white" style="word-wrap:break-word">
+        Start date
+    </div>
+    <div class="border font-weight-bold col-2 text-center bg-primary text-white" style="word-wrap:break-word">
+        End date
+    </div>
+    <div class="border font-weight-bold col-2 text-center bg-primary text-white" style="word-wrap:break-word">
+        Details
+    </div>
+</div>
+@foreach (var reservation in Model.Reservations)
+{
+    @foreach (var room in reservation.RoomName)
+    {
+        <div class="row col-12">
+            <div class="border col-4 text-center bg-light" style="word-wrap:break-word">
+                @room
+            </div>
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @reservation.GuestName
+            </div>
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @reservation.StartDate
+            </div>
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @reservation.EndDate
+            </div>
+            <div class="border col-2 text-center bg-light text-decoration-none" style="word-wrap:break-word">
+                <a asp-route-id="@reservation.Id" asp-controller="Reservations" asp-action="All">Details</a>
+            </div>
+        </div>
+    }
+}

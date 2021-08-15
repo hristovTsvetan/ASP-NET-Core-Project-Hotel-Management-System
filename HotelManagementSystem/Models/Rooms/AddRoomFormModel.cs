@@ -38,11 +38,10 @@ namespace HotelManagementSystem.Models.Rooms
         [Required]
         public List<string> HasAirConditionCol { get; set; }
 
-        [Required]
-        [Display(Name = "Hotel")]
+        [Required]      
         public string HotelId { get; set; }
 
-        [Required]
+        [Display(Name = "Hotel")]
         public string HotelName { get; set; }
 
         [Required]

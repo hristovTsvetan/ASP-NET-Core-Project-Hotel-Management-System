@@ -24,5 +24,7 @@ namespace HotelManagementSystem.Services
 
         AddRoomFormModel FillRoomAddForm();
 
+        void Delete(string id);
+
     }
 }

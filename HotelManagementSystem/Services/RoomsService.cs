@@ -11,10 +11,12 @@ namespace HotelManagementSystem.Services
     public class RoomsService : IRoomsService
     {
         private readonly HotelManagementDbContext db;
+        private readonly IReservationsService resService;
 
-        public RoomsService(HotelManagementDbContext dBase)
+        public RoomsService(HotelManagementDbContext dBase, IReservationsService reservationServ)
         {
             this.db = dBase;
+            this.resService = reservationServ;
         }
 
         public ListRoomsQueryModel All(ListRoomsQueryModel rooms)
@@ -186,6 +188,20 @@ namespace HotelManagementSystem.Services
             };
 
             return room;
+        }
+
+        public void Delete(string id)
+        {
+            var room = this.db
+                .Rooms
+                .FirstOrDefault(r => r.Id == id);
+
+            room.Deleted = true;
+
+            this.resService.CancelReservation(id);
+
+            this.db.Rooms.Update(room);
+            this.db.SaveChanges();
         }
     }
 }

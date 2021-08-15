@@ -1,7 +1,7 @@
 ﻿@model AddRoomFormModel
 
 @{
-    ViewData["Title"] = "Ad room";
+    ViewData["Title"] = "Add room";
 }
 
 <div class="row col-md-8 offset-md-2 col-sm-12">
@@ -56,7 +56,7 @@
             <label asp-for="Description"></label>
             <textarea asp-for="Description" class="form-control" rows="2"></textarea>
         </div>
-        <input type="hidden" value="@Model.HotelId">
+        <input type="hidden" asp-for="HotelId" value="@Model.HotelId">
         <input type="submit" value="Add" class="btn btn-success col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
     </form>
 </div>

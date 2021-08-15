@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Models.Rooms;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,6 +59,32 @@ namespace HotelManagementSystem.Controllers
             var room = this.rService.FillRoomAddForm();
 
             return this.View(room);
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddRoomFormModel room)
+        {
+            if(!ModelState.IsValid)
+            { 
+                var fillRoomFields = this.rService.FillRoomAddForm();
+
+                room.HotelId = fillRoomFields.HotelId;
+                room.RoomTypes = fillRoomFields.RoomTypes;
+                room.HotelName = fillRoomFields.HotelName;
+
+                return this.View(room);
+            }
+
+            this.rService.Add(room);
+
+            return this.RedirectToAction("All", "Rooms");
+        }
+
+        public IActionResult Delete(string id)
+        {
+            rService.Delete(id);
+
+            return this.RedirectToAction("All", "Rooms");
         }
     }
 }
