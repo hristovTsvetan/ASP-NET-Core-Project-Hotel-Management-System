@@ -185,7 +185,7 @@ namespace HotelManagementSystem.Services
                     City = g.City.Name,
                     Country = g.City.Country.Name,
                     Created = g.Created.ToString("dd-MM-yyyy"),
-                    CreatedReservationsCount = g.Reservations.Where(r => r.Status == ReservationStatus.Active).Count(),
+                    CreatedReservationsCount = g.Reservations.Where(r => r.Status == ReservationStatus.Confirmed).Count(),
                     Details = g.Details,
                     Email = g.Email,
                     IdentityCardId = g.IdentityCardId,

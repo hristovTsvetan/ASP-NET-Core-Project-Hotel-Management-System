@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HotelManagementSystem.Validators.Messages;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,36 +10,65 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Models.Reservations
 {
-    public class AddReservationFormModel
+    public class AddReservationFormModel : IValidatableObject
     {
         public AddReservationFormModel()
         {
-            this.Vouchers = new List<string>();
-            this.ReserveRooms = new List<string>();
-            this.AvailableRooms = new List<string>();
+            this.AddedForReservationRoom = new List<SelectListItem>();
+            this.AvailableRooms = new List<SelectListItem>();
+            this.SelectedRooms = new List<string>();
+            this.ReservedRooms = new List<string>();
         }
 
-        
+        [Required]
+        [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
+        [MinLength(2, ErrorMessage = ValidatorConstants.minLength)]
+        [Display(Name = "Reservation name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Start date")]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "End date")]
         public DateTime EndDate { get; set; }
 
-        [Range(1, 1000)]
-        public int Duration { get; set; }
+        public string LoadRoomsButton { get; set; }
 
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal Price { get; set; }
+        public string AddRoomsButton { get; set; }
 
-        public string GuestIdentityId { get; set; }
+        public string AddReservationButton { get; set; }
 
-        public string VoucherId { get; set; }
+        public ICollection<SelectListItem> AvailableRooms;
 
-        public IEnumerable<string> Vouchers { get; set; }
+        public ICollection<SelectListItem> AddedForReservationRoom;
 
-        public IEnumerable<string> AvailableRooms;
+        [Display(Name = "Selected rooms")]
+        public ICollection<string> ReservedRooms { get; set; }
 
-        public IEnumerable<string> ReserveRooms;
+        [Display(Name = "Available rooms")]
+        public ICollection<string> SelectedRooms { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.ReservedRooms.Count == 0 && !string.IsNullOrWhiteSpace(AddReservationButton))
+            {
+                yield return new ValidationResult(
+                    "You have to add room/s for reservation!", new[] { nameof(this.ReservedRooms) });
+            }
+
+            if (this.StartDate >= this.EndDate || this.StartDate < DateTime.Now.Date)
+            {
+                yield return new ValidationResult(
+                   "Start date can't be greater than end date, and start date must be from today ot later!", new[] { nameof(this.StartDate) });
+            }
+
+            if (this.EndDate <= this.StartDate || this.EndDate <= DateTime.Now.Date)
+            {
+                yield return new ValidationResult(
+                   "End date can't be lower than start date, and end date must be from tommorow ot later!", new[] { nameof(this.EndDate) });
+            }
+        }
     }
 }

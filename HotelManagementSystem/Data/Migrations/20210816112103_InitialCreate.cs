@@ -192,15 +192,16 @@ namespace HotelManagementSystem.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
-                    Creator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    Creator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    GuestId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GuestId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     VoucherId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    InvoiceId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    InvoiceId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagementSystem.Data.Migrations
 {
     [DbContext(typeof(HotelManagementDbContext))]
-    [Migration("20210812204815_InitialCreate")]
+    [Migration("20210816112103_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -253,7 +253,6 @@ namespace HotelManagementSystem.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Creator")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -264,14 +263,17 @@ namespace HotelManagementSystem.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("GuestId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("InvoiceId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal?>("Price")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<DateTime>("StartDate")
@@ -661,8 +663,7 @@ namespace HotelManagementSystem.Data.Migrations
                     b.HasOne("HotelManagementSystem.Data.Models.Guest", "Guest")
                         .WithMany("Reservations")
                         .HasForeignKey("GuestId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("HotelManagementSystem.Data.Models.Invoice", "Invoice")
                         .WithOne("Reservation")

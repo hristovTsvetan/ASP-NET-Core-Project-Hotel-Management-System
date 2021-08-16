@@ -19,6 +19,10 @@ namespace HotelManagementSystem.Data.Models
         [Required]
         public string Id { get; set; }
 
+        [Required]
+        [MaxLength(50)]
+        public string Name { get; set; }
+
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
@@ -26,15 +30,13 @@ namespace HotelManagementSystem.Data.Models
         public int Duration { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string Creator { get; set; }
 
         public ReservationStatus Status { get; set; }
 
-        [Required]
         public string GuestId { get; set; }
 
         public virtual Guest Guest { get; set; }
@@ -45,7 +47,6 @@ namespace HotelManagementSystem.Data.Models
 
         public virtual ICollection<RoomReserved> RoomReserveds { get; set; }
 
-        [Required]
         public string InvoiceId { get; set; }
 
         public virtual Invoice Invoice { get; set; }

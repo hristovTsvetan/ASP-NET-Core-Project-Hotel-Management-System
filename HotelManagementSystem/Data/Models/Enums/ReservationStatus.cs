@@ -7,7 +7,8 @@ namespace HotelManagementSystem.Data.Models.Enums
 {
     public enum ReservationStatus
     {
-        Active = 0,
-        Canceled = 1
+        Confirmed = 0,
+        Pending = 1,
+        Canceled = 2
     }
 }

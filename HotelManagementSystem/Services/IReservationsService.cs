@@ -11,5 +11,9 @@ namespace HotelManagementSystem.Services
         ReservationsQueryModel All();
 
         void CancelReservation(string roomId);
+
+        AddReservationFormModel ListFreeRooms(AddReservationFormModel reservation);
+
+        AddReservationFormModel AddToReserveRooms(AddReservationFormModel reservation);
     }
 }
