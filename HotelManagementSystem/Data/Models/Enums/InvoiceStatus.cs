@@ -8,6 +8,7 @@ namespace HotelManagementSystem.Data.Models.Enums
     public enum InvoiceStatus
     {
         Active = 0,
-        Canceled = 1
+        Pending = 1,
+        Canceled = 2
     }
 }

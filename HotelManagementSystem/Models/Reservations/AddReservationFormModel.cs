@@ -14,13 +14,10 @@ namespace HotelManagementSystem.Models.Reservations
     {
         public AddReservationFormModel()
         {
-            this.AddedForReservationRoom = new List<SelectListItem>();
             this.AvailableRooms = new List<SelectListItem>();
             this.SelectedRooms = new List<string>();
-            this.ReservedRooms = new List<string>();
         }
 
-        [Required]
         [MaxLength(50, ErrorMessage = ValidatorConstants.maxLength)]
         [MinLength(2, ErrorMessage = ValidatorConstants.minLength)]
         [Display(Name = "Reservation name")]
@@ -36,26 +33,25 @@ namespace HotelManagementSystem.Models.Reservations
 
         public string LoadRoomsButton { get; set; }
 
-        public string AddRoomsButton { get; set; }
-
         public string AddReservationButton { get; set; }
 
         public ICollection<SelectListItem> AvailableRooms;
-
-        public ICollection<SelectListItem> AddedForReservationRoom;
-
-        [Display(Name = "Selected rooms")]
-        public ICollection<string> ReservedRooms { get; set; }
 
         [Display(Name = "Available rooms")]
         public ICollection<string> SelectedRooms { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (this.ReservedRooms.Count == 0 && !string.IsNullOrWhiteSpace(AddReservationButton))
+            if (string.IsNullOrWhiteSpace(this.Name) && !string.IsNullOrWhiteSpace(this.AddReservationButton))
             {
                 yield return new ValidationResult(
-                    "You have to add room/s for reservation!", new[] { nameof(this.ReservedRooms) });
+                   "Should select one or more rooms for reservation!", new[] { nameof(this.Name) });
+            }
+
+            if (this.SelectedRooms.Count == 0 && !string.IsNullOrWhiteSpace(this.AddReservationButton))
+            {
+                yield return new ValidationResult(
+                   "Should select one or more rooms for reservation!", new[] { nameof(this.SelectedRooms) });
             }
 
             if (this.StartDate >= this.EndDate || this.StartDate < DateTime.Now.Date)

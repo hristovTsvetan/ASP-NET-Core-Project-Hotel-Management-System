@@ -14,6 +14,6 @@ namespace HotelManagementSystem.Services
 
         AddReservationFormModel ListFreeRooms(AddReservationFormModel reservation);
 
-        AddReservationFormModel AddToReserveRooms(AddReservationFormModel reservation);
+        void AddReservation(AddReservationFormModel reservation);
     }
 }

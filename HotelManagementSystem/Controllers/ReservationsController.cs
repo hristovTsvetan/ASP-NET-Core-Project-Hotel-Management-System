@@ -26,8 +26,8 @@ namespace HotelManagementSystem.Controllers
         {
             var reservation = new AddReservationFormModel();
 
-            reservation.StartDate = DateTime.UtcNow;
-            reservation.EndDate = DateTime.UtcNow.AddDays(1);
+            reservation.StartDate = DateTime.Now.Date;
+            reservation.EndDate = DateTime.Now.AddDays(1);
 
             return this.View(reservation);
         }
@@ -38,8 +38,8 @@ namespace HotelManagementSystem.Controllers
 
             if (reservation.StartDate < DateTime.Now.Date)
             {
-                reservation.StartDate = DateTime.UtcNow;
-                reservation.EndDate = DateTime.UtcNow.AddDays(1);
+                reservation.StartDate = DateTime.Now.Date;
+                reservation.EndDate = DateTime.Now.Date.AddDays(1);
             }
 
             if(!string.IsNullOrWhiteSpace(reservation.LoadRoomsButton))
@@ -47,18 +47,17 @@ namespace HotelManagementSystem.Controllers
                 reservation = this.resService.ListFreeRooms(reservation);
             }
 
-            if(!string.IsNullOrWhiteSpace(reservation.AddRoomsButton))
-            {
-                reservation = this.resService.ListFreeRooms(reservation);
-                reservation = this.resService.AddToReserveRooms(reservation);
-            }
 
             if (!string.IsNullOrWhiteSpace(reservation.AddReservationButton))
             {
                 if (!ModelState.IsValid)
                 {
+                    reservation = this.resService.ListFreeRooms(reservation);
+
                     return this.View(reservation);
                 }
+
+                this.resService.AddReservation(reservation);
 
                 return this.RedirectToAction("All", "Reservations");
             }        

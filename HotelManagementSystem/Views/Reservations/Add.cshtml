@@ -36,35 +36,9 @@
                 <label asp-for="SelectedRooms"></label>
                 <select multiple="multiple" asp-for="SelectedRooms" asp-items="@Model.AvailableRooms" class="form-control" row="6">
                 </select>
-            </div>
-            <div class="form-group col-1 offset-1">
-                <input id="addRoom" type="submit" class="btn-outline-dark btn-sm btn mt-5" asp-for="@Model.AddRoomsButton" value=">>">
-            </div>
-
-            <div class="form-group col-3 offset-1">
-                <label asp-for="ReservedRooms"></label>
-                <select id="reservedRooms" multiple="multiple" asp-for="ReservedRooms" asp-items="@Model.AddedForReservationRoom" class="form-control" row="6">
-                </select>
-                <span asp-validation-for="ReservedRooms" class="text-danger small"></span>
+                <span asp-validation-for="SelectedRooms" class="text-danger small"></span>
             </div>
         </div>
-        <input type="submit" asp-for="AddReservationButton" value="Add" class="mt-5 btn btn-sm btn-success col-2 offset-5" />
+        <input id="addReservation" type="submit" asp-for="AddReservationButton" value="Add" class="mt-5 btn btn-sm btn-success col-2 offset-5" />
     </form>
 </div>
-
-<script>
-
-    window.onload = (event) => {
-
-        document.getElementById('addRoom').addEventListener('click', function () {
-            const reservedRooms = [...document.getElementById('reservedRooms').options]
-            for (var i = 0; i < reservedRooms.length; i++) {
-                reservedRooms[i].setAttribute('selected', 'selected');
-            }
-        });
-    }
-
-
-
-
-</script>

@@ -200,7 +200,7 @@ namespace HotelManagementSystem.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<DateTime>("IssuedDate")
@@ -211,10 +211,6 @@ namespace HotelManagementSystem.Data.Migrations
 
                     b.Property<DateTime?>("PaidDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("ReservationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

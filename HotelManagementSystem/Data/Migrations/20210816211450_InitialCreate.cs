@@ -26,8 +26,7 @@ namespace HotelManagementSystem.Data.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    ReservationId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
                     IssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaidDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Paid = table.Column<bool>(type: "bit", nullable: false)

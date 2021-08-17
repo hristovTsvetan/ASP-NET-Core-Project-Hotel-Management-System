@@ -1,4 +1,5 @@
 ﻿using HotelManagementSystem.Data;
+using HotelManagementSystem.Data.Models;
 using HotelManagementSystem.Data.Models.Enums;
 using HotelManagementSystem.Models.Reservations;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,58 +19,36 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
-        public AddReservationFormModel AddToReserveRooms(AddReservationFormModel reservation)
+        public void AddReservation(AddReservationFormModel reservation)
         {
-            var allRoons = this.db
-            .Rooms
-            .Where(r => r.Deleted == false)
-            .Select(r => new
+            var allReservedRooms = this.GetReservedRooms(reservation);
+
+          //  var invoice = this.CreateInvoice(reservation);
+
+            var curReservation = new Reservation
             {
-                Number = r.Number,
-                Id = r.Id,
-                rType = r.RoomType.Name
-            })
-            .ToList();
+                Duration = reservation.EndDate.Subtract(reservation.StartDate).Days,
+                EndDate = reservation.EndDate,
+                Name = reservation.Name,
+                RoomReserveds = allReservedRooms.ToList(),
+                StartDate = reservation.StartDate,
+                Status = ReservationStatus.Pending
+            };
 
-            foreach (var roomId in reservation.SelectedRooms)
-            {
-                var currentRoom = allRoons.FirstOrDefault(r => r.Id == roomId);
-
-                reservation.AddedForReservationRoom.Add(new SelectListItem
-                {
-                    Text = currentRoom.Number + " " + currentRoom.rType,
-                    Value = currentRoom.Id,
-                    Selected = true
-                });
-
-                reservation.AvailableRooms.Remove(reservation.AvailableRooms.FirstOrDefault(r => r.Value == roomId));
-            }
-
-            //Remove from available rooms selected rooms
-            foreach (var rm in reservation.ReservedRooms)
-            {
-                if (reservation.AvailableRooms.Any(r => r.Value == rm))
-                {
-                    reservation.AvailableRooms.Remove(reservation.AvailableRooms.FirstOrDefault(r => r.Value == rm));
-                }
-
-                var selRoom = allRoons.FirstOrDefault(r => r.Id == rm);
-
-                //add old selections
-                reservation.AddedForReservationRoom.Add(new SelectListItem
-                {
-                    Text = selRoom.Number + " " + selRoom.rType,
-                    Value = selRoom.Id,
-                });
-            }
-
-            foreach (var rm in reservation.SelectedRooms)
-            {
-                reservation.ReservedRooms.Add(rm);
-            }
-
-            return reservation;
+            this.db.Reservations.Add(curReservation);
+            this.db.SaveChanges();
         }
+
+        private Invoice CreateInvoice(AddReservationFormModel reservation)
+        {
+            return new Invoice
+            {
+                IssuedDate = DateTime.UtcNow,
+                Paid = false,
+                Status = InvoiceStatus.Pending
+            };
+        }
+
 
         public ReservationsQueryModel All()
         {
@@ -121,9 +100,11 @@ namespace HotelManagementSystem.Services
                 reservation.StartDate >= DateTime.Now.Date && reservation.EndDate > DateTime.Now.Date)
 
             {
+                var currentHotel = this.GetActiveHotel();
+
                 var roomsWithoutRes = this.db
                 .Rooms
-                .Where(r => r.RoomReserveds.Count == 0 && r.Deleted == false)
+                .Where(r => r.RoomReserveds.Count == 0 && r.Deleted == false && r.Hotel == currentHotel)
                 .Select(r => new RoomViewModel
                 {
                     Id = r.Id,
@@ -134,7 +115,8 @@ namespace HotelManagementSystem.Services
 
                 var roomsWithOneReservation = this.db
                     .Rooms
-                    .Where(r => r.RoomReserveds.Count == 1 && r.Deleted == false && r.RoomReserveds
+                    .Where(r => r.RoomReserveds.Count == 1 && r.Deleted == false && r.Hotel == currentHotel &&
+                    r.RoomReserveds
                     .Any(res => res.Reservation.EndDate == reservation.StartDate))
                     .Select(r => new RoomViewModel
                     {
@@ -158,6 +140,29 @@ namespace HotelManagementSystem.Services
             }
 
             return reservation;
+        }
+
+        private Hotel GetActiveHotel()
+        {
+            return this.db
+                .Hotels
+                .FirstOrDefault(h => h.Active == true);
+        }
+
+        private IEnumerable<RoomReserved> GetReservedRooms(AddReservationFormModel reservation)
+        {
+            var allReservedRooms = new List<RoomReserved>();
+
+            foreach (var roomId in reservation.SelectedRooms)
+            {
+                var curRoom = this.db
+                    .Rooms
+                    .FirstOrDefault(r => r.Id == roomId);
+
+                allReservedRooms.Add(new RoomReserved { Room = curRoom });
+            }
+
+            return allReservedRooms;
         }
     }
 }
