@@ -23,54 +23,104 @@ namespace HotelManagementSystem.Services
         {
             var allReservedRooms = this.GetReservedRooms(reservation);
 
-          //  var invoice = this.CreateInvoice(reservation);
-
             var curReservation = new Reservation
             {
                 Duration = reservation.EndDate.Subtract(reservation.StartDate).Days,
                 EndDate = reservation.EndDate,
                 Name = reservation.Name,
-                RoomReserveds = allReservedRooms.ToList(),
+                RoomReserveds = allReservedRooms.Select(r => new RoomReserved 
+                    {
+                        RoomId = r.Id
+                    }).ToList(),
                 StartDate = reservation.StartDate,
-                Status = ReservationStatus.Pending
+                Status = ReservationStatus.Pending,
+                CreatedOn = DateTime.UtcNow,
+                Price = allReservedRooms.Select(r => r.Price).Sum() * reservation.EndDate.Subtract(reservation.StartDate).Days
             };
 
             this.db.Reservations.Add(curReservation);
             this.db.SaveChanges();
         }
 
-        private Invoice CreateInvoice(AddReservationFormModel reservation)
+        public ReservationsQueryModel All(ReservationsQueryModel res)
         {
-            return new Invoice
+            var activeHotel = GetActiveHotel();
+
+            //Get distincted reservation ids
+            var reservations = this.db
+                .RoomReserveds
+                .Where(r => r.Room.HotelId == activeHotel.Id && r.Reservation.Status != ReservationStatus.Canceled)
+                .Select(r => r.ReservationId)
+                .Distinct();
+
+
+            var resDb = this.db
+               .RoomReserveds
+               .Where(r => r.Room.HotelId == activeHotel.Id && r.Reservation.Status != ReservationStatus.Canceled)
+               .Select(r => r.Reservation)
+               .AsQueryable();
+
+            var reservCol = new List<ReservationsViewModel>();
+
+            foreach (var rs in reservations)
             {
-                IssuedDate = DateTime.UtcNow,
-                Paid = false,
-                Status = InvoiceStatus.Pending
-            };
-        }
+                var tempRes = resDb
+                .Where(r => r.Id == rs)
+                .FirstOrDefault();
 
+                reservCol.Add(new ReservationsViewModel
+                {
+                    Name = tempRes.Name,
+                    EndDate = tempRes.EndDate.ToString("dd-MM-yyyy"),
+                    Id = tempRes.Id,
+                    StartDate = tempRes.StartDate.ToString("dd-MM-yyyy"),
+                    Status = tempRes.Status.ToString(),
+                    CreatedOn = tempRes.CreatedOn
+                });
 
-        public ReservationsQueryModel All()
-        {
+            }
+
+            if (!string.IsNullOrWhiteSpace(res.Search))
+            {
+                reservCol = reservCol
+                    .Where(r => r.Name.ToLower().Contains(res.Search.ToLower()))
+                    .ToList();
+            }
+
+            var allReservations = reservCol
+                .OrderBy(r => r.CreatedOn)
+                .Skip((res.CurrentPage - 1) * res.ItemsPerPage)
+                .Take(res.ItemsPerPage)
+                .ToList();
+
             var reservetionsQueryModel = new ReservationsQueryModel
             {
-                Reservations = this.db
-                .Reservations
-                .Where(r => r.Status != ReservationStatus.Canceled)
-                .Select(r => new ReservationsViewModel
-                {
-                    Id = r.Id,
-                    EndDate = r.EndDate.ToShortDateString(),
-                    StartDate = r.StartDate.ToShortDateString(),
-                    GuestName = r.Guest.FirstName + " " + r.Guest.LastName,
-                    RoomName = r
-                        .RoomReserveds
-                        .Select(rm => rm.Room.Number)
-                        .ToList()
-                })
+                Reservations = allReservations,
+                TotalPages = (int)Math.Ceiling((double)reservCol.Count() / res.ItemsPerPage),
+                CurrentPage = res.CurrentPage,
+                PreviousPage = res.PreviousPage,
+                NextPage = res.NextPage
             };
 
             return reservetionsQueryModel;
+        }
+
+        public void AssignGuestToReservation(AssignGuestFormModel guest)
+        {
+            var currentReservation = this.db
+                .Reservations
+                .FirstOrDefault(r => r.Id == guest.ReservationId);
+
+            var currentGuest = this.db
+                .Guests
+                .FirstOrDefault(g => g.IdentityCardId == guest.IdentityId);
+
+            
+
+
+
+            currentReservation.Guest = currentGuest;
+
         }
 
         public void CancelReservation(string roomId)
@@ -94,6 +144,54 @@ namespace HotelManagementSystem.Services
             }
         }
 
+        public void Delete(string id)
+        {
+            var reservation = this.db.Reservations.FirstOrDefault(r => r.Id == id);
+
+            reservation.Status = ReservationStatus.Canceled;
+
+            this.db.Reservations.Update(reservation);
+            this.db.SaveChanges();
+        }
+
+        public DetailsReservationViewModel GetDetails(string id)
+        {
+            return this.db
+                .Reservations
+                .Where(r => r.Id == id)
+                .Select(r => new DetailsReservationViewModel
+                {
+                    CreatedOn = r.CreatedOn.ToString("dd-MM-yyyy"),
+                    Duration = r.Duration,
+                    EndDate = r.EndDate.ToString("dd-MM-yyyy"),
+                    Id = r.Id,
+                    Name = r.Name,
+                    Price = r.Price,
+                    StartDate = r.StartDate.ToString("dd-MM-yyyy"),
+                    Status = r.Status.ToString(),
+                    VoucherName = r.Voucher.Name,
+                    GuestIdentityCard = r.Guest.IdentityCardId,
+                    GuestName = r.Guest.FirstName + " " + r.Guest.LastName,
+                    InvoicePaid = r.Invoice.Paid ? "Yes" : "No",
+                    RoomReserveds = string.Join(", ", r.RoomReserveds
+                        .Select(rr => rr.Room.Number)
+                        .ToList())
+                }).FirstOrDefault();
+        }
+
+        public IEnumerable<SelectListItem> GetVouchers()
+        {
+            return this.db
+                .Vouchers
+                .Select(v => new SelectListItem
+                {
+                    Text = v.Name,
+                    Value = v.Id
+                })
+                .ToList();
+
+        }
+
         public AddReservationFormModel ListFreeRooms(AddReservationFormModel reservation)
         {
             if (reservation.StartDate < reservation.EndDate &&
@@ -102,36 +200,26 @@ namespace HotelManagementSystem.Services
             {
                 var currentHotel = this.GetActiveHotel();
 
-                var roomsWithoutRes = this.db
-                .Rooms
-                .Where(r => r.RoomReserveds.Count == 0 && r.Deleted == false && r.Hotel == currentHotel)
-                .Select(r => new RoomViewModel
-                {
-                    Id = r.Id,
-                    Name = r.Number,
-                    Type = r.RoomType.Name
-                })
-                .ToList();
-
-                var roomsWithOneReservation = this.db
+                var freeRooms = this.db
                     .Rooms
-                    .Where(r => r.RoomReserveds.Count == 1 && r.Deleted == false && r.Hotel == currentHotel &&
-                    r.RoomReserveds
-                    .Any(res => res.Reservation.EndDate == reservation.StartDate))
-                    .Select(r => new RoomViewModel
+                    .Where(r => r.Deleted == false && r.Hotel == currentHotel)
+                    .Select(r => new
                     {
-                        Id = r.Id,
-                        Name = r.Number,
-                        Type = r.RoomType.Name
+                        RoomName = r.Number,
+                        RoomId = r.Id,
+                        RoomType = r.RoomType.Name.ToString(),
+                        HasReservation = r.RoomReserveds
+                            .Where(rr => rr.Reservation.Status != ReservationStatus.Canceled)
+                            .Any(rr => reservation.StartDate < rr.Reservation.EndDate && reservation.EndDate > rr.Reservation.StartDate)
                     })
+                    .Where(r => r.HasReservation == false)
                     .ToList();
 
-                roomsWithoutRes.AddRange(roomsWithOneReservation);
 
-                var allAvailRooms = roomsWithoutRes.Select(i => new SelectListItem
+                var allAvailRooms = freeRooms.Select(i => new SelectListItem
                 {
-                    Text = i.Name + " " + i.Type,
-                    Value = i.Id
+                    Text = i.RoomName + " " + i.RoomType,
+                    Value = i.RoomId
                 });
 
                 reservation.AvailableRooms = allAvailRooms
@@ -142,6 +230,24 @@ namespace HotelManagementSystem.Services
             return reservation;
         }
 
+        public AssignGuestFormModel LoadGuest(string identityId)
+        {
+            return this.db
+                .Guests
+                .Where(g => g.IdentityCardId == identityId && g.Deleted == false)
+                .Select(g => new AssignGuestFormModel
+                {
+                    GuestAddress = g.Address,
+                    GuestCity = g.City.Name,
+                    GuestCountry = g.City.Country.Name,
+                    GuestId = g.Id,
+                    GuestName = g.FirstName + " " + g.LastName,
+                    GuestPhone = g.Phone,
+                    IdentityId = g.IdentityCardId,
+                })
+                .FirstOrDefault();
+        }
+
         private Hotel GetActiveHotel()
         {
             return this.db
@@ -149,17 +255,24 @@ namespace HotelManagementSystem.Services
                 .FirstOrDefault(h => h.Active == true);
         }
 
-        private IEnumerable<RoomReserved> GetReservedRooms(AddReservationFormModel reservation)
+        private IEnumerable<RoomsServiceModel> GetReservedRooms(AddReservationFormModel reservation)
         {
-            var allReservedRooms = new List<RoomReserved>();
+            var allReservedRooms = new List<RoomsServiceModel>();
 
             foreach (var roomId in reservation.SelectedRooms)
             {
                 var curRoom = this.db
                     .Rooms
-                    .FirstOrDefault(r => r.Id == roomId);
+                    .Where(r => r.Id == roomId)
+                    .Select(r => new RoomsServiceModel
+                    {
+                        Id = r.Id,
+                        Number = r.Number,
+                        Price = r.RoomType.Price
+                    })
+                    .FirstOrDefault();
 
-                allReservedRooms.Add(new RoomReserved { Room = curRoom });
+                allReservedRooms.Add(curRoom);
             }
 
             return allReservedRooms;

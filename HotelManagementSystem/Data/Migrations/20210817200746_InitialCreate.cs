@@ -21,22 +21,6 @@ namespace HotelManagementSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Invoices",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
-                    IssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaidDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Paid = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoices", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Ranks",
                 columns: table => new
                 {
@@ -194,6 +178,7 @@ namespace HotelManagementSystem.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
                     Creator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -211,12 +196,6 @@ namespace HotelManagementSystem.Data.Migrations
                         principalTable: "Guests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservations_Invoices_Id",
-                        column: x => x.Id,
-                        principalTable: "Invoices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Vouchers_VoucherId",
                         column: x => x.VoucherId,
@@ -253,6 +232,28 @@ namespace HotelManagementSystem.Data.Migrations
                         principalTable: "RoomTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Invoices",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    IssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaidDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Paid = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Invoices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Invoices_Reservations_Id",
+                        column: x => x.Id,
+                        principalTable: "Reservations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -338,6 +339,9 @@ namespace HotelManagementSystem.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Invoices");
+
+            migrationBuilder.DropTable(
                 name: "RoomReserveds");
 
             migrationBuilder.DropTable(
@@ -348,9 +352,6 @@ namespace HotelManagementSystem.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Guests");
-
-            migrationBuilder.DropTable(
-                name: "Invoices");
 
             migrationBuilder.DropTable(
                 name: "Vouchers");

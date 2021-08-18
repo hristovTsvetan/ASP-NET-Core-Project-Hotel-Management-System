@@ -27,6 +27,8 @@ namespace HotelManagementSystem.Data.Models
 
         public DateTime EndDate { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
         public int Duration { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]

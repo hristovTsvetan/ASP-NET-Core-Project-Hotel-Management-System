@@ -1,0 +1,68 @@
+﻿@model DetailsReservationViewModel
+
+@{
+    ViewData["Title"] = "Reservation details";
+}
+
+<h4 class="heading-margin text-center mt-5">Reservation details</h4>
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="success">Name: </td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td class="success">Start date: </td>
+                    <td>@Model.StartDate</td>
+                </tr>
+                <tr>
+                    <td class="success">End date: </td>
+                    <td>@Model.EndDate</td>
+                </tr>
+                <tr>
+                    <td class="success">Created on: </td>
+                    <td>@Model.CreatedOn</td>
+                </tr>
+                <tr>
+                    <td class="success">Duration: </td>
+                    <td>@Model.Duration</td>
+                </tr>
+                <tr>
+                    <td class="success">Price: </td>
+                    <td>@Model.Price</td>
+                </tr>
+                <tr>
+                    <td class="success">Status: </td>
+                    <td>@Model.Status</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest name: </td>
+                    <td>@Model.GuestName</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest id number: </td>
+                    <td>@Model.GuestIdentityCard</td>
+                </tr>
+                <tr>
+                    <td class="success">Voucher name: </td>
+                    <td>@Model.VoucherName</td>
+                </tr>
+                <tr>
+                    <td class="success">Invoice paid: </td>
+                    <td>@Model.InvoicePaid</td>
+                </tr>
+                <tr>
+                    <td class="success">Rooms reserved: </td>
+                    <td>@Model.RoomReserveds</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <a class="btn btn-success col-1 heading-margin" asp-controller="Reservations" asp-action="AssignCustomer" asp-route-id="@Model.Id">Assign guest</a>
+    <a class="btn btn-danger col-1 heading-margin offset-2" asp-controller="Reservations" asp-action="Delete" asp-route-Id="@Model.Id">Delete</a>
+</div>

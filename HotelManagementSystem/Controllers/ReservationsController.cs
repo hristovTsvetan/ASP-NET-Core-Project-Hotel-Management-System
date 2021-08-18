@@ -15,9 +15,9 @@ namespace HotelManagementSystem.Controllers
             this.resService = rService;
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery]ReservationsQueryModel res)
         {
-            var allReservations = resService.All();
+            var allReservations = resService.All(res);
 
             return this.View(allReservations);
         }
@@ -63,6 +63,55 @@ namespace HotelManagementSystem.Controllers
             }        
 
             return this.View(reservation);
+        }
+
+        public IActionResult Details(string id)
+        {
+            var curReservation = this.resService.GetDetails(id);
+
+            return this.View(curReservation);
+        }
+
+        public IActionResult Delete(string id)
+        {
+            this.resService.Delete(id);
+
+            return this.RedirectToAction("All", "Reservations");
+        }
+
+        public IActionResult AssignCustomer(string id)
+        {
+            var guest = new AssignGuestFormModel
+            {
+                ReservationId = id,
+                Vouchers = this.resService.GetVouchers()
+            };
+
+            return this.View(guest);
+        }
+
+        [HttpPost]
+        public IActionResult AssignCustomer(AssignGuestFormModel guest)
+        {
+
+            guest.Vouchers = this.resService.GetVouchers();
+
+            if (!ModelState.IsValid)
+            {
+                return this.View(guest);
+            }
+
+            if(!string.IsNullOrWhiteSpace(guest.LoadGuestButton))
+            {
+                var curGuest = this.resService.LoadGuest(guest.IdentityId);
+                curGuest.Vouchers = guest.Vouchers;
+
+                return this.View(curGuest);
+            }
+
+            ;
+
+            return this.View();
         }
     }
 }

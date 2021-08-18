@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagementSystem.Data.Migrations
 {
     [DbContext(typeof(HotelManagementDbContext))]
-    [Migration("20210816211450_InitialCreate")]
+    [Migration("20210817200746_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,6 +247,9 @@ namespace HotelManagementSystem.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Creator")
                         .HasMaxLength(50)
@@ -654,6 +657,17 @@ namespace HotelManagementSystem.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("HotelManagementSystem.Data.Models.Invoice", b =>
+                {
+                    b.HasOne("HotelManagementSystem.Data.Models.Reservation", "Reservation")
+                        .WithOne("Invoice")
+                        .HasForeignKey("HotelManagementSystem.Data.Models.Invoice", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reservation");
+                });
+
             modelBuilder.Entity("HotelManagementSystem.Data.Models.Reservation", b =>
                 {
                     b.HasOne("HotelManagementSystem.Data.Models.Guest", "Guest")
@@ -661,20 +675,12 @@ namespace HotelManagementSystem.Data.Migrations
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("HotelManagementSystem.Data.Models.Invoice", "Invoice")
-                        .WithOne("Reservation")
-                        .HasForeignKey("HotelManagementSystem.Data.Models.Reservation", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HotelManagementSystem.Data.Models.Voucher", "Voucher")
                         .WithMany("Reservations")
                         .HasForeignKey("VoucherId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Guest");
-
-                    b.Navigation("Invoice");
 
                     b.Navigation("Voucher");
                 });
@@ -797,11 +803,6 @@ namespace HotelManagementSystem.Data.Migrations
                     b.Navigation("Rooms");
                 });
 
-            modelBuilder.Entity("HotelManagementSystem.Data.Models.Invoice", b =>
-                {
-                    b.Navigation("Reservation");
-                });
-
             modelBuilder.Entity("HotelManagementSystem.Data.Models.Rank", b =>
                 {
                     b.Navigation("Guests");
@@ -809,6 +810,8 @@ namespace HotelManagementSystem.Data.Migrations
 
             modelBuilder.Entity("HotelManagementSystem.Data.Models.Reservation", b =>
                 {
+                    b.Navigation("Invoice");
+
                     b.Navigation("RoomReserveds");
                 });
 

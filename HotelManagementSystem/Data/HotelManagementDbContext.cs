@@ -40,11 +40,6 @@ namespace HotelManagementSystem.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Invoice>()
-                .HasOne(r => r.Reservation)
-                .WithOne(i => i.Invoice)
-                .HasForeignKey<Reservation>(r => r.Id);
-
             builder.Entity<RoomReserved>(r =>
             {
                 r.HasKey(k => new { k.ReservationId, k.RoomId });
@@ -105,6 +100,10 @@ namespace HotelManagementSystem.Data
                 .WithMany(v => v.Reservations)
                 .HasForeignKey(re => re.VoucherId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+                r.HasOne(i => i.Invoice)
+                .WithOne(r => r.Reservation)
+                .HasForeignKey<Invoice>(i => i.Id);
             });
 
             builder.Entity<Room>(r =>

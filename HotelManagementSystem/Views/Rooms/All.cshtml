@@ -47,9 +47,9 @@
     Model.PreviousPage = Model.CurrentPage - 1;
 }
 
-<nav aria-label="...">
+<nav >
     <ul class="pagination justify-content-center mt-5">
-        @if (Model.CurrentPage == 1)
+        @if (Model.CurrentPage <= 1)
         {
             <li class="page-item disabled">
                 <a class="page-link disableCursor" tabindex="-1">Previous</a>
@@ -80,7 +80,7 @@
             }
         }
 
-        @if (Model.CurrentPage == Model.TotalItems)
+        @if (Model.CurrentPage == Model.TotalItems || Model.TotalItems == 0)
         {
             <li class="page-item disabled">
                 <a class="page-link">Next</a>
