@@ -63,6 +63,9 @@
     </div>
 </div>
 <div class="row justify-content-center">
-    <a class="btn btn-success col-1 heading-margin" asp-controller="Reservations" asp-action="AssignCustomer" asp-route-id="@Model.Id">Assign guest</a>
-    <a class="btn btn-danger col-1 heading-margin offset-2" asp-controller="Reservations" asp-action="Delete" asp-route-Id="@Model.Id">Delete</a>
+    <a class="btn btn-danger col-1 heading-margin" asp-controller="Reservations" asp-action="Delete" asp-route-Id="@Model.Id">Delete</a>
+    @if (string.IsNullOrWhiteSpace(Model.GuestName))
+    {
+        <a class="btn btn-success col-1 heading-margin offset-2" asp-controller="Reservations" asp-action="AssignCustomer" asp-route-id="@Model.Id">Assign guest</a>
+    }
 </div>

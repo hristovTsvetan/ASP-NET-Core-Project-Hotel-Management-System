@@ -192,7 +192,7 @@ namespace HotelManagementSystem.Services
                     LastName = g.LastName,
                     Phone = g.Phone,
                     Rank = g.Rank.Name,
-                    Id = g.Id
+                    Id = g.Id,
                 }).FirstOrDefault();
         }
 
@@ -210,9 +210,14 @@ namespace HotelManagementSystem.Services
 
         public void ChangeReservationStatus(string id)
         {
+            this.db.
+                Guests
+                .Where(g => g.Id == id);
+
+
             var reservations = this.db
                 .Reservations
-                .Where(r => r.GuestId == id && r.StartDate >= DateTime.UtcNow)
+                .Where(r => r.GuestId == id && r.StartDate >= DateTime.Now.Date)
                 .ToList();
 
             foreach(var res in reservations)
@@ -255,7 +260,7 @@ namespace HotelManagementSystem.Services
         {
             var dBase =this.db
                 .Guests
-                .Where(g => g.Id != id)
+                .Where(g => g.Id != id && g.Deleted == false)
                 .AsQueryable();
 
             return dBase.Any(g => g.IdentityCardId == identityNumber);

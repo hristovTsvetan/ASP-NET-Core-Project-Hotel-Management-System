@@ -96,22 +96,31 @@ namespace HotelManagementSystem.Controllers
 
             guest.Vouchers = this.resService.GetVouchers();
 
-            if (!ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(guest.LoadGuestButton))
             {
+                var curGuest = this.resService.LoadGuest(guest.IdentityId);
+                if (curGuest != null)
+                {
+                    curGuest.Vouchers = guest.Vouchers;
+                    return this.View(curGuest);
+                }
+
                 return this.View(guest);
             }
 
-            if(!string.IsNullOrWhiteSpace(guest.LoadGuestButton))
+            if(!string.IsNullOrWhiteSpace(guest.AssignButton))
             {
-                var curGuest = this.resService.LoadGuest(guest.IdentityId);
-                curGuest.Vouchers = guest.Vouchers;
+                if (!ModelState.IsValid)
+                {
+                    return this.View(guest);
+                }
 
-                return this.View(curGuest);
+                this.resService.AssignGuestToReservation(guest);
+
+                return this.RedirectToAction("All", "Reservations");
             }
 
-            ;
-
-            return this.View();
+            return this.View(guest);
         }
     }
 }

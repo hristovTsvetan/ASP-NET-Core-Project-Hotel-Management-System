@@ -180,12 +180,11 @@ namespace HotelManagementSystem.Data.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
                     Creator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
                     GuestId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    VoucherId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    InvoiceId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    VoucherId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,6 +239,7 @@ namespace HotelManagementSystem.Data.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    ReservationId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Amount = table.Column<decimal>(type: "decimal(8,2)", nullable: true),
                     IssuedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaidDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -249,11 +249,11 @@ namespace HotelManagementSystem.Data.Migrations
                 {
                     table.PrimaryKey("PK_Invoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Invoices_Reservations_Id",
-                        column: x => x.Id,
+                        name: "FK_Invoices_Reservations_ReservationId",
+                        column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -309,6 +309,13 @@ namespace HotelManagementSystem.Data.Migrations
                 name: "IX_Hotels_CompanyId",
                 table: "Hotels",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Invoices_ReservationId",
+                table: "Invoices",
+                column: "ReservationId",
+                unique: true,
+                filter: "[ReservationId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_GuestId",

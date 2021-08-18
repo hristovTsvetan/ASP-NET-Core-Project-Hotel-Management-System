@@ -42,52 +42,52 @@ namespace HotelManagementSystem.Infrastructure
             var guests = new[]
             {
                 new Guest { FirstName = "Tsvetan", LastName = "Hristov", Address = "Lomsko shose", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "test1@abv.bg", IdentityCardId = "45765476577", Phone="64585674876", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "test1@abv.bg", IdentityCardId = "45677567", Phone="64585674876", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Iva", LastName = "Hristov", Address = "Lomsko shose 1", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "iva@abv.bg", IdentityCardId = "4576588678", Phone="45674567657", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "iva@abv.bg", IdentityCardId = "87684563", Phone="45674567657", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Misho", LastName = "Mirchev", Address = "Street 202", City = db.Cities.FirstOrDefault(c => c.Name == "Burgas"),
-                Created = DateTime.UtcNow, Email = "misho@abv.bg@abv.bg", IdentityCardId = "6543763457", Phone="234523545", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "misho@abv.bg@abv.bg", IdentityCardId = "4564376", Phone="234523545", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Viktor", LastName = "Denchev", Address = "Banishora 2", City = db.Cities.FirstOrDefault(c => c.Name == "Varna"),
-                Created = DateTime.UtcNow, Email = "viki@abv.bg", IdentityCardId = "543675467", Phone="4353425", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "viki@abv.bg", IdentityCardId = "46509808", Phone="4353425", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Teodora", LastName = "Ivanova", Address = "Avenue street 3", City = db.Cities.FirstOrDefault(c => c.Name == "Plovdiv"),
-                Created = DateTime.UtcNow, Email = "teodora@abv.bg", IdentityCardId = "34565436", Phone="3467435745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "teodora@abv.bg", IdentityCardId = "456789434876", Phone="3467435745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Miro", LastName = "Loshev", Address = "Serdika 23", City = db.Cities.FirstOrDefault(c => c.Name == "Plovdiv"),
-                Created = DateTime.UtcNow, Email = "Miro@abv.bg", IdentityCardId = "3465345654", Phone="54637654745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "Miro@abv.bg", IdentityCardId = "08906978", Phone="54637654745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Sofia", LastName = "Petkova", Address = "Arena street 3", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "sofia@abv.bg", IdentityCardId = "74543657657", Phone="34563456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "sofia@abv.bg", IdentityCardId = "4568756748", Phone="34563456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Orlin", LastName = "Kirchev", Address = "Slatinska 101", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "Orlin@abv.bg", IdentityCardId = "345635463546", Phone="432565436456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "Orlin@abv.bg", IdentityCardId = "6780056789", Phone="432565436456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                   new Guest { FirstName = "Tsvetan", LastName = "Hristov", Address = "Lomsko shose", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "test1@abv.bg", IdentityCardId = "45765476577", Phone="64585674876", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "test1@abv.bg", IdentityCardId = "33333337654", Phone="64585674876", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Iva", LastName = "Hristov", Address = "Lomsko shose 1", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "iva@abv.bg", IdentityCardId = "4576588678", Phone="45674567657", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "iva@abv.bg", IdentityCardId = "589659678", Phone="45674567657", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Misho", LastName = "Mirchev", Address = "Street 202", City = db.Cities.FirstOrDefault(c => c.Name == "Burgas"),
-                Created = DateTime.UtcNow, Email = "misho@abv.bg@abv.bg", IdentityCardId = "6543763457", Phone="234523545", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "misho@abv.bg@abv.bg", IdentityCardId = "567905698", Phone="234523545", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Viktor", LastName = "Denchev", Address = "Banishora 2", City = db.Cities.FirstOrDefault(c => c.Name == "Varna"),
-                Created = DateTime.UtcNow, Email = "viki@abv.bg", IdentityCardId = "543675467", Phone="4353425", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "viki@abv.bg", IdentityCardId = "567857644", Phone="4353425", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Teodora", LastName = "Ivanova", Address = "Avenue street 3", City = db.Cities.FirstOrDefault(c => c.Name == "Plovdiv"),
-                Created = DateTime.UtcNow, Email = "teodora@abv.bg", IdentityCardId = "34565436", Phone="3467435745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "teodora@abv.bg", IdentityCardId = "56799780567", Phone="3467435745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Miro", LastName = "Loshev", Address = "Serdika 23", City = db.Cities.FirstOrDefault(c => c.Name == "Plovdiv"),
-                Created = DateTime.UtcNow, Email = "Miro@abv.bg", IdentityCardId = "3465345654", Phone="54637654745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "Miro@abv.bg", IdentityCardId = "67846544876", Phone="54637654745", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Sofia", LastName = "Petkova", Address = "Arena street 3", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "sofia@abv.bg", IdentityCardId = "74543657657", Phone="34563456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
+                Created = DateTime.UtcNow, Email = "sofia@abv.bg", IdentityCardId = "760567986", Phone="34563456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")},
 
                 new Guest { FirstName = "Orlin", LastName = "Kirchev", Address = "Slatinska 101", City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
-                Created = DateTime.UtcNow, Email = "Orlin@abv.bg", IdentityCardId = "345635463546", Phone="432565436456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")}
+                Created = DateTime.UtcNow, Email = "Orlin@abv.bg", IdentityCardId = "4568468949", Phone="432565436456", Rank = db.Ranks.FirstOrDefault(r => r.Name == "Regular")}
             };
 
             db.Guests.AddRange(guests);

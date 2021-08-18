@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagementSystem.Data.Migrations
 {
     [DbContext(typeof(HotelManagementDbContext))]
-    [Migration("20210817200746_InitialCreate")]
+    [Migration("20210818131346_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,10 +214,17 @@ namespace HotelManagementSystem.Data.Migrations
                     b.Property<DateTime?>("PaidDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ReservationId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReservationId")
+                        .IsUnique()
+                        .HasFilter("[ReservationId] IS NOT NULL");
 
                     b.ToTable("Invoices");
                 });
@@ -264,15 +271,12 @@ namespace HotelManagementSystem.Data.Migrations
                     b.Property<string>("GuestId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("InvoiceId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<DateTime>("StartDate")
@@ -661,9 +665,7 @@ namespace HotelManagementSystem.Data.Migrations
                 {
                     b.HasOne("HotelManagementSystem.Data.Models.Reservation", "Reservation")
                         .WithOne("Invoice")
-                        .HasForeignKey("HotelManagementSystem.Data.Models.Invoice", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HotelManagementSystem.Data.Models.Invoice", "ReservationId");
 
                     b.Navigation("Reservation");
                 });

@@ -20,6 +20,8 @@ namespace HotelManagementSystem.Data.Models
 
         public InvoiceStatus Status { get; set; }
 
+        public string ReservationId { get; set; }
+
         public virtual Reservation Reservation { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]

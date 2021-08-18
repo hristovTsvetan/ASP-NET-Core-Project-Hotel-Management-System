@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using HotelManagementSystem.Validators;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ namespace HotelManagementSystem.Models.Reservations
     public class AssignGuestFormModel
     {
         [Required]
+        [IdentityCardExist]
         [Display(Name = "Identity Card ID")]
         public string IdentityId { get; set; }
 
@@ -38,5 +40,7 @@ namespace HotelManagementSystem.Models.Reservations
         public string VoucherId { get; set; }
 
         public string LoadGuestButton { get; set; }
+
+        public string AssignButton { get; set; }
     }
 }

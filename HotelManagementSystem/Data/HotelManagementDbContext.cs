@@ -101,9 +101,13 @@ namespace HotelManagementSystem.Data
                 .HasForeignKey(re => re.VoucherId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-                r.HasOne(i => i.Invoice)
-                .WithOne(r => r.Reservation)
-                .HasForeignKey<Invoice>(i => i.Id);
+                r.HasOne(res => res.Invoice)
+                .WithOne(i => i.Reservation)
+                .HasForeignKey<Invoice>(i => i.ReservationId);
+
+                //r.HasOne(i => i.Invoice)
+                //.WithOne(r => r.Reservation)
+                //.HasForeignKey<Invoice>(i => i.Id);
             });
 
             builder.Entity<Room>(r =>

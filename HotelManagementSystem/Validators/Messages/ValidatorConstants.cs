@@ -19,6 +19,8 @@ namespace HotelManagementSystem.Validators.Messages
 
         public const string validateIdentityId = "Idnetity card already exist!";
 
+        public const string validateIdentityIdIsExist = "Idnetity card doesn't exist!";
+
         public const string minLength = "Minimum length should be {1}!";
 
         public const string maxLength = "Maximum length should be {1}!";

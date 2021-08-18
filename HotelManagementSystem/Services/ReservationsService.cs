@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Services
 {
@@ -88,7 +87,7 @@ namespace HotelManagementSystem.Services
             }
 
             var allReservations = reservCol
-                .OrderBy(r => r.CreatedOn)
+                .OrderByDescending(r => r.CreatedOn)
                 .Skip((res.CurrentPage - 1) * res.ItemsPerPage)
                 .Take(res.ItemsPerPage)
                 .ToList();
@@ -99,7 +98,8 @@ namespace HotelManagementSystem.Services
                 TotalPages = (int)Math.Ceiling((double)reservCol.Count() / res.ItemsPerPage),
                 CurrentPage = res.CurrentPage,
                 PreviousPage = res.PreviousPage,
-                NextPage = res.NextPage
+                NextPage = res.NextPage,
+                Search = !string.IsNullOrWhiteSpace(res.Search) ? res.Search : ""
             };
 
             return reservetionsQueryModel;
@@ -113,30 +113,73 @@ namespace HotelManagementSystem.Services
 
             var currentGuest = this.db
                 .Guests
-                .FirstOrDefault(g => g.IdentityCardId == guest.IdentityId);
+                .Where(g => g.IdentityCardId == guest.IdentityId)
+                .Select(g => new 
+                {
+                    Id = g.Id,
+                    RankName = g.Rank.Name.ToString().ToLower() ,
+                    Discount = g.Rank.Discount,
+                })
+                .FirstOrDefault();
 
-            
+            var currentVoucher = this.db
+                .Vouchers.FirstOrDefault(v => v.Id == guest.VoucherId);
 
+            if(currentGuest.RankName != "regular")
+            {
+                currentReservation.Price = this.CalculatePrice(currentGuest.Discount, currentReservation.Price);
 
+            }
 
-            currentReservation.Guest = currentGuest;
+            if(currentVoucher != null)
+            {
+                currentReservation.Price = this.CalculatePrice(currentVoucher.Discount, currentReservation.Price);
 
+            }
+
+            currentReservation.GuestId = currentGuest.Id;
+            currentReservation.Status = ReservationStatus.Confirmed;
+            currentReservation.Invoice = this.CreateInvoice(currentReservation);
+
+            this.db.Reservations.Update(currentReservation);
+            this.db.SaveChanges();
+        }
+
+        private Invoice CreateInvoice(Reservation reservation)
+        {
+            return new Invoice
+            {
+                Amount = reservation.Price,
+                Reservation = reservation,
+                IssuedDate = DateTime.UtcNow,
+                Paid = false,
+                Status = InvoiceStatus.Pending,
+            };
+
+        }
+
+        private decimal CalculatePrice(int percent, decimal price)
+        {
+            var discountedPrice = 1 - ((decimal)percent / 100);
+
+            return discountedPrice * price;
         }
 
         public void CancelReservation(string roomId)
         {
-            var today = DateTime.UtcNow;
+            var today = DateTime.Now.Date;
 
             var allReservations = this.db
                 .RoomReserveds
                 .Where(r => r.RoomId == roomId && r.Reservation.StartDate >= today)
+                .Select(r => r.Reservation)
                 .ToList();
 
             if (allReservations.Count > 0)
             {
                 foreach (var roomReserved in allReservations)
                 {
-                    roomReserved.Reservation.Status = ReservationStatus.Canceled;
+                    roomReserved.Status = ReservationStatus.Canceled;
                 }
 
                 this.db.UpdateRange(allReservations);
@@ -244,6 +287,7 @@ namespace HotelManagementSystem.Services
                     GuestName = g.FirstName + " " + g.LastName,
                     GuestPhone = g.Phone,
                     IdentityId = g.IdentityCardId,
+                    LoadGuestButton = "Load Guest"
                 })
                 .FirstOrDefault();
         }

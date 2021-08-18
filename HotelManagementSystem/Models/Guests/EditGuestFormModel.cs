@@ -1,13 +1,9 @@
-﻿using HotelManagementSystem.Models.Cities;
-using HotelManagementSystem.Models.Countries;
+﻿using HotelManagementSystem.Models.Countries;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Validators;
 using HotelManagementSystem.Validators.Messages;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Models.Guests
 {

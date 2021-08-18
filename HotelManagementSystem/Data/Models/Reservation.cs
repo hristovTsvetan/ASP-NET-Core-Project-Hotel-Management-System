@@ -32,7 +32,7 @@ namespace HotelManagementSystem.Data.Models
         public int Duration { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         [MaxLength(50)]
         public string Creator { get; set; }
@@ -49,7 +49,7 @@ namespace HotelManagementSystem.Data.Models
 
         public virtual ICollection<RoomReserved> RoomReserveds { get; set; }
 
-        public string InvoiceId { get; set; }
+        //public string InvoiceId { get; set; }
 
         public virtual Invoice Invoice { get; set; }
     }

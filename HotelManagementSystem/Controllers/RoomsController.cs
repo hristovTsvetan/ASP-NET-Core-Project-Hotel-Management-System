@@ -74,7 +74,7 @@ namespace HotelManagementSystem.Controllers
 
                 return this.View(room);
             }
-
+            
             this.rService.Add(room);
 
             return this.RedirectToAction("All", "Rooms");

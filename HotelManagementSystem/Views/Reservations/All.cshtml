@@ -77,7 +77,7 @@
         {
             <li class="page-item">
                 <a class="page-link" tabindex="-1"
-                   asp-controller="Reservations" asp-action="All" asp-route-CurrentPage="@Model.PreviousPage">Previous</a>
+                   asp-controller="Reservations" asp-action="All" asp-route-CurrentPage="@Model.PreviousPage" asp-route-Search="@Model.Search">Previous</a>
             </li>
         }
 
@@ -86,14 +86,14 @@
             if (Model.CurrentPage == i)
             {
                 <li class="page-item active">
-                    <a class="page-link" href="#">@i<span class="sr-only">(current)</span></a>
+                    <a class="page-link">@i<span class="sr-only">(current)</span></a>
                 </li>
             }
             else
             {
                 <li class="page-item">
                     <a class="page-link" asp-route-CurrentPage="@i"
-                       asp-controller="Reservations" asp-action="All">@i</a>
+                       asp-controller="Reservations" asp-action="All" asp-route-Search="@Model.Search">@i</a>
                 </li>
             }
         }
@@ -108,7 +108,7 @@
         {
             <li class="page-item">
                 <a class="page-link" asp-controller="Reservations" asp-action="All"
-                   asp-route-NextPage="@Model.NextPage" asp-route-CurrentPage="@Model.NextPage">Next</a>
+                   asp-route-NextPage="@Model.NextPage" asp-route-CurrentPage="@Model.NextPage" asp-route-Search="@Model.Search">Next</a>
             </li>
         }
     </ul>
