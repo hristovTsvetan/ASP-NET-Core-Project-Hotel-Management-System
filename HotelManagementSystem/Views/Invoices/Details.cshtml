@@ -1,0 +1,71 @@
+﻿@model DetailsInvoiceViewModel
+
+@{
+    ViewData["Title"] = "Invoice details";
+}
+
+<h4 class="heading-margin text-center mt-5">Invoice details</h4>
+<div class="row col-md-4 offset-md-4 ">
+    <p class="text-justify">
+        <span class="text-info font-weight-bold">Additional information: </span>
+        If you click Pay, the invoice will change status to Active and paid field in table will go in "Yes" mode.
+        <br /><span class="text-danger font-weight-bold">Attention: </span> If you click Cancel, invoice will be canceled and related reservation also
+        will go in cancel state!
+    </p>
+</div>
+<div class="row">
+    <div class="col-6 offset-3">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="success">Reservation name: </td>
+                    <td>@Model.ReservationName</td>
+                </tr>
+                <tr>
+                    <td class="success">Price: </td>
+                    <td>@Model.Price</td>
+                </tr>
+                <tr>
+                    <td class="success">Invoice status: </td>
+                    <td>@Model.Status</td>
+                </tr>
+                <tr>
+                    <td class="success">Issued date: </td>
+                    <td>@Model.IssueDate</td>
+                </tr>
+                <tr>
+                    <td class="success">Paid date: </td>
+                    <td>@Model.PaidDate</td>
+                </tr>
+                <tr>
+                    <td class="success">Paid: </td>
+                    <td>@Model.Paid</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest name: </td>
+                    <td>@Model.GuestName</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest Country: </td>
+                    <td>@Model.Country</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest city: </td>
+                    <td>@Model.City</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest address: </td>
+                    <td>@Model.Address</td>
+                </tr>
+                <tr>
+                    <td class="success">Guest identity card: </td>
+                    <td>@Model.IdentityCard</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <a class="btn btn-danger col-1 heading-margin" asp-controller="Invoices" asp-action="Delete" asp-route-Id="@Model.Id">Delete</a>
+    <a class="btn btn-success col-1 heading-margin offset-2" asp-controller="Reservations" asp-action="Pay" asp-route-id="@Model.Id">Pay</a>
+</div>

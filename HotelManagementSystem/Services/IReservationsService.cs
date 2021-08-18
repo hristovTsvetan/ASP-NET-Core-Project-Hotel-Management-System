@@ -1,9 +1,7 @@
-﻿using HotelManagementSystem.Models.Reservations;
+﻿using HotelManagementSystem.Data.Models;
+using HotelManagementSystem.Models.Reservations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Services
 {
@@ -26,5 +24,7 @@ namespace HotelManagementSystem.Services
         void AssignGuestToReservation(AssignGuestFormModel guest);
 
         IEnumerable<SelectListItem> GetVouchers();
+
+        Hotel GetActiveHotel();
     }
 }

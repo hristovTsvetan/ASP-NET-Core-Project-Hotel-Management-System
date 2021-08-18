@@ -21,6 +21,20 @@ namespace HotelManagementSystem.Controllers
             return this.View(allInvoices);
         }
 
+        public IActionResult Details(string id)
+        {
+            var currentInvoice = this.invoiceService.Details(id);
+
+            return this.View(currentInvoice);
+        }
+
+        public IActionResult Delete(string id)
+        {
+            this.invoiceService.Delete(id);
+
+            return this.RedirectToAction("All", "Invoices");
+        }
+
         public IActionResult Pay(string id)
         {
             return this.RedirectToAction("All", "Invoices");

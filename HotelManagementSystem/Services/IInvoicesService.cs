@@ -11,5 +11,9 @@ namespace HotelManagementSystem.Services
         AllInvoicesQueryModel All(AllInvoicesQueryModel query);
 
         void Pay(string id);
+
+        DetailsInvoiceViewModel Details(string id);
+
+        void Delete(string id);
     }
 }

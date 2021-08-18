@@ -292,7 +292,7 @@ namespace HotelManagementSystem.Services
                 .FirstOrDefault();
         }
 
-        private Hotel GetActiveHotel()
+        public Hotel GetActiveHotel()
         {
             return this.db
                 .Hotels
