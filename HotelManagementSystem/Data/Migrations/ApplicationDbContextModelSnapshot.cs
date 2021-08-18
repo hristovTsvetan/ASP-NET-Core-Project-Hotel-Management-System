@@ -200,7 +200,7 @@ namespace HotelManagementSystem.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal?>("Amount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(8,2)");
 
                     b.Property<DateTime>("IssuedDate")

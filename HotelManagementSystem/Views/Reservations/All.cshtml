@@ -49,15 +49,9 @@
             @reservation.EndDate
         </div>
         <div class="border col-1 text-center bg-light text-decoration-none" style="word-wrap:break-word">
-            <a asp-route-id="@reservation.Id" asp-controller="Reservations" asp-action="Details">Details</a>
+            <a class="btn btn-sm btn-warning" asp-route-id="@reservation.Id" asp-controller="Reservations" asp-action="Details">Details</a>
         </div>
     </div>
-}
-@{
-    int next = Model.CurrentPage;
-    next++;
-    int previous = Model.CurrentPage;
-    previous--;
 }
 
 @{

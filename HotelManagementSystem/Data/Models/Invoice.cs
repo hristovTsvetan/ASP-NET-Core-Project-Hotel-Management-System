@@ -25,7 +25,7 @@ namespace HotelManagementSystem.Data.Models
         public virtual Reservation Reservation { get; set; }
 
         [Column(TypeName = "decimal(8, 2)")]
-        public decimal? Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public DateTime IssuedDate { get; set; }
 
