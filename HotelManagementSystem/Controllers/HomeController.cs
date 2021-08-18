@@ -1,4 +1,5 @@
 ﻿using HotelManagementSystem.Models;
+using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,10 +9,18 @@ namespace HotelManagementSystem.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
+        private readonly IHomeService hService;
+
+        public HomeController(IHomeService homeService)
+        {
+            this.hService = homeService;
+        }
 
         public IActionResult Index()
         {
-            return View();
+            var currentDashboard = this.hService.GetDashboardInfo();
+
+            return View(currentDashboard);
         }
 
 
