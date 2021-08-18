@@ -37,6 +37,8 @@ namespace HotelManagementSystem.Controllers
 
         public IActionResult Pay(string id)
         {
+            this.invoiceService.Pay(id);
+
             return this.RedirectToAction("All", "Invoices");
         }
 

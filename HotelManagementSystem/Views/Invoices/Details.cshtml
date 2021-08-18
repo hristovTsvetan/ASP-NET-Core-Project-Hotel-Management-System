@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td class="success">Paid date: </td>
-                    <td>@Model.PaidDate</td>
+                    <td>@Model.PaidDate?.ToString("dd-MM-yyyy")</td>
                 </tr>
                 <tr>
                     <td class="success">Paid: </td>
@@ -67,5 +67,9 @@
 </div>
 <div class="row justify-content-center">
     <a class="btn btn-danger col-1 heading-margin" asp-controller="Invoices" asp-action="Delete" asp-route-Id="@Model.Id">Delete</a>
-    <a class="btn btn-success col-1 heading-margin offset-2" asp-controller="Reservations" asp-action="Pay" asp-route-id="@Model.Id">Pay</a>
+    @if(Model.Status != "Active")
+    {
+        <a class="btn btn-success col-1 heading-margin offset-2" asp-controller="Invoices" asp-action="Pay" asp-route-id="@Model.Id">Pay</a>
+    }
+
 </div>

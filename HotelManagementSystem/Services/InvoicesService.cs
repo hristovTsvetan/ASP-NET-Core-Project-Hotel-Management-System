@@ -118,13 +118,21 @@ namespace HotelManagementSystem.Services
                 })
                 .FirstOrDefault();
 
-
             return currentInvoice;
         }
 
         public void Pay(string id)
         {
-            throw new NotImplementedException();
+            var currentInvoice = this.db
+                .Invoices
+                .FirstOrDefault(i => i.Id == id);
+
+            currentInvoice.Paid = true;
+            currentInvoice.PaidDate = DateTime.Now.Date;
+            currentInvoice.Status = InvoiceStatus.Active;
+
+            this.db.Invoices.Update(currentInvoice);
+            this.db.SaveChanges();
         }
     }
 }
