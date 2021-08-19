@@ -33,7 +33,7 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(CountriesFormModel country)
+        public IActionResult Edit(EditCountryFormModel country)
         {
             if(!ModelState.IsValid)
             {
@@ -41,6 +41,31 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
             }
 
             this.countryService.Edit(country);
+
+            return this.RedirectToAction("All", "Countries");
+        }
+
+        public IActionResult Add()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(AddCountryFormModel country)
+        {
+            if(!ModelState.IsValid)
+            {
+                return this.View(country);
+            }
+
+            this.countryService.Add(country);
+
+            return this.RedirectToAction("All", "Countries");
+        }
+
+        public IActionResult Delete(string id)
+        {
+            this.countryService.Delete(id);
 
             return this.RedirectToAction("All", "Countries");
         }

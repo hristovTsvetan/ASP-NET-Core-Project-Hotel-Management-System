@@ -1,5 +1,6 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Countries;
 using HotelManagementSystem.Data;
+using HotelManagementSystem.Data.Models;
 using System;
 using System.Linq;
 
@@ -12,6 +13,17 @@ namespace HotelManagementSystem.Areas.Admin.Services
         public CountriesService(HotelManagementDbContext dBase)
         {
             this.db = dBase;
+        }
+
+        public void Add(AddCountryFormModel country)
+        {
+            var newCountry = new Country
+            {
+                Name = country.Name
+            };
+
+            this.db.Countries.Add(newCountry);
+            this.db.SaveChanges();
         }
 
         public CountriesQueryModel All(CountriesQueryModel query)
@@ -53,7 +65,20 @@ namespace HotelManagementSystem.Areas.Admin.Services
             return countriesQuery;
         }
 
-        public void Edit(CountriesFormModel country)
+        public void Delete(string id)
+        {
+            var country = this.db
+                .Countries
+                .FirstOrDefault(c => c.Id == id);
+
+
+            country.Deleted = true;
+
+            this.db.Update(country);
+            this.db.SaveChanges();
+        }
+
+        public void Edit(EditCountryFormModel country)
         {
             var countryForEdit = this.db
                 .Countries
@@ -63,6 +88,14 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
             this.db.Update(countryForEdit);
             this.db.SaveChanges();
+        }
+
+        public bool IsCountryExistForAdd(string name)
+        {
+            return this.db
+                .Countries
+                .Where(c => c.Deleted == false)
+                .Any(c => c.Name == name);
         }
 
         public bool IsCountryExistForEdit(string name, string id)
@@ -75,12 +108,12 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 
         }
 
-        public CountriesFormModel LoadCountry(string id)
+        public EditCountryFormModel LoadCountry(string id)
         {
             var currentCountry = this.db
                 .Countries
                 .Where(c => c.Id == id)
-                .Select(c => new CountriesFormModel
+                .Select(c => new EditCountryFormModel
                 {
                     Id = c.Id,
                     Name = c.Name

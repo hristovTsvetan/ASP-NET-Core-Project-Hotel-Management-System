@@ -15,9 +15,9 @@ namespace HotelManagementSystem.Validators
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
-            var guestRankService = (IRoomsTypeSercvice)validationContext.GetService(typeof(IRoomsTypeSercvice));
+            var roomTypeService = (IRoomsTypeSercvice)validationContext.GetService(typeof(IRoomsTypeSercvice));
 
-            if (guestRankService.IsRoomNameExistForAdd(value?.ToString().Trim()))
+            if (roomTypeService.IsRoomNameExistForAdd(value?.ToString().Trim()))
             {
                 return new ValidationResult(ValidatorConstants.roomType);
             }

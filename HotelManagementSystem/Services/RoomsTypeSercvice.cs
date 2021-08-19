@@ -36,7 +36,9 @@ namespace HotelManagementSystem.Services
         {
             var rTypeForDelete = this.db.RoomTypes.FirstOrDefault(rt => rt.Id == id);
 
-            this.db.RoomTypes.Remove(rTypeForDelete);
+            rTypeForDelete.Deleted = true;
+
+            this.db.RoomTypes.Update(rTypeForDelete);
             this.db.SaveChanges();
 
         }
@@ -60,14 +62,17 @@ namespace HotelManagementSystem.Services
 
         public bool IsRoomNameExistForAdd(string name)
         {
-            return this.db.RoomTypes.Any(r => r.Name == name);
+            return this.db
+                .RoomTypes
+                .Where(rt => rt.Deleted == false)
+                .Any(r => r.Name == name);
         }
 
         public bool IsRoomNameExistForEdit(string name, string id)
         {
             return this.db
                 .RoomTypes
-                .Where(rt => rt.Id != id)
+                .Where(rt => rt.Id != id && rt.Deleted == false)
                 .Any(rt => rt.Name == name);
         }
 

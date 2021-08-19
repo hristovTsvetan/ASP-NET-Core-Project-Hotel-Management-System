@@ -6,10 +6,16 @@ namespace HotelManagementSystem.Areas.Admin.Services
     {
         CountriesQueryModel All(CountriesQueryModel query);
 
-        CountriesFormModel LoadCountry(string id);
+        EditCountryFormModel LoadCountry(string id);
 
-        void Edit(CountriesFormModel country);
+        void Edit(EditCountryFormModel country);
 
         bool IsCountryExistForEdit(string name, string id);
+
+        bool IsCountryExistForAdd(string name);
+
+        void Add(AddCountryFormModel country);
+
+        void Delete(string id);
     }
 }

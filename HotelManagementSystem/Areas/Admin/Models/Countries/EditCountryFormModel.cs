@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Models.Countries
 {
-    public class CountriesFormModel
+    public class EditCountryFormModel
     {
         public string Id { get; set; }
 

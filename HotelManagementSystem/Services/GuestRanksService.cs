@@ -49,7 +49,9 @@ namespace HotelManagementSystem.Services
 
             var rank = this.db.Ranks.FirstOrDefault(r => r.Id == id);
 
-            this.db.Ranks.Remove(rank);
+            rank.Deleted = true;
+
+            this.db.Ranks.Update(rank);
             this.db.SaveChanges();
         }
 

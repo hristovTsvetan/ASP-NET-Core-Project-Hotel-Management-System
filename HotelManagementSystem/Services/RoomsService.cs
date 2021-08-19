@@ -129,7 +129,7 @@ namespace HotelManagementSystem.Services
         {
             return this.db
                 .Rooms
-                .Where(r => r.Id != id)
+                .Where(r => r.Id != id && r.Deleted == false)
                 .Any(r => r.Number == name);
         }
 

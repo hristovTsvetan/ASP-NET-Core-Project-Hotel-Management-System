@@ -25,6 +25,7 @@ namespace HotelManagementSystem.Services
         {
             return this.db
                 .Countries
+                .Where(c => c.Deleted == false)
                 .Select(c => new CountriesViewModel
                 {
                     Id = c.Id,
@@ -151,6 +152,7 @@ namespace HotelManagementSystem.Services
         {
             return this.db
                 .Cities
+                .Where(c => c.Deleted == false)
                 .Any(c => c.Id == cityId);
         }
 
@@ -158,18 +160,22 @@ namespace HotelManagementSystem.Services
         {
             return this.db
                 .Countries
+                .Where(c => c.Deleted == false)
                 .Any(c => c.Id == countryId);
         }
 
         public bool IsIdentityNumberExist(string identityNumber)
         {
-            return this.db.Guests.Any(g => g.IdentityCardId == identityNumber);
+            return this.db.Guests
+                .Where(g => g.Deleted == false)
+                .Any(g => g.IdentityCardId == identityNumber);
         }
 
         public bool IsRankExist(string rankId)
         {
             return this.db
                 .Ranks
+                .Where(r => r.Deleted == false)
                 .Any(r => r.Id == rankId);
         }
 
