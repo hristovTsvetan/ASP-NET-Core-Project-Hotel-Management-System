@@ -94,6 +94,7 @@ namespace HotelManagementSystem.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     CityId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>

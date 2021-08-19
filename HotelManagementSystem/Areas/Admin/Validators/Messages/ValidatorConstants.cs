@@ -12,5 +12,7 @@
 
         public const string maxLength = "Maximum length should be {1}!";
 
+        public const string phoneErrMsg = "Not valid phone number!";
+
     }
 }

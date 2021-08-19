@@ -144,6 +144,7 @@ namespace HotelManagementSystem.Infrastructure
                 Email = "office@miracle.com",
                 City = db.Cities.FirstOrDefault(c => c.Name == "Sofia"),
                 Address = "Maria Luiza 20",
+                Phone = "+359 5743 434 543"
             };
 
             db.Companies.Add(company);

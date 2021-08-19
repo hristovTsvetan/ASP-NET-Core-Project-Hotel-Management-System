@@ -30,6 +30,10 @@ namespace HotelManagementSystem.Data.Models
         public string Address { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        public string Phone { get; set; }
+
+        [Required]
         public string CityId { get; set; }
 
         public virtual City City { get; set; }

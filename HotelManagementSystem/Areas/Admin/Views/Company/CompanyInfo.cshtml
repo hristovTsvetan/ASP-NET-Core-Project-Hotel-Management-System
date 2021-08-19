@@ -1,0 +1,126 @@
+﻿@model CompanyFormModel
+
+@{
+    ViewData["Title"] = "Change company details";
+}
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+<h4 class="heading-margin text-center mt-5">Change company details</h4>
+<div class="row col-md-4 offset-md-4 ">
+    <p class="text-justify">
+        <span class="text-info font-weight-bold">Additional information: </span>
+        From here can be changed Company details.
+    </p>
+</div>
+
+<div class="row col-6 offset-3">
+    <form method="post">
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Name"></label>
+            <input id="form6Example3" class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <!-- Text input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Email"></label>
+            <input asp-for="Email" id="form6Example4" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger small"></span>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Address"></label>
+            <input asp-for="Address" id="form6Example5" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger small"></span>
+        </div>
+
+        <!-- Number input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Phone"></label>
+            <input asp-for="Phone" id="form6Example6" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger small"></span>
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="CountryId"></label>
+            <select asp-for="CountryId" asp-items="@Model.Countries" id="country" class="form-control">
+            </select>
+            <span asp-validation-for="CountryId" class="text-danger small"></span>
+        </div>
+
+        <div class="form-outline mb-4">
+            <label class="form-label" asp-for="CityId"></label>
+            <select asp-for="CityId" asp-items="@Model.Cities" id="city" class="form-control">
+            </select>
+            <span asp-validation-for="CityId" class="text-danger small"></span>
+        </div>
+
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" id="cityId" value="@Model.CityId">
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-success btn-block mb-4">Save</button>
+        <a class="btn btn-outline-success btn-block mb-4 mt-4" asp-area="Admin" asp-controller="Home" asp-action="Index">Cancel</a>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script>
+        window.onload = (event) => {
+
+            if (document.getElementById("country") !== null) {
+
+                const cId = document.getElementById("country").value;
+
+                async function getData(countryId) {
+                    const url = '/api/cities?countryId=' + countryId;
+
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+
+                    let result = await response.json();
+
+                    const citySelect = document.getElementById('city');
+
+                    const cId = document.getElementById('cityId').value;
+
+                    result.forEach(function (c) {
+                        const newOption = document.createElement('option');
+                        newOption.value = c.id;
+                        newOption.label = c.name;
+                        if (cId.length > 0 && c.id == cId) {
+                            newOption.selected = true;
+                        }
+                        citySelect.appendChild(newOption);
+                    });
+                }
+
+                getData(cId);
+
+                function cleanOptions() {
+                    const citySelect = document.getElementById('city');
+
+                    while (citySelect.firstChild) {
+                        citySelect.removeChild(citySelect.firstChild);
+                    }
+                }
+
+                const countrySelect = document.getElementById("country");
+                countrySelect.addEventListener('change', function () {
+                    const currentCountryId = document.getElementById("country").value;
+                    cleanOptions();
+                    getData(currentCountryId)
+                });
+            }
+        };
+    </script>
+}
