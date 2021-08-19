@@ -1,0 +1,34 @@
+﻿@model AddCityFormModel
+
+@{
+    ViewData["Title"] = "Add city";
+}
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+<h4 class="heading-margin text-center">Add city</h4>
+<div class="row col-md-4 offset-md-4 ">
+    <p class="text-justify">
+        <span class="text-info font-weight-bold">Additional information: </span>
+        System not allow to have two cities with the same name!
+    </p>
+</div>
+<form method="post" class="col-md-4 offset-md-4 col-sm-12">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger small"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PostalCode"></label>
+        <input asp-for="PostalCode" class="form-control">
+        <span asp-validation-for="PostalCode" class="text-danger small"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="CountryId"></label>
+    <select asp-for="CountryId" class="form-control" asp-items="@Model.Countries">
+    </select>
+    <span asp-validation-for="CountryId" class="text-danger small"></span>
+    </div>
+    <input type="submit" value="Save" class="btn btn-warning col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
+</form>

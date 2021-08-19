@@ -1,15 +1,10 @@
 ﻿using HotelManagementSystem.Areas.Admin.Services;
 using HotelManagementSystem.Areas.Admin.Validators.Messages;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Validators
 {
-    public class CountryNameEditAttribute : ValidationAttribute
+    public class IsCountryIdExistAttribute : ValidationAttribute
     {
         public override bool RequiresValidationContext { get { return true; } }
 
@@ -18,13 +13,10 @@ namespace HotelManagementSystem.Areas.Admin.Validators
 
             var countryService = (ICountriesService)validationContext.GetService(typeof(ICountriesService));
 
-            var httpAccesor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
 
-            string countryId = httpAccesor.HttpContext.Request.RouteValues.Values.Last().ToString();
-
-            if (countryService.IsCountryExistForEdit(value?.ToString().Trim(), countryId))
+            if (!countryService.IsCountryIdExist(value?.ToString().Trim()))
             {
-                return new ValidationResult(ValidatorConstants.validateCountryNameErrMsg);
+                return new ValidationResult(ValidatorConstants.validateCountryIdErrMsg);
             }
 
             return ValidationResult.Success;

@@ -17,5 +17,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
         void Add(AddCountryFormModel country);
 
         void Delete(string id);
+
+        public bool IsCountryIdExist(string id);
     }
 }

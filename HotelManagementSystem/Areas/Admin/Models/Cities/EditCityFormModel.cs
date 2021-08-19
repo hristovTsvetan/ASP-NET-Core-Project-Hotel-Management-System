@@ -2,16 +2,21 @@
 using HotelManagementSystem.Areas.Admin.Validators.Messages;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelManagementSystem.Areas.Admin.Models.Countries
+namespace HotelManagementSystem.Areas.Admin.Models.Cities
 {
-    public class EditCountryFormModel
+    public class EditCityFormModel
     {
-        public string Id { get; set; }
-
         [Required]
-        [CountryNameEdit]
+        [IsCityNameExistWhenAdd]
         [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
         [MaxLength(30, ErrorMessage = ValidatorConstants.maxLength)]
         public string Name { get; set; }
+
+        [Required]
+        [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
+        [MaxLength(30, ErrorMessage = ValidatorConstants.maxLength)]
+        public string PostalCode { get; set; }
+
+        public string Id { get; set; }
     }
 }

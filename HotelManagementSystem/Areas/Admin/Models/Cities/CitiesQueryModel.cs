@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace HotelManagementSystem.Areas.Admin.Models.Countries
+namespace HotelManagementSystem.Areas.Admin.Models.Cities
 {
-    public class CountriesQueryModel
+    public class CitiesQueryModel
     {
-        public CountriesQueryModel()
+        public CitiesQueryModel()
         {
-            this.Countries = new List<CountriesViewModel>();
+            this.Cities = new List<CitiesViewModel>();
             this.CurrentPage = 1;
             this.ItemsPerPage = 5;
 
@@ -24,6 +24,6 @@ namespace HotelManagementSystem.Areas.Admin.Models.Countries
 
         public int ItemsPerPage { get; set; }
 
-        public IEnumerable<CountriesViewModel> Countries { get; set; }
+        public IEnumerable<CitiesViewModel> Cities { get; set; }
     }
 }

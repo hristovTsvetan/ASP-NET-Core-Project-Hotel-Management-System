@@ -13,10 +13,10 @@ namespace HotelManagementSystem.Areas.Admin.Validators
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
-            var countryRankService = (ICountriesService)validationContext.GetService(typeof(ICountriesService));
+            var countryService = (ICountriesService)validationContext.GetService(typeof(ICountriesService));
 
 
-            if (countryRankService.IsCountryExistForAdd(value?.ToString().Trim()))
+            if (countryService.IsCountryExistForAdd(value?.ToString().Trim()))
             {
                 return new ValidationResult(ValidatorConstants.validateCountryNameErrMsg);
             }

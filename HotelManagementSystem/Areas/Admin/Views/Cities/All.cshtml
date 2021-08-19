@@ -1,0 +1,114 @@
+﻿@model CitiesQueryModel
+
+@{
+    ViewData["Title"] = "All cities";
+}
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+<h4 class="heading-margin text-center">All cities</h4>
+<div class="row col-md-4 offset-md-4 ">
+    <p class="text-justify">
+        <span class="text-info font-weight-bold">Additional information: </span>
+        From here you can manage all Cities.
+        <br /><span class="text-danger font-weight-bold">Attention: </span>If you delete some city, you need manualy update everywhere where is used
+        (ex. Guests, Hotels, Company and so on)
+    </p>
+</div>
+<form method="get">
+    <div class="row">
+        <div class="form-group form-group col-md-3 offset-md-4">
+            <label></label>
+            <input class="form-control" id="searchField" asp-for="@Model.Search">
+        </div>
+        <div class="form-group col-md-3 mt-1 ml-4">
+            <input type="submit" class="btn btn-md btn-success heading-margin" id="searchBtn" value="Search" />
+        </div>
+    </div>
+</form>
+<div class="row col-12 justify-content-center mt-5">
+    <div class="border col-2 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        City name
+    </div>
+    <div class="border col-2 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Country
+    </div>
+    <div class="border col-1 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Edit
+    </div>
+    <div class="border col-1 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Delete
+    </div>
+
+    @foreach (var city in Model.Cities)
+    {
+        <div class="row col-12 justify-content-center">
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @city.Name
+            </div>
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @city.Country
+            </div>
+            <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                <a class="text-success" asp-route-id="@city.Id" asp-area="Admin" asp-controller="Cities" asp-action="Edit">Edit</a>
+            </div>
+            <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                <a class="text-danger" asp-route-id="@city.Id" asp-area="Admin" asp-controller="Cities" asp-action="Delete">Delete</a>
+            </div>
+        </div>
+    }
+</div>
+@{
+    Model.NextPage = Model.CurrentPage + 1;
+    Model.PreviousPage = Model.CurrentPage - 1;
+}
+
+<nav>
+    <ul class="pagination justify-content-center mt-5">
+        @if (Model.CurrentPage <= 1)
+        {
+            <li class="page-item disabled">
+                <a class="page-link disableCursor" tabindex="-1">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" tabindex="-1"
+                   asp-area="Admin" asp-controller="Cities" asp-action="All" asp-route-CurrentPage="@Model.PreviousPage" asp-route-Search="@Model.Search">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (Model.CurrentPage == i)
+            {
+                <li class="page-item active">
+                    <a class="page-link">@i<span class="sr-only">(current)</span></a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-CurrentPage="@i"
+                       asp-area="Admin" asp-controller="Cities" asp-action="All" asp-route-Search="@Model.Search">@i</a>
+                </li>
+            }
+        }
+
+        @if (Model.CurrentPage == Model.TotalPages || Model.TotalPages == 0)
+        {
+            <li class="page-item disabled">
+                <a class="page-link">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link" asp-area="Admin" asp-controller="Cities" asp-action="All" asp-route-NextPage="@Model.NextPage"
+                   asp-route-CurrentPage="@Model.NextPage" asp-route-Search="@Model.Search">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
+<a class="btn btn-success col-md-2 offset-md-5  col-sm-2 offset-sm-5 heading-margin" asp-area="Admin" asp-controller="Cities" asp-action="Add">Add city</a>

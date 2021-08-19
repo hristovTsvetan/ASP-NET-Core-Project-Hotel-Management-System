@@ -59,7 +59,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 CurrentPage = query.CurrentPage,
                 NextPage = query.NextPage,
                 PreviousPage = query.PreviousPage,
-                TotalPages = (int)Math.Ceiling((double)dbCount / query.ItemsPerPage),
+                TotalPages = (int)Math.Ceiling((double)dbCount / query.ItemsPerPage)
             };
 
             return countriesQuery;
@@ -96,6 +96,22 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .Countries
                 .Where(c => c.Deleted == false)
                 .Any(c => c.Name == name);
+        }
+
+        public bool IsCountryNameExist(string name)
+        {
+            return this.db
+                .Countries
+                .Where(c => c.Deleted == false)
+                .Any(c => c.Name == name);
+        }
+
+        public bool IsCountryIdExist(string id)
+        {
+            return this.db
+                .Countries
+                .Where(c => c.Deleted == false)
+                .Any(c => c.Id == id);
         }
 
         public bool IsCountryExistForEdit(string name, string id)
