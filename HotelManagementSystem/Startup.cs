@@ -1,3 +1,4 @@
+using HotelManagementSystem.Areas.Admin.Services;
 using HotelManagementSystem.Data;
 using HotelManagementSystem.Infrastructure;
 using HotelManagementSystem.Services;
@@ -42,7 +43,7 @@ namespace HotelManagementSystem
             .AddEntityFrameworkStores<HotelManagementDbContext>();
 
             services.AddControllersWithViews();
-            
+
             services.AddTransient<IVouchersService, VouchersService>();
             services.AddTransient<IGuestRanksService, GuestRanksService>();
             services.AddTransient<ICitiesService, CitiesService>();
@@ -52,6 +53,7 @@ namespace HotelManagementSystem
             services.AddTransient<IReservationsService, ReservationsService>();
             services.AddTransient<IInvoicesService, InvoicesService>();
             services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<ICountriesService, CountriesService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -78,6 +80,10 @@ namespace HotelManagementSystem
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "MyArea",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

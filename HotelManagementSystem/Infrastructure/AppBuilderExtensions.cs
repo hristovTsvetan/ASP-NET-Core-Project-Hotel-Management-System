@@ -180,7 +180,21 @@ namespace HotelManagementSystem.Infrastructure
             db.Countries.AddRange(new[]
             {
                 new Country { Name = "Bulgaria" },
-                new Country { Name = "Uk" }
+                new Country { Name = "France" },
+                new Country { Name = "Germany" },
+                new Country { Name = "Romania" },
+                new Country { Name = "Greece" },
+                new Country { Name = "Turkey" },
+                new Country { Name = "North Macedonia" },
+                new Country { Name = "Serbia" },
+                new Country { Name = "Portugal" },
+                new Country { Name = "Hungary" },
+                new Country { Name = "UK" },
+                new Country { Name = "Czechia" },
+                new Country { Name = "Ireland" },
+                new Country { Name = "Norway" },
+                new Country { Name = "Sweden" },
+                new Country { Name = "Spain" }
             });
 
             db.SaveChanges();

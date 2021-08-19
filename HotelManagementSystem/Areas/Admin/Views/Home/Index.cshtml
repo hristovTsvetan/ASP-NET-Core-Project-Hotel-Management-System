@@ -1,0 +1,19 @@
+﻿
+@await Html.PartialAsync("_NavMenuPartial")
+
+
+@section NavMenuArea
+{
+
+    <script>
+        window.onload = (event) => {
+            document.getElementById("list").addEventListener("click", function (e) {
+                  if (e.target && e.target.matches("li.item")) {
+                      e.target.className = "nav-item active"; // new class name here
+                  }
+            });
+        }
+
+    </script>
+
+}

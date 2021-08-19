@@ -19,36 +19,33 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
-            <div class="sidebar-heading border-bottom bg-light"><img src="~/images/hotelLogo.png" alt="Hotel logo" width="200" height="118"/></div>
+            <div class="sidebar-heading border-bottom bg-light"><img src="~/images/hotelLogo.png" alt="Hotel logo" width="200" height="118" /></div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Home" asp-action="Index">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Home" asp-action="Index">
                     <img class="navMenuIcon" src="~/images/homeButton.png">Home
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Rooms" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Rooms" asp-action="All">
                     <img class="navMenuIcon" src="~/images/roomButton.png">Rooms
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="RoomTypes" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="RoomTypes" asp-action="All">
                     <img class="navMenuIcon" src="~/images/roomTypeButton.png">Room Types
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Reservations" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Reservations" asp-action="All">
                     <img class="navMenuIcon" src="~/images/reservationButton.png">Reservations
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Vouchers" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Vouchers" asp-action="All">
                     <img class="navMenuIcon" src="~/images/voucherButton.png">Vouchers
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Guests" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Guests" asp-action="All">
                     <img class="navMenuIcon" src="~/images/guestButton.png">Guests
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="GuestRanks" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="GuestRanks" asp-action="All">
                     <img class="navMenuIcon" src="~/images/guestRanksButton.png">Guest Ranks
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Invoices" asp-action="All">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Invoices" asp-action="All">
                     <img class="navMenuIcon" src="~/images/invoiceButton.png">Invoices
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
-                    <img class="navMenuIcon" src="~/images/userAdministration.png">User Administration
-                </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="Admin" asp-controller="Home" asp-action="Index">
                     <img class="navMenuIcon" src="~/images/settingsButton.png">System Settings
                 </a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
@@ -83,6 +80,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/scripts.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("NavMenuArea", required: false)
 
 
     <!-- Bootstrap core JS-->
@@ -90,4 +88,3 @@
     <!-- Core theme JS-->
 </body>
 </html>
-

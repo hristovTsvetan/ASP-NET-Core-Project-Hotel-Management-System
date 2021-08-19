@@ -1,0 +1,25 @@
+﻿@model CountriesFormModel 
+
+@{
+    ViewData["Title"] = "Edit countrie";
+}
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+<h4 class="heading-margin text-center">Edit countries</h4>
+<div class="row col-md-4 offset-md-4 ">
+    <p class="text-justify">
+        <span class="text-info font-weight-bold">Additional information: </span>
+        If you change name on the selected country, all objects which has data as country will be updated automatically.
+        System not allow to have two countries with the same name!
+    </p>
+</div>
+<form method="post" class="col-md-4 offset-md-4 col-sm-12">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger small"></span>
+    </div>
+    <input type="hidden" asp-for="Id">
+    <input type="submit" value="Save" class="btn btn-warning col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
+</form>

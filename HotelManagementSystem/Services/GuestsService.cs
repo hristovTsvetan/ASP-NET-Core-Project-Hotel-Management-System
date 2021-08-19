@@ -73,7 +73,6 @@ namespace HotelManagementSystem.Services
             dBase = Sort(query, dBase);
 
             var allGuests = dBase
-                .Where(g => g.Deleted == false)
                 .Skip((query.CurrentPage - 1) * query.ItemsPerPage)
                 .Take(query.ItemsPerPage)
                 .Select(g => new ListGuestsViewModel
