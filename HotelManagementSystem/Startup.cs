@@ -56,6 +56,7 @@ namespace HotelManagementSystem
             services.AddTransient<ICountriesService, CountriesService>();
             services.AddTransient<IAdminCitiesService, AdminCitiesService>();
             services.AddTransient<ICompanyService, CompanyService>();
+            services.AddTransient<IHotelsService, HotelsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -84,7 +85,7 @@ namespace HotelManagementSystem
             {
                 endpoints.MapControllerRoute(
                 name: "MyArea",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                pattern: "{area:exists}/{controller=Countries}/{action=All}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",

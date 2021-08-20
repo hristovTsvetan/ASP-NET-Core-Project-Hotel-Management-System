@@ -23,7 +23,7 @@ namespace HotelManagementSystem.Models.Rooms
         [Required]
         [MinLength(1, ErrorMessage = ValidatorConstants.minLength)]
         [MaxLength(30, ErrorMessage = ValidatorConstants.maxLength)]
-        [RoomNameForEdit]
+        [RoomNameForAdd]
         public string Number { get; set; }
 
         [Range(1, 30)]

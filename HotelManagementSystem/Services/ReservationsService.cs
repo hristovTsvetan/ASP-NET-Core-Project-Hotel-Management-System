@@ -158,6 +158,21 @@ namespace HotelManagementSystem.Services
 
         }
 
+        private void DeleteInvoice(string id)
+        {
+            var invoiceForDelete = this.db
+                .Invoices.OrderBy(i => i.IssuedDate)
+                .FirstOrDefault(i => i.ReservationId == id);
+
+            if(invoiceForDelete != null)
+            {
+                invoiceForDelete.Status = InvoiceStatus.Canceled;
+
+                this.db.Invoices.Update(invoiceForDelete);
+                this.db.SaveChanges();
+            }
+        }
+
         private decimal CalculatePrice(int percent, decimal price)
         {
             var discountedPrice = 1 - ((decimal)percent / 100);
@@ -195,6 +210,8 @@ namespace HotelManagementSystem.Services
 
             this.db.Reservations.Update(reservation);
             this.db.SaveChanges();
+
+            this.DeleteInvoice(id);
         }
 
         public DetailsReservationViewModel GetDetails(string id)

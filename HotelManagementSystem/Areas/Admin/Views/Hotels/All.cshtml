@@ -1,0 +1,103 @@
+﻿@model HotelsQueryModel
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+@{
+    ViewData["Title"] = "All hotels";
+}
+
+<div class="row row ml-xl-4 justify-content-md-center">
+    <h4 class="heading-margin text-center mt-5">All hotels</h4>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <p class="text-justify">
+                <span class="text-danger font-weight-bold">Important: </span>If hotel numbers in the system are only one, you can't delete it! In case if hotels
+                are more than one and you deleted the inactive hotel, all rooms and reservations for feature time bigger or equal on today be deleted!
+            </p>
+        </div>
+    </div>
+    @foreach (var hotel in @Model.Hotels)
+    {
+        <div class="card col-md-12 col-sm-12 col-12 col-lg-12 col-xl-3 ml-xl-5" style="width: 18rem;">
+            <img src="@hotel.Image" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">@hotel.Name</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">City: @hotel.CityName</li>
+                <li class="list-group-item">Address: @hotel.Address</li>
+                <li class="list-group-item">Hotel active: @hotel.IsActive</li>
+                <li class="list-group-item">Room count: @hotel.RoomCount</li>
+                <li class="list-group-item">Phone: @hotel.Phone</li>
+                <li class="list-group-item">Email: @hotel.Email</li>
+            </ul>
+            <div class="card-body col-12 text-center">
+                <a class="btn-warning btn-sm" asp-area="admin" asp-controller="Hotels" asp-action="Edit" asp-route-id="@hotel.Id">Edit</a>
+                @if (hotel.IsActive != "Yes")
+                {
+                    <a class="btn-danger btn-sm ml-3" asp-area="admin" asp-controller="Hotels" asp-action="Delete" asp-route-id="@hotel.Id">Delete</a>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="row justify-content-left">
+        <a class="btn btn-success col-md-2 offset-md-5 heading-margin" asp-area="admin" asp-controller="Hotels" asp-action="Add">Add hotel</a>
+    </div>
+
+    @{
+        int next = Model.CurrentPage;
+        next++;
+        int previous = Model.CurrentPage;
+        previous--;
+    }
+
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center mt-5">
+            @if (Model.CurrentPage == 1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" hr tabindex="-1">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item ">
+                    <a class="page-link" asp-route-CurrentPage="@previous" hr tabindex="-1"
+                       asp-area="admin" asp-controller="Hotels" asp-action="All">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                if (i == Model.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <a class="page-link disableCursor">@i <span class="sr-only">(current)</span></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-area="admin" asp-controller="Hotels"
+                           asp-action="All" asp-route-CurrentPage="@i">@i</a>
+                    </li>
+                }
+            }
+            @if (Model.CurrentPage == Model.TotalPages)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-route-CurrentPage="@next" asp-area="admin"
+                       asp-controller="Hotels" asp-action="All">Next</a>
+                </li>
+            }
+
+        </ul>
+    </nav>
+</div>
+

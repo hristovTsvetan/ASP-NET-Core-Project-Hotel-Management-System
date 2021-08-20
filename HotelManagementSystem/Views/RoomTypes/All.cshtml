@@ -6,6 +6,14 @@
 
 <div class="row row ml-xl-4 justify-content-md-center">
     <h4 class="heading-margin text-center mt-5">All room types</h4>
+    <div class="row">
+        <div class="col-6 offset-3 mb-5 mt-4">
+            <p class="text-justify">
+                <span class="text-danger font-weight-bold">Important: </span>If you delete room type, and there has rooms from this type,
+                the rooms will keep all characteristics on deleted room type. In case if you want to change it, you need to assign to rooms a new existing room type!
+            </p>
+        </div>
+    </div>
     @foreach (var roomType in @Model.RoomTypes)
     {
         <div class="card col-md-12 col-sm-12 col-12 col-lg-12 col-xl-3 ml-xl-5" style="width: 18rem;">

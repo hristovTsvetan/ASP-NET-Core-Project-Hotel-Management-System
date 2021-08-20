@@ -24,15 +24,27 @@ namespace HotelManagementSystem.Data.Models
         public bool Active { get; set; }
 
         public string Description { get; set; }
-        
+
         [MaxLength(100)]
         [Required]
         public string Address { get; set; }
+
+        public string Image { get; set; }
 
         [Required]
         public string CityId { get; set; }
 
         public virtual City City { get; set; }
+
+        public bool Deleted { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Email { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Phone { get; set; }
 
         [Required]
         public string CompanyId { get; set; }

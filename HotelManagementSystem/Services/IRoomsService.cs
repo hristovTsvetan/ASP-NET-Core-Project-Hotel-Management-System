@@ -16,6 +16,8 @@ namespace HotelManagementSystem.Services
 
         bool GetRoomNameForEdit(string name, string id);
 
+        bool GetRoomNameForAdd(string id);
+
         IEnumerable<RoomTypeViewModel> GetRoomTypes();
 
         void Update(EditRoomFormModel room);

@@ -29,7 +29,6 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
             if (!ModelState.IsValid)
             {
                 company = this.compService.GetCountries(company);
-                company = this.compService.GetCities(company);
 
                 return this.View(company);
             }

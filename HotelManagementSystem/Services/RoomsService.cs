@@ -127,9 +127,21 @@ namespace HotelManagementSystem.Services
 
         public bool GetRoomNameForEdit(string name, string id)
         {
+            var activeHotel = GetActiveHotel();
+
             return this.db
                 .Rooms
-                .Where(r => r.Id != id && r.Deleted == false)
+                .Where(r => r.Id != id && r.Deleted == false && r.HotelId == activeHotel.Id)
+                .Any(r => r.Number == name);
+        }
+
+        public bool GetRoomNameForAdd(string name)
+        {
+            var activeHotel = GetActiveHotel();
+
+            return this.db
+                .Rooms
+                .Where(r => r.Deleted == false && r.HotelId == activeHotel.Id)
                 .Any(r => r.Number == name);
         }
 

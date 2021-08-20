@@ -82,7 +82,6 @@ namespace HotelManagementSystem.Areas.Admin.Services
             var currentCompany = this.db
                 .Companies
                 .OrderBy(c => c.Name)
-                .Select(c => c)
                 .FirstOrDefault();
 
             currentCompany.Address = company.Address;

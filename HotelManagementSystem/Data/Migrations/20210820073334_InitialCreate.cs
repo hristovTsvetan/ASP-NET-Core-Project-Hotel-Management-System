@@ -151,7 +151,11 @@ namespace HotelManagementSystem.Data.Migrations
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CityId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CompanyId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
