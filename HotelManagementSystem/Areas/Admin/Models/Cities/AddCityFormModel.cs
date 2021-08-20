@@ -12,6 +12,7 @@ namespace HotelManagementSystem.Areas.Admin.Models.Cities
         public string Name { get; set; }
 
         [Required]
+        [Display(Name="Postal code")]
         public string PostalCode { get; set; }
 
         public ICollection<SelectListItem> Countries { get; set; }

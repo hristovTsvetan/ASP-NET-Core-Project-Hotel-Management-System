@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Data;
 using HotelManagementSystem.Data.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;

@@ -1,15 +1,18 @@
 using HotelManagementSystem.Areas.Admin.Services;
 using HotelManagementSystem.Data;
+using HotelManagementSystem.Data.Models;
 using HotelManagementSystem.Infrastructure;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem
 {
@@ -29,7 +32,7 @@ namespace HotelManagementSystem
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequireDigit = false;
@@ -59,6 +62,8 @@ namespace HotelManagementSystem
             services.AddTransient<IAdminCitiesService, AdminCitiesService>();
             services.AddTransient<ICompanyService, CompanyService>();
             services.AddTransient<IHotelsService, HotelsService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ILoginUsersService, LoginUsersService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -85,13 +90,25 @@ namespace HotelManagementSystem
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("/Identity/Account/Login", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+                endpoints.MapPost("/Identity/Account/Login", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+
+                endpoints.MapGet("/Identity/Account/Logout", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+                endpoints.MapPost("/Identity/Account/Logout", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+
+                endpoints.MapGet("/Identity/Account/Manage", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+                endpoints.MapPost("/Identity/Account/Manage", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+
+                endpoints.MapGet("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+                endpoints.MapPost("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/", true, true)));
+
                 endpoints.MapControllerRoute(
                 name: "MyArea",
                 pattern: "{area:exists}/{controller=Countries}/{action=All}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=LoginUsers}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

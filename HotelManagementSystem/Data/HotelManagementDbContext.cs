@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HotelManagementSystem.Data
 {
-    public class HotelManagementDbContext : IdentityDbContext
+    public class HotelManagementDbContext : IdentityDbContext<User>
     {
         public HotelManagementDbContext(DbContextOptions<HotelManagementDbContext> options)
             : base(options)

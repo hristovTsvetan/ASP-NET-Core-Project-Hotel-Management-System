@@ -31,11 +31,13 @@ namespace HotelManagementSystem.Areas.Admin.Models.Company
 
         public ICollection<SelectListItem> Countries { get; set; }
 
+        [Display(Name = "Country")]
         [Required]
         public string CountryId { get; set; }
 
         public ICollection<SelectListItem> Cities { get; set; }
 
+        [Display(Name="City")]
         [Required]
         public string CityId { get; set; }
 

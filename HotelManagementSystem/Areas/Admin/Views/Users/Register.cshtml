@@ -1,0 +1,28 @@
+﻿@model RegisterUserFormModel
+
+@{
+    ViewData["Title"] = "Register user";
+}
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+<h4 class="heading-margin text-center">Register user</h4>
+<form method="post" class="col-md-4 offset-md-4 col-sm-12">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger small"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger small"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input type="password" asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger small"></span>
+    </div>
+    <input type="submit" value="Save" class="btn btn-warning col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
+</form>

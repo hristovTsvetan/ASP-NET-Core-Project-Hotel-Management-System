@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace HotelManagementSystem.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IHomeService hService;
@@ -16,7 +16,7 @@ namespace HotelManagementSystem.Controllers
             this.hService = homeService;
         }
 
-        public IActionResult Index()
+        public IActionResult Home()
         {
             var currentDashboard = this.hService.GetDashboardInfo();
 

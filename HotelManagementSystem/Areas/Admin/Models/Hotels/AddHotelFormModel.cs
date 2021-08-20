@@ -21,11 +21,13 @@ namespace HotelManagementSystem.Areas.Admin.Models.Hotels
         public ICollection<SelectListItem> Cities { get; set; }
 
         [Required]
+        [Display(Name = "City")]
         public string CityId { get; set; }
 
         public ICollection<SelectListItem> Countries { get; set; }
 
         [Required]
+        [Display(Name ="Country")]
         public string CountryId { get; set; }
 
         [Required]
@@ -35,6 +37,7 @@ namespace HotelManagementSystem.Areas.Admin.Models.Hotels
 
         [Url]
         [RegularExpression(@"(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)")]
+        [Display(Name ="Image url")]
         public string Image { get; set; }
 
         [Required]
