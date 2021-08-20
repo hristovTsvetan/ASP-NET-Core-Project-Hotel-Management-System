@@ -12,12 +12,12 @@
     <form method="post" class="col-md-4 offset-md-4 col-sm-12">
         <div class="form-group">
             <label asp-for="Number"></label>
-            <input asp-for="Number" class="form-control" value="@Model.Number">
+            <input asp-for="Number" class="form-control" value="@Model.Number" />
             <span asp-validation-for="Number" class="text-danger small"></span>
         </div>
         <div class="form-group">
             <label asp-for="Floor"></label>
-            <input asp-for="Floor" class="form-control" value="@Model.Floor">
+            <input asp-for="Floor" class="form-control" value="@Model.Floor" />
             <span asp-validation-for="Floor" class="text-danger small"></span>
         </div>
         <div class="form-group">
@@ -51,7 +51,7 @@
             <label asp-for="Description"></label>
             <textarea asp-for="Description" class="form-control" rows="2"></textarea>
         </div>
-        <input type="hidden" value="@Model.Id">
+        <input type="hidden" value="@Model.Id" />
         <input type="submit" value="Save" class="btn btn-success col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
     </form>
 </div>

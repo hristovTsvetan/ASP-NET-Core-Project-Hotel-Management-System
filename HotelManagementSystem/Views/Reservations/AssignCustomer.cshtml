@@ -20,11 +20,11 @@
             <label asp-for="IdentityId"></label>
             @if (string.IsNullOrWhiteSpace(disableControls))
             {
-                <input asp-for="IdentityId" class="form-control">
+                <input asp-for="IdentityId" class="form-control" />
             }
             else
             {
-                <input asp-for="IdentityId" class="form-control" readonly>
+                <input asp-for="IdentityId" class="form-control" readonly />
             }
             <span asp-validation-for="IdentityId" class="text-danger small"></span>
         </div>
@@ -32,27 +32,27 @@
             <span class="text-info small text-center">Is optional to load client details or not through the button.</span>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-outline-dark btn-sm heading-margin col-4 offset-4" asp-for="@Model.LoadGuestButton" value="Load Guest">
+            <input type="submit" class="btn btn-outline-dark btn-sm heading-margin col-4 offset-4" asp-for="@Model.LoadGuestButton" value="Load Guest" />
         </div>
         <div class="form-group">
             <label asp-for="GuestName"></label>
-            <input asp-for="GuestName" class="form-control" disabled>
+            <input asp-for="GuestName" class="form-control" disabled />
         </div>
         <div class="form-group">
             <label asp-for="GuestCountry"></label>
-            <input asp-for="GuestCountry" class="form-control" disabled>
+            <input asp-for="GuestCountry" class="form-control" disabled />
         </div>
         <div class="form-group">
             <label asp-for="GuestCity"></label>
-            <input asp-for="GuestCity" class="form-control" disabled>
+            <input asp-for="GuestCity" class="form-control" disabled />
         </div>
         <div class="form-group">
             <label asp-for="GuestAddress"></label>
-            <input asp-for="GuestAddress" class="form-control" disabled>
+            <input asp-for="GuestAddress" class="form-control" disabled />
         </div>
         <div class="form-group">
             <label asp-for="GuestPhone"></label>
-            <input asp-for="GuestPhone" class="form-control" disabled>
+            <input asp-for="GuestPhone" class="form-control" disabled />
         </div>
         <div class="form-group">
             <label asp-for="Vouchers"></label>
@@ -60,7 +60,7 @@
                 <option value="none" selected>None</option>
             </select>
         </div>
-        <input type="hidden" asp-for="ReservationId">
+        <input type="hidden" asp-for="ReservationId" />
         <input type="submit" asp-for="AssignButton" value="Add" class="btn btn-success col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
     </form>
 </div>

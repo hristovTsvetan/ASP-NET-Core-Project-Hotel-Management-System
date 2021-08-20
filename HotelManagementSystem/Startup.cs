@@ -5,13 +5,11 @@ using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace HotelManagementSystem
 {
@@ -40,9 +38,13 @@ namespace HotelManagementSystem
                 options.Password.RequireUppercase = false;
 
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<HotelManagementDbContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(option => 
+            {
+                option.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             services.AddTransient<IVouchersService, VouchersService>();
             services.AddTransient<IGuestRanksService, GuestRanksService>();
