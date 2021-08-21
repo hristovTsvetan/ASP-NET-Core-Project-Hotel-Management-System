@@ -45,9 +45,12 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Invoices" asp-action="All">
                     <img class="navMenuIcon" src="~/images/invoiceButton.png">Invoices
                 </a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="Admin" asp-controller="Countries" asp-action="All">
-                    <img class="navMenuIcon" src="~/images/settingsButton.png">System Settings
-                </a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="Admin" asp-controller="Countries" asp-action="All">
+                        <img class="navMenuIcon" src="~/images/settingsButton.png">System Settings
+                    </a>
+                }
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
                     <img class="navMenuIcon" src="~/images/aboutUsButton.png">About Us
                 </a>

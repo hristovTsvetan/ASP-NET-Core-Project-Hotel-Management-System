@@ -1,5 +1,6 @@
 ﻿using HotelManagementSystem.Models.LoginUsers;
 using HotelManagementSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -56,7 +57,8 @@ namespace HotelManagementSystem.Controllers
 
             return this.View(user);
         }
-        
+
+        [Authorize]
         public async Task<IActionResult> LogOut()
         {
             await this.loginService.LogOut();

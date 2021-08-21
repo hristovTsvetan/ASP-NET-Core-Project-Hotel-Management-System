@@ -1,10 +1,12 @@
 ﻿using HotelManagementSystem.Models.Vouchers;
 using HotelManagementSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Controllers
 {
+    [Authorize]
     public class VouchersController : Controller
     {
         private readonly IVouchersService vcService;

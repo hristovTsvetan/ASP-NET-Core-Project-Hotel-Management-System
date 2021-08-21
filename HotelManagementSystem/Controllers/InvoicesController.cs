@@ -1,9 +1,11 @@
 ﻿using HotelManagementSystem.Models.Invoices;
 using HotelManagementSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagementSystem.Controllers
 {
+    [Authorize]
     public class InvoicesController : Controller
     {
         private readonly IInvoicesService invoiceService;

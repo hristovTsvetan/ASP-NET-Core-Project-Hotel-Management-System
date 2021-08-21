@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class UsersController : Controller
     {

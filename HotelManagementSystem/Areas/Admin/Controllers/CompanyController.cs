@@ -1,10 +1,12 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Company;
 using HotelManagementSystem.Areas.Admin.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CompanyController : Controller
     {

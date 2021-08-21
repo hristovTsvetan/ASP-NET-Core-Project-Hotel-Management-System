@@ -1,5 +1,6 @@
 ﻿using HotelManagementSystem.Models.Reservations;
 using HotelManagementSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Globalization;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Controllers
 {
+    [Authorize]
     public class ReservationsController : Controller
     {
         private readonly IReservationsService resService;
