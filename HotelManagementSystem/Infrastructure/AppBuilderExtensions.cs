@@ -1,5 +1,5 @@
-﻿using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
+﻿using DataLayer;
+using DataLayer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

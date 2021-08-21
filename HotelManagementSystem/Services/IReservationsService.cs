@@ -1,4 +1,4 @@
-﻿using HotelManagementSystem.Data.Models;
+﻿using DataLayer.Models;
 using HotelManagementSystem.Models.Reservations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;

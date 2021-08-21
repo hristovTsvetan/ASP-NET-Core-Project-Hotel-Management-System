@@ -1,4 +1,4 @@
-﻿using HotelManagementSystem.Data;
+﻿using DataLayer;
 using HotelManagementSystem.Models.Cities;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
+using DataLayer;
+using DataLayer.Models;
 using HotelManagementSystem.Areas.Admin.Services;
-using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
 using HotelManagementSystem.Infrastructure;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Builder;

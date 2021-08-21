@@ -1,12 +1,9 @@
-﻿using HotelManagementSystem.Data.Models.Enums;
+﻿using DataLayer.Models.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace HotelManagementSystem.Data.Models
+namespace DataLayer.Models
 {
     public class Invoice
     {

@@ -1,10 +1,9 @@
-﻿using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
-using HotelManagementSystem.Data.Models.Enums;
+﻿using DataLayer;
+using DataLayer.Models;
+using DataLayer.Models.Enums;
 using HotelManagementSystem.Models.Countries;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Models.Guests;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;

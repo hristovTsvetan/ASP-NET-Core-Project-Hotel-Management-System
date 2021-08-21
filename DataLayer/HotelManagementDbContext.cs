@@ -1,11 +1,8 @@
-﻿using HotelManagementSystem.Data.Models;
+﻿using DataLayer.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace HotelManagementSystem.Data
+namespace DataLayer
 {
     public class HotelManagementDbContext : IdentityDbContext<User>
     {

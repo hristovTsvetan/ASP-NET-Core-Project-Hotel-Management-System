@@ -1,6 +1,6 @@
-﻿using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
-using HotelManagementSystem.Data.Models.Enums;
+﻿using DataLayer;
+using DataLayer.Models;
+using DataLayer.Models.Enums;
 using HotelManagementSystem.Models.Home;
 using System;
 using System.Linq;

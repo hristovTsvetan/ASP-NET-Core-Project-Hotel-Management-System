@@ -1,4 +1,4 @@
-﻿using HotelManagementSystem.Data.Models;
+﻿using DataLayer.Models;
 using HotelManagementSystem.Models;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Authorization;

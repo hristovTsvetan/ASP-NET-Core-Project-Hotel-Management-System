@@ -1,5 +1,5 @@
-﻿using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
+﻿using DataLayer;
+using DataLayer.Models;
 using HotelManagementSystem.Models.Rooms;
 using System;
 using System.Collections.Generic;

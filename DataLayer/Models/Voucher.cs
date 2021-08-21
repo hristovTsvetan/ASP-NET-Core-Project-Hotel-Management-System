@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace HotelManagementSystem.Data.Models
+namespace DataLayer.Models
 {
     public class Voucher
     {

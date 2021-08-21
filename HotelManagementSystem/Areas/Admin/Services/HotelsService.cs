@@ -1,7 +1,7 @@
-﻿using HotelManagementSystem.Areas.Admin.Models.Hotels;
-using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
-using HotelManagementSystem.Data.Models.Enums;
+﻿using DataLayer;
+using DataLayer.Models;
+using DataLayer.Models.Enums;
+using HotelManagementSystem.Areas.Admin.Models.Hotels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;

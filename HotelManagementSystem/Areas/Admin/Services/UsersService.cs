@@ -1,5 +1,5 @@
-﻿using HotelManagementSystem.Areas.Admin.Models.Users;
-using HotelManagementSystem.Data.Models;
+﻿using DataLayer.Models;
+using HotelManagementSystem.Areas.Admin.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;

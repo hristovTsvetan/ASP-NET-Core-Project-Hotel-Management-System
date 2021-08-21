@@ -1,9 +1,7 @@
-﻿using HotelManagementSystem.Data;
-using HotelManagementSystem.Data.Models;
+﻿using DataLayer;
+using DataLayer.Models;
 using HotelManagementSystem.Models.RoomsType;
-using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

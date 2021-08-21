@@ -1,4 +1,4 @@
-﻿using HotelManagementSystem.Data.Models;
+﻿using DataLayer.Models;
 using HotelManagementSystem.Models.LoginUsers;
 using System.Threading.Tasks;
 

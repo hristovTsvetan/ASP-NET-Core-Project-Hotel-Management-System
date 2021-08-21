@@ -1,5 +1,5 @@
-﻿using HotelManagementSystem.Areas.Admin.Models.Company;
-using HotelManagementSystem.Data;
+﻿using DataLayer;
+using HotelManagementSystem.Areas.Admin.Models.Company;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Threading.Tasks;

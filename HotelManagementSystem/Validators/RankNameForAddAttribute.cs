@@ -1,12 +1,6 @@
-﻿using HotelManagementSystem.Data;
-using HotelManagementSystem.Models.GuestRanks;
-using HotelManagementSystem.Services;
+﻿using HotelManagementSystem.Services;
 using HotelManagementSystem.Validators.Messages;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Validators
 {
