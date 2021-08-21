@@ -32,21 +32,21 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditRankFormModel rank)
+        public async Task<IActionResult> Edit(EditRankFormModel rank)
         {
             if(!ModelState.IsValid)
             {
                 return this.View(rank);
             }
 
-            this.guestRankService.Edit(rank);
+            await this.guestRankService.Edit(rank);
 
             return this.RedirectToAction("All", "GuestRanks");
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.guestRankService.Delete(id);
+            await this.guestRankService.Delete(id);
 
             return this.RedirectToAction("All", "GuestRanks");
         }

@@ -2,6 +2,7 @@
 using HotelManagementSystem.Models.Reservations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Services
 {
@@ -9,19 +10,19 @@ namespace HotelManagementSystem.Services
     {
         ReservationsQueryModel All(ReservationsQueryModel res);
 
-        void CancelReservation(string roomId);
+        Task CancelReservation(string roomId);
 
         AddReservationFormModel ListFreeRooms(AddReservationFormModel reservation);
 
-        void AddReservation(AddReservationFormModel reservation);
+        Task AddReservation(AddReservationFormModel reservation);
 
         DetailsReservationViewModel GetDetails(string id);
 
-        void Delete(string id);
+        Task Delete(string id);
 
         AssignGuestFormModel LoadGuest(string guestId);
 
-        void AssignGuestToReservation(AssignGuestFormModel guest);
+        Task AssignGuestToReservation(AssignGuestFormModel guest);
 
         IEnumerable<SelectListItem> GetVouchers();
 

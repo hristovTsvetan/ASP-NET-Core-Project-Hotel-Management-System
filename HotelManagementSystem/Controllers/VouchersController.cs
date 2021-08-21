@@ -29,14 +29,14 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditVoucherFormModel voucher)
+        public async Task<IActionResult> Edit(EditVoucherFormModel voucher)
         {
             if(!ModelState.IsValid)
             {
                 return this.View(voucher);
             }
 
-            this.vcService.UpdateVoucher(voucher);
+            await this.vcService.UpdateVoucher(voucher);
 
             return RedirectToAction("All", "Vouchers");
         }
@@ -59,9 +59,9 @@ namespace HotelManagementSystem.Controllers
             return this.RedirectToAction("All", "Vouchers");
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.vcService.Delete(id);
+            await this.vcService.Delete(id);
 
             return RedirectToAction("All", "Vouchers");
         }

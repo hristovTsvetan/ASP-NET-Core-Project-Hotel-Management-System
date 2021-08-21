@@ -46,7 +46,7 @@ namespace HotelManagementSystem.Services
                 .ToList();
         }
 
-        public void Add(AddCustomerFormModel customer)
+        public async Task Add(AddCustomerFormModel customer)
         {
             var guest = new Guest
             {
@@ -62,8 +62,8 @@ namespace HotelManagementSystem.Services
                 Created = DateTime.UtcNow
             };
 
-            this.db.Guests.Add(guest);
-            this.db.SaveChanges();
+            await this.db.Guests.AddAsync(guest);
+            await this.db.SaveChangesAsync();
         }
 
         public ListGuestsQueryModel GetGuests(ListGuestsQueryModel query)
@@ -201,19 +201,19 @@ namespace HotelManagementSystem.Services
                 }).FirstOrDefault();
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
-            ChangeReservationStatus(id);
+            await ChangeReservationStatus(id);
 
             var guest = this.db.Guests.Where(g => g.Id == id).FirstOrDefault();
 
             guest.Deleted = true;
 
             this.db.Update(guest);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        public void ChangeReservationStatus(string id)
+        public async Task ChangeReservationStatus(string id)
         {
             this.db.
                 Guests
@@ -231,7 +231,7 @@ namespace HotelManagementSystem.Services
             }
 
             this.db.Reservations.UpdateRange(reservations);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public EditGuestFormModel GetGuest(string id)
@@ -271,7 +271,7 @@ namespace HotelManagementSystem.Services
             return dBase.Any(g => g.IdentityCardId == identityNumber);
         }
 
-        public void Edit(EditGuestFormModel guest)
+        public async Task Edit(EditGuestFormModel guest)
         {
             var currentGuest = this.db
                 .Guests.FirstOrDefault(g => g.Id == guest.Id);
@@ -287,7 +287,7 @@ namespace HotelManagementSystem.Services
             currentGuest.RankId = guest.RankId;
 
             this.db.Update(currentGuest);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

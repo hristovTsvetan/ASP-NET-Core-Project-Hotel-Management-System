@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Hotels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
 {
@@ -10,7 +11,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         ICollection<SelectListItem> GetCountries();
 
-        void Add(AddHotelFormModel hotel);
+        Task Add(AddHotelFormModel hotel);
 
         EditHotelFormModel GetHotel(string id);
 
@@ -18,8 +19,8 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         ICollection<SelectListItem> GetActiveList();
 
-        void Edit(EditHotelFormModel hotel);
+        Task Edit(EditHotelFormModel hotel);
 
-        void Delete(string id);
+        Task Delete(string id);
     }
 }

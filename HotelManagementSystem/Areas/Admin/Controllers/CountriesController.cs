@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Countries;
 using HotelManagementSystem.Areas.Admin.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Controllers
 {
@@ -29,14 +30,14 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditCountryFormModel country)
+        public async Task<IActionResult> Edit(EditCountryFormModel country)
         {
             if(!ModelState.IsValid)
             {
                 return this.View(country);
             }
 
-            this.countryService.Edit(country);
+            await this.countryService.Edit(country);
 
             return this.RedirectToAction("All", "Countries");
         }
@@ -47,21 +48,21 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddCountryFormModel country)
+        public async Task<IActionResult> Add(AddCountryFormModel country)
         {
             if(!ModelState.IsValid)
             {
                 return this.View(country);
             }
 
-            this.countryService.Add(country);
+            await this.countryService.Add(country);
 
             return this.RedirectToAction("All", "Countries");
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.countryService.Delete(id);
+            await this.countryService.Delete(id);
 
             return this.RedirectToAction("All", "Countries");
         }

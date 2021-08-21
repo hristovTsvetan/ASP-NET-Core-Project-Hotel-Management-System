@@ -3,6 +3,7 @@ using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Controllers
 {
@@ -33,7 +34,7 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddReservationFormModel reservation)
+        public async Task <IActionResult> Add(AddReservationFormModel reservation)
         {
 
             if (reservation.StartDate < DateTime.Now.Date)
@@ -57,7 +58,7 @@ namespace HotelManagementSystem.Controllers
                     return this.View(reservation);
                 }
 
-                this.resService.AddReservation(reservation);
+                await this.resService.AddReservation(reservation);
 
                 return this.RedirectToAction("All", "Reservations");
             }        
@@ -72,9 +73,9 @@ namespace HotelManagementSystem.Controllers
             return this.View(curReservation);
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.resService.Delete(id);
+            await this.resService.Delete(id);
 
             return this.RedirectToAction("All", "Reservations");
         }
@@ -91,7 +92,7 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult AssignCustomer(AssignGuestFormModel guest)
+        public async Task<IActionResult> AssignCustomer(AssignGuestFormModel guest)
         {
 
             guest.Vouchers = this.resService.GetVouchers();
@@ -115,7 +116,7 @@ namespace HotelManagementSystem.Controllers
                     return this.View(guest);
                 }
 
-                this.resService.AssignGuestToReservation(guest);
+                await this.resService.AssignGuestToReservation(guest);
 
                 return this.RedirectToAction("All", "Reservations");
             }

@@ -2,6 +2,7 @@
 using HotelManagementSystem.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
 {
@@ -77,7 +78,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             return company;
         }
 
-        public void Update(CompanyFormModel company)
+        public async Task Update(CompanyFormModel company)
         {
             var currentCompany = this.db
                 .Companies
@@ -91,7 +92,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             currentCompany.Phone = company.Phone;
 
             this.db.Companies.Update(currentCompany);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

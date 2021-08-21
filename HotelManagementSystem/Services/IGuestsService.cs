@@ -10,9 +10,9 @@ namespace HotelManagementSystem.Services
 {
     public interface IGuestsService
     {
-        void Edit(EditGuestFormModel guest);
+        Task Edit(EditGuestFormModel guest);
 
-        void Add(AddCustomerFormModel customer);
+        Task Add(AddCustomerFormModel customer);
 
         ListGuestsQueryModel GetGuests(ListGuestsQueryModel query);
 
@@ -24,9 +24,9 @@ namespace HotelManagementSystem.Services
 
         IEnumerable<RankViewModel> GetRanks();
 
-        void ChangeReservationStatus(string id);
+        Task ChangeReservationStatus(string id);
 
-        void Delete(string id);
+        Task Delete(string id);
 
         bool IsCountryExist(string countryId);
 

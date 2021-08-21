@@ -15,6 +15,6 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         CompanyFormModel GetCities(CompanyFormModel company);
 
-        void Update(CompanyFormModel company);
+        Task Update(CompanyFormModel company);
     }
 }

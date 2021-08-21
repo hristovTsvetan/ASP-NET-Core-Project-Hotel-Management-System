@@ -12,14 +12,14 @@ namespace HotelManagementSystem.Services
 
         EditRoomTypeFormModel GetRoomType(string id);
 
-        void Update(EditRoomTypeFormModel roomType);
+        Task Update(EditRoomTypeFormModel roomType);
 
-        void Add(AddRoomTypeFormModel roomType);
+        Task Add(AddRoomTypeFormModel roomType);
 
         bool IsRoomNameExistForAdd(string name);
 
         bool IsRoomNameExistForEdit(string name, string id);
 
-        void Delete(string id);
+        Task Delete(string id);
     }
 }

@@ -3,6 +3,7 @@ using HotelManagementSystem.Data;
 using HotelManagementSystem.Data.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
 {
@@ -15,15 +16,15 @@ namespace HotelManagementSystem.Areas.Admin.Services
             this.db = dBase;
         }
 
-        public void Add(AddCountryFormModel country)
+        public async Task Add(AddCountryFormModel country)
         {
             var newCountry = new Country
             {
                 Name = country.Name
             };
 
-            this.db.Countries.Add(newCountry);
-            this.db.SaveChanges();
+            await this.db.Countries.AddAsync(newCountry);
+            await this.db.SaveChangesAsync();
         }
 
         public CountriesQueryModel All(CountriesQueryModel query)
@@ -65,7 +66,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             return countriesQuery;
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var country = this.db
                 .Countries
@@ -75,10 +76,10 @@ namespace HotelManagementSystem.Areas.Admin.Services
             country.Deleted = true;
 
             this.db.Update(country);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        public void Edit(EditCountryFormModel country)
+        public async Task Edit(EditCountryFormModel country)
         {
             var countryForEdit = this.db
                 .Countries
@@ -87,7 +88,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             countryForEdit.Name = country.Name;
 
             this.db.Update(countryForEdit);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public bool IsCountryExistForAdd(string name)

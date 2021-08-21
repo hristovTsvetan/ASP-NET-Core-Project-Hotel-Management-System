@@ -153,7 +153,7 @@ namespace HotelManagementSystem.Services
                 .FirstOrDefault();
         }
 
-        public void Update(EditRoomFormModel room)
+        public async Task Update(EditRoomFormModel room)
         {
             var currentRoom = this.GetRoom(room.Id);
             var currentHotel = this.GetActiveHotel();
@@ -166,11 +166,11 @@ namespace HotelManagementSystem.Services
             currentRoom.Hotel = currentHotel;
 
             this.db.Rooms.Update(currentRoom);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
          
         }
 
-        public void Add(AddRoomFormModel room)
+        public async Task Add(AddRoomFormModel room)
         {
             var newRoom = new Room
             {
@@ -183,8 +183,8 @@ namespace HotelManagementSystem.Services
                 RoomTypeId = room.RoomTypeId,
             };
 
-            this.db.Rooms.Add(newRoom);
-            this.db.SaveChanges();
+            await this.db.Rooms.AddAsync(newRoom);
+            await this.db.SaveChangesAsync();
         }
 
         public AddRoomFormModel FillRoomAddForm()
@@ -202,7 +202,7 @@ namespace HotelManagementSystem.Services
             return room;
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var room = this.db
                 .Rooms
@@ -210,10 +210,10 @@ namespace HotelManagementSystem.Services
 
             room.Deleted = true;
 
-            this.resService.CancelReservation(id);
+            await this.resService.CancelReservation(id);
 
             this.db.Rooms.Update(room);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

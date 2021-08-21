@@ -32,7 +32,7 @@ namespace HotelManagementSystem.Services
 
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var vc = this.db
                 .Vouchers
@@ -41,7 +41,7 @@ namespace HotelManagementSystem.Services
             vc.Deleted = true;
 
             this.db.Vouchers.Update(vc);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public IEnumerable<ListAllVouchersViewModel> GetAllVouchers()
@@ -74,7 +74,7 @@ namespace HotelManagementSystem.Services
                 
         }
 
-        public void UpdateVoucher(EditVoucherFormModel voucher)
+        public async Task UpdateVoucher(EditVoucherFormModel voucher)
         {
             var vc = this.db
                 .Vouchers
@@ -85,7 +85,7 @@ namespace HotelManagementSystem.Services
             vc.Active = voucher.IsActive;
 
             this.db.Vouchers.Update(vc);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

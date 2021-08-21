@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Services
 {
@@ -18,7 +19,7 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
-        public void AddReservation(AddReservationFormModel reservation)
+        public async Task AddReservation(AddReservationFormModel reservation)
         {
             var allReservedRooms = this.GetReservedRooms(reservation);
 
@@ -37,8 +38,8 @@ namespace HotelManagementSystem.Services
                 Price = allReservedRooms.Select(r => r.Price).Sum() * reservation.EndDate.Subtract(reservation.StartDate).Days
             };
 
-            this.db.Reservations.Add(curReservation);
-            this.db.SaveChanges();
+            await this.db.Reservations.AddAsync(curReservation);
+            await this.db.SaveChangesAsync();
         }
 
         public ReservationsQueryModel All(ReservationsQueryModel res)
@@ -105,7 +106,7 @@ namespace HotelManagementSystem.Services
             return reservetionsQueryModel;
         }
 
-        public void AssignGuestToReservation(AssignGuestFormModel guest)
+        public async Task AssignGuestToReservation(AssignGuestFormModel guest)
         {
             var currentReservation = this.db
                 .Reservations
@@ -131,7 +132,7 @@ namespace HotelManagementSystem.Services
 
             }
 
-            if(currentVoucher != null)
+            if(currentVoucher != null && currentVoucher.Active == true)
             {
                 currentReservation.Price = this.CalculatePrice(currentVoucher.Discount, currentReservation.Price);
 
@@ -142,7 +143,7 @@ namespace HotelManagementSystem.Services
             currentReservation.Invoice = this.CreateInvoice(currentReservation);
 
             this.db.Reservations.Update(currentReservation);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         private Invoice CreateInvoice(Reservation reservation)
@@ -158,7 +159,7 @@ namespace HotelManagementSystem.Services
 
         }
 
-        private void DeleteInvoice(string id)
+        private async Task DeleteInvoice(string id)
         {
             var invoiceForDelete = this.db
                 .Invoices.OrderBy(i => i.IssuedDate)
@@ -169,7 +170,7 @@ namespace HotelManagementSystem.Services
                 invoiceForDelete.Status = InvoiceStatus.Canceled;
 
                 this.db.Invoices.Update(invoiceForDelete);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
         }
 
@@ -180,7 +181,7 @@ namespace HotelManagementSystem.Services
             return discountedPrice * price;
         }
 
-        public void CancelReservation(string roomId)
+        public async Task CancelReservation(string roomId)
         {
             var today = DateTime.Now.Date;
 
@@ -198,20 +199,20 @@ namespace HotelManagementSystem.Services
                 }
 
                 this.db.UpdateRange(allReservations);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var reservation = this.db.Reservations.FirstOrDefault(r => r.Id == id);
 
             reservation.Status = ReservationStatus.Canceled;
 
             this.db.Reservations.Update(reservation);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
 
-            this.DeleteInvoice(id);
+            await this.DeleteInvoice(id);
         }
 
         public DetailsReservationViewModel GetDetails(string id)

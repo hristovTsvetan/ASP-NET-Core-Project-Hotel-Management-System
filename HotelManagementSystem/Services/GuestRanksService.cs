@@ -29,7 +29,7 @@ namespace HotelManagementSystem.Services
             await this.db.SaveChangesAsync();
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var allGuestsWithThisRank = this.db
                 .Guests
@@ -52,7 +52,7 @@ namespace HotelManagementSystem.Services
             rank.Deleted = true;
 
             this.db.Ranks.Update(rank);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public EditRankFormModel GetRank(string id)
@@ -98,7 +98,7 @@ namespace HotelManagementSystem.Services
                 .Any(r => r.Name == name);
         }
 
-        public void Edit(EditRankFormModel rank)
+        public async Task Edit(EditRankFormModel rank)
         {
             var currentRank = this.db
                 .Ranks
@@ -109,7 +109,7 @@ namespace HotelManagementSystem.Services
             currentRank.Discount = rank.Discount;
 
             this.db.Update(currentRank);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

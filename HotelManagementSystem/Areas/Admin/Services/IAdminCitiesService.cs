@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Cities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
 {
@@ -10,14 +11,14 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         EditCityFormModel LoadCity(string id);
 
-        void Edit(EditCityFormModel city);
+        Task Edit(EditCityFormModel city);
 
         bool IsCityExistForEdit(string name, string id);
 
-        void Add(AddCityFormModel city);
+        Task Add(AddCityFormModel city);
 
         AddCityFormModel LoadCountries();
 
-        void Delete(string id);
+        Task Delete(string id);
     }
 }

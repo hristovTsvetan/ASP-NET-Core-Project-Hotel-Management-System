@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ListUserViewModel>
+
+@{
+    ViewData["Title"] = "All users";
+}
+
+@await Html.PartialAsync("_NavMenuPartial")
+
+<h4 class="heading-margin text-center">All users</h4>
+<div class="row col-md-4 offset-md-4 ">
+    <p class="text-justify">
+        <span class="text-info font-weight-bold">Additional information: </span>
+        From here you can manage all users.
+    </p>
+</div>
+<div class="row col-12 justify-content-center mt-5">
+    <div class="border col-2 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        User name
+    </div>
+    <div class="border col-2 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Role
+    </div>
+    <div class="border col-1 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Change password
+    </div>
+    <div class="border col-1 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Change role
+    </div>
+    <div class="border col-1 font-weight-bold text-center bg-primary text-white" style="word-wrap:break-word">
+        Delete
+    </div>
+
+    @foreach (var user in Model)
+    {
+        <div class="row col-12 justify-content-center">
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @user.Email
+            </div>
+            <div class="border col-2 text-center bg-light" style="word-wrap:break-word">
+                @user.Role
+            </div>
+            <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                <a class="text-success" asp-route-id="@user.Id" asp-area="Admin" asp-controller="Users" asp-action="ChangePassword">Change</a>
+            </div>
+            @if (user.Email != "admin@hotel.bg")
+            {
+                <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                    <a class="text-danger" asp-route-id="@user.Id" asp-area="Admin" asp-controller="Users" asp-action="ChangeRole">Change</a>
+                </div>
+
+                <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                    <a class="text-danger" asp-route-id="@user.Id" asp-area="Admin" asp-controller="Users" asp-action="Delete">Delete</a>
+                </div>
+            }
+            else
+            {
+                <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                </div>
+                <div class="border col-1 text-center bg-light" style="word-wrap:break-word">
+                </div>
+            }
+        </div>
+    }
+</div>
+<a class="btn btn-success col-md-2 offset-md-5  col-sm-2 offset-sm-5 heading-margin" asp-area="Admin" asp-controller="Users" asp-action="Register">Add user</a>

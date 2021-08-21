@@ -20,13 +20,13 @@ namespace HotelManagementSystem.Services
 
         IEnumerable<RoomTypeViewModel> GetRoomTypes();
 
-        void Update(EditRoomFormModel room);
+        Task Update(EditRoomFormModel room);
 
-        void Add(AddRoomFormModel room);
+        Task Add(AddRoomFormModel room);
 
         AddRoomFormModel FillRoomAddForm();
 
-        void Delete(string id);
+        Task Delete(string id);
 
     }
 }

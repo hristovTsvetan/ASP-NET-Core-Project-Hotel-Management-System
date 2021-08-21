@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Company;
 using HotelManagementSystem.Areas.Admin.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Controllers
 {
@@ -24,7 +25,7 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult CompanyInfo(CompanyFormModel company)
+        public async Task<IActionResult> CompanyInfo(CompanyFormModel company)
         {
             if (!ModelState.IsValid)
             {
@@ -33,7 +34,7 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
                 return this.View(company);
             }
 
-            this.compService.Update(company);
+            await this.compService.Update(company);
 
             return this.RedirectToAction("Index", "Home");
         }

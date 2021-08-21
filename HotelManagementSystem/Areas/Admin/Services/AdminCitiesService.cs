@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
 {
@@ -17,7 +18,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             this.db = dBase;
         }
 
-        public void Add(AddCityFormModel city)
+        public async Task Add(AddCityFormModel city)
         {
             var newCity = new City
             {
@@ -26,8 +27,8 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 PostalCode = city.PostalCode
             };
 
-            this.db.Cities.Add(newCity);
-            this.db.SaveChanges();
+            await this.db.Cities.AddAsync(newCity);
+            await this.db.SaveChangesAsync();
         }
 
         public CitiesQueryModel All(CitiesQueryModel query)
@@ -69,7 +70,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             return cQueryModel;
         }
 
-        public void Edit(EditCityFormModel city)
+        public async Task Edit(EditCityFormModel city)
         {
             var curCity = this.db
                 .Cities
@@ -79,7 +80,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             curCity.PostalCode = city.PostalCode;
 
             this.db.Update(curCity);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public bool IsCityExistForEdit(string name, string id)
@@ -124,7 +125,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .FirstOrDefault();
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var city = this.db
                 .Cities
@@ -134,7 +135,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             city.Deleted = true;
 
             this.db.Cities.Update(city);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
     }
 }

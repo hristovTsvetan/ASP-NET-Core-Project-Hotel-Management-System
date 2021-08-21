@@ -8,7 +8,7 @@ namespace HotelManagementSystem.Services
 {
     public interface IGuestRanksService
     {
-        void Edit(EditRankFormModel rank);
+        Task Edit(EditRankFormModel rank);
 
         EditRankFormModel GetRank(string id);
 
@@ -16,7 +16,7 @@ namespace HotelManagementSystem.Services
 
         Task Add(AddRankFormModel rank);
 
-        void Delete(string id);
+        Task Delete(string id);
 
         bool IsNameExistWhenAdd(string name);
 

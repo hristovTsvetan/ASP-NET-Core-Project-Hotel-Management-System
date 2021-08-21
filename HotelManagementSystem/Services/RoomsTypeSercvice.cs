@@ -18,7 +18,7 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
-        public void Add(AddRoomTypeFormModel roomType)
+        public async Task Add(AddRoomTypeFormModel roomType)
         {
             var rType = new RoomType
             {
@@ -28,18 +28,18 @@ namespace HotelManagementSystem.Services
                 Price = roomType.Price,
             };
 
-            this.db.RoomTypes.Add(rType);
-            this.db.SaveChanges();
+            await this.db.RoomTypes.AddAsync(rType);
+            await this.db.SaveChangesAsync();
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var rTypeForDelete = this.db.RoomTypes.FirstOrDefault(rt => rt.Id == id);
 
             rTypeForDelete.Deleted = true;
 
             this.db.RoomTypes.Update(rTypeForDelete);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
 
         }
 
@@ -109,7 +109,7 @@ namespace HotelManagementSystem.Services
             return roomTypeQModel;
         }
 
-        public void Update(EditRoomTypeFormModel roomType)
+        public async Task Update(EditRoomTypeFormModel roomType)
         {
             var currentRoomType = this.db
                 .RoomTypes
@@ -122,7 +122,7 @@ namespace HotelManagementSystem.Services
             currentRoomType.Price = roomType.Price;
 
             this.db.RoomTypes.Update(currentRoomType);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
     }

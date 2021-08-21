@@ -30,21 +30,21 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddRoomTypeFormModel room)
+        public async Task<IActionResult> Add(AddRoomTypeFormModel room)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(room);
             }
 
-            this.roomTypeService.Add(room);
+            await this.roomTypeService.Add(room);
 
             return this.RedirectToAction("All", "RoomTypes");
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.roomTypeService.Delete(id);
+            await this.roomTypeService.Delete(id);
 
             return this.RedirectToAction("All", "RoomTypes");
         }
@@ -57,14 +57,14 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditRoomTypeFormModel rType)
+        public async Task<IActionResult> Edit(EditRoomTypeFormModel rType)
         {
             if(!ModelState.IsValid)
             {
                 return this.View(rType);
             }
 
-            this.roomTypeService.Update(rType);
+            await this.roomTypeService.Update(rType);
 
             return this.RedirectToAction("All", "RoomTypes");
         }

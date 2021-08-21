@@ -88,6 +88,7 @@ namespace HotelManagementSystem.Services
         {
             return this.db
                 .Vouchers
+                .Where(v => v.Deleted == false)
                 .Count();
         }
 

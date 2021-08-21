@@ -1,4 +1,5 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Countries;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
 {
@@ -8,15 +9,15 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         EditCountryFormModel LoadCountry(string id);
 
-        void Edit(EditCountryFormModel country);
+        Task Edit(EditCountryFormModel country);
 
         bool IsCountryExistForEdit(string name, string id);
 
         bool IsCountryExistForAdd(string name);
 
-        void Add(AddCountryFormModel country);
+        Task Add(AddCountryFormModel country);
 
-        void Delete(string id);
+        Task Delete(string id);
 
         public bool IsCountryIdExist(string id);
     }

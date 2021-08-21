@@ -27,7 +27,6 @@ namespace HotelManagementSystem.Areas.Admin.Models.Hotels
         public string Address { get; set; }
 
         [Url]
-        [RegularExpression(@"(http[s]*:\/\/)([a-z\-_0-9\/.]+)\.([a-z.]{2,3})\/([a-z0-9\-_\/._~:?#\[\]@!$&'()*+,;=%]*)([a-z0-9]+\.)(jpg|jpeg|png)")]
         [Display(Name="Image url")]
         public string Image { get; set; }
 

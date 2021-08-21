@@ -17,9 +17,9 @@ namespace HotelManagementSystem.Controllers
             this.guestService = gService;
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.guestService.Delete(id);
+            await this.guestService.Delete(id);
 
             return this.RedirectToAction("All", "Guests");
         }
@@ -50,7 +50,7 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddCustomerFormModel customer)
+        public async Task<IActionResult> Add(AddCustomerFormModel customer)
         {
             if(!ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace HotelManagementSystem.Controllers
                 return this.View(customer);
             }
 
-            this.guestService.Add(customer);
+            await this.guestService.Add(customer);
 
             return RedirectToAction("All", "Guests");
         }
@@ -74,7 +74,7 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditGuestFormModel guest)
+        public async Task<IActionResult> Edit(EditGuestFormModel guest)
         {
             if(!ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace HotelManagementSystem.Controllers
                 return this.View(guest);
             }
 
-            this.guestService.Edit(guest);
+            await this.guestService.Edit(guest);
 
             return this.RedirectToAction("All", "Guests");
         }

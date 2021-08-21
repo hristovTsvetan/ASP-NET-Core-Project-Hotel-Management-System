@@ -18,14 +18,7 @@
     <form method="post" class="col-md-4 offset-md-4 col-sm-12">
         <div class="form-group">
             <label asp-for="IdentityId"></label>
-            @if (string.IsNullOrWhiteSpace(disableControls))
-            {
-                <input asp-for="IdentityId" class="form-control" />
-            }
-            else
-            {
-                <input asp-for="IdentityId" class="form-control" readonly />
-            }
+            <input asp-for="IdentityId" class="form-control" />
             <span asp-validation-for="IdentityId" class="text-danger small"></span>
         </div>
         <div class="row">
@@ -57,7 +50,7 @@
         <div class="form-group">
             <label asp-for="Vouchers"></label>
             <select asp-for="VoucherId" class="form-control" asp-items="@Model.Vouchers">
-                <option value="none" selected>None</option>
+                <option>None</option>
             </select>
         </div>
         <input type="hidden" asp-for="ReservationId" />

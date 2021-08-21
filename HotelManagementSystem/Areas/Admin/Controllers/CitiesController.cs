@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Cities;
 using HotelManagementSystem.Areas.Admin.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Controllers
 {
@@ -29,14 +30,14 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditCityFormModel city)
+        public async Task<IActionResult> Edit(EditCityFormModel city)
         {
             if(!ModelState.IsValid)
             {
                 return this.View(city);
             }
 
-            this.citiesService.Edit(city);
+            await this.citiesService.Edit(city);
 
             return this.RedirectToAction("All", "Cities");
         }
@@ -49,7 +50,7 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddCityFormModel city)
+        public async Task<IActionResult> Add(AddCityFormModel city)
         {
             if(!ModelState.IsValid)
             {
@@ -58,14 +59,14 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
                 return this.View(city);
             }
 
-            this.citiesService.Add(city);
+            await this.citiesService.Add(city);
 
             return this.RedirectToAction("All", "Cities");
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            this.citiesService.Delete(id);
+            await this.citiesService.Delete(id);
 
             return this.RedirectToAction("All", "Cities");
         }

@@ -1,6 +1,7 @@
 ﻿using HotelManagementSystem.Models.Rooms;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Controllers
 {
@@ -35,7 +36,7 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(EditRoomFormModel room)
+        public async Task<IActionResult> Edit(EditRoomFormModel room)
         {
             if(!ModelState.IsValid)
             {
@@ -44,7 +45,7 @@ namespace HotelManagementSystem.Controllers
                 return this.View(room);
             }
 
-            this.rService.Update(room);
+            await this.rService.Update(room);
 
             return this.RedirectToAction("All", "Rooms");
         }
@@ -57,7 +58,7 @@ namespace HotelManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AddRoomFormModel room)
+        public async Task<IActionResult> Add(AddRoomFormModel room)
         {
             if(!ModelState.IsValid)
             { 
@@ -70,14 +71,14 @@ namespace HotelManagementSystem.Controllers
                 return this.View(room);
             }
             
-            this.rService.Add(room);
+            await this.rService.Add(room);
 
             return this.RedirectToAction("All", "Rooms");
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            rService.Delete(id);
+            await rService.Delete(id);
 
             return this.RedirectToAction("All", "Rooms");
         }

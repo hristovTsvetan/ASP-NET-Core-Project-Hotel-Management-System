@@ -57,9 +57,9 @@ namespace HotelManagementSystem.Controllers
             return this.View(user);
         }
         
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
-            this.loginService.LogOut();
+            await this.loginService.LogOut();
 
             return this.RedirectToAction("Index");
         }

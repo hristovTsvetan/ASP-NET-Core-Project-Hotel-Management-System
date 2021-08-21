@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using HotelManagementSystem.Models.Vouchers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HotelManagementSystem.Models.Vouchers;
 
 namespace HotelManagementSystem.Services
 {
@@ -13,8 +12,8 @@ namespace HotelManagementSystem.Services
 
         EditVoucherFormModel GetVoucher(string id);
 
-        void UpdateVoucher(EditVoucherFormModel voucher);
+        Task UpdateVoucher(EditVoucherFormModel voucher);
 
-        void Delete(string id);
+        Task Delete(string id);
     }
 }

@@ -1,6 +1,8 @@
-﻿using HotelManagementSystem.Models;
+﻿using HotelManagementSystem.Data.Models;
+using HotelManagementSystem.Models;
 using HotelManagementSystem.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -9,15 +11,19 @@ namespace HotelManagementSystem.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private readonly UserManager<User> user;
         private readonly IHomeService hService;
 
-        public HomeController(IHomeService homeService)
+        public HomeController(IHomeService homeService, UserManager<User> uManager)
         {
+            this.user = uManager;
             this.hService = homeService;
         }
 
         public IActionResult Home()
         {
+            var users = user.Users;
+
             var currentDashboard = this.hService.GetDashboardInfo();
 
             return View(currentDashboard);

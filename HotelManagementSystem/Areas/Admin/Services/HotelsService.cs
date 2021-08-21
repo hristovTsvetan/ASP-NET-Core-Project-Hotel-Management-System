@@ -19,7 +19,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             this.db = dBase;
         }
 
-        public void Add(AddHotelFormModel hotel)
+        public async Task Add(AddHotelFormModel hotel)
         {
             var company = this.db.Companies.OrderBy(c => c.Name).FirstOrDefault();
 
@@ -34,8 +34,8 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 Phone = hotel.Phone,
             };
 
-            this.db.Hotels.Add(newHotel);
-            this.db.SaveChanges();
+            await this.db.Hotels.AddAsync(newHotel);
+            await this.db.SaveChangesAsync();
         }
 
         public HotelsQueryModel All(HotelsQueryModel query)
@@ -148,7 +148,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             return hotel;
         }
 
-        public void Edit(EditHotelFormModel hotel)
+        public async Task Edit(EditHotelFormModel hotel)
         {
             var currentHotel = this.db
                 .Hotels
@@ -157,7 +157,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
             if(hotel.ActiveSelection == "Yes")
             {
-                this.ChangeHotelStatus(hotel);
+                await this.ChangeHotelStatus(hotel);
             }
 
             currentHotel.Active = hotel.ActiveSelection == "Yes" ? true : false;
@@ -169,10 +169,10 @@ namespace HotelManagementSystem.Areas.Admin.Services
             currentHotel.Phone = hotel.Phone;
 
             this.db.Hotels.Update(currentHotel);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        private void ChangeHotelStatus(EditHotelFormModel hotel)
+        private async Task ChangeHotelStatus(EditHotelFormModel hotel)
         {
             var activeHotel = this.db
                 .Hotels
@@ -185,11 +185,11 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 activeHotel.Active = false;
 
                 this.db.Hotels.Update(activeHotel);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
         }
 
-        public void Delete(string id)
+        public async Task Delete(string id)
         {
             var isHotelActive = this.db
                 .Hotels
@@ -204,36 +204,15 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
                 hotelForDelete.Deleted = true;
 
-                this.DeleteRooms(id);
-                this.DeleteActiveReservations(id);
-                //this.DeleteInvoices(id);
-
+                await this.DeleteRooms(id);
+                await this.DeleteActiveReservations(id);
 
                 this.db.Hotels.Update(hotelForDelete);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
         }
 
-        private void DeleteInvoices(string id)
-        {
-            var invoicesForDelete = this.db
-                .RoomReserveds
-                .Where(rr => rr.Reservation.StartDate >= DateTime.Now.Date &&
-                    rr.Room.HotelId == id &&
-                    rr.Reservation.Invoice.Status != InvoiceStatus.Canceled)
-                .Select(rr => rr.Reservation.Invoice)
-                .ToList();
-
-            foreach (var invoice in invoicesForDelete)
-            {
-                invoice.Status = InvoiceStatus.Canceled;
-            }
-
-            this.db.Invoices.UpdateRange(invoicesForDelete);
-            this.db.SaveChanges();
-        }
-
-        private void DeleteActiveReservations(string id)
+        private async Task DeleteActiveReservations(string id)
         {
             var reservationForDelete = this.db
                 .RoomReserveds
@@ -248,10 +227,10 @@ namespace HotelManagementSystem.Areas.Admin.Services
             }
 
             this.db.Reservations.UpdateRange(reservationForDelete);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        private void DeleteRooms(string id)
+        private async Task DeleteRooms(string id)
         {
             var roomsForDelete = this.db
                 .Rooms
@@ -264,7 +243,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             }
 
             this.db.Rooms.UpdateRange(roomsForDelete);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync ();
         }
     }
 
