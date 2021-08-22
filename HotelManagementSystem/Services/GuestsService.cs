@@ -1,9 +1,8 @@
 ﻿using DataLayer;
 using DataLayer.Models;
 using DataLayer.Models.Enums;
-using HotelManagementSystem.Models.Countries;
-using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Models.Guests;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,27 +19,29 @@ namespace HotelManagementSystem.Services
             this.db = dBase;
         }
 
-        public IEnumerable<CountriesViewModel> GetCountries()
+        public ICollection<SelectListItem> GetCountries()
         {
             return this.db
                 .Countries
                 .Where(c => c.Deleted == false)
-                .Select(c => new CountriesViewModel
-                {
-                    Id = c.Id,
-                    Name = c.Name
-                })
                 .OrderBy(c => c.Name)
+                .Select(c => new SelectListItem
+                {
+                    Value = c.Id,
+                    Text = c.Name
+                })
                 .ToList();
         }
 
-        public IEnumerable<RankViewModel> GetRanks()
+        public ICollection<SelectListItem> GetRanks()
         {
             return this.db
-                .Ranks.Select(r => new RankViewModel
+                .Ranks
+                .Where(r => r.Deleted == false)
+                .Select(r => new SelectListItem
                 {
-                    Id = r.Id,
-                    Name = r.Name
+                    Text = r.Name,
+                    Value = r.Id
                 })
                 .ToList();
         }

@@ -1,9 +1,6 @@
-﻿using HotelManagementSystem.Models.Countries;
-using HotelManagementSystem.Models.GuestRanks;
-using HotelManagementSystem.Models.Guests;
-using System;
+﻿using HotelManagementSystem.Models.Guests;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Services
@@ -20,9 +17,9 @@ namespace HotelManagementSystem.Services
 
         EditGuestFormModel GetGuest(string id);
 
-        IEnumerable<CountriesViewModel> GetCountries();
+        ICollection<SelectListItem> GetCountries();
 
-        IEnumerable<RankViewModel> GetRanks();
+        ICollection<SelectListItem> GetRanks();
 
         Task ChangeReservationStatus(string id);
 

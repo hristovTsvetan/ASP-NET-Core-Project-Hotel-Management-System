@@ -45,6 +45,14 @@ namespace HotelManagementSystem.Controllers
                 Ranks = this.guestService.GetRanks()
             };
 
+            foreach (var rank in cityAndCountries.Ranks)
+            {
+                if(rank.Text == "Regular")
+                {
+                    cityAndCountries.RankId = rank.Value;
+                }
+            }
+
             return this.View(cityAndCountries);
         }
 

@@ -48,44 +48,13 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label asp-for="RankId"></label>
-                <select asp-for="RankId" class="form-control">
-                    @foreach (var rank in Model.Ranks)
-                    {
-                        if (rank.Name == "Regular" && Model.RankId == null)
-                        {
-                            <option value="@rank.Id" selected>@rank.Name</option>
-                        }
-                        else if (Model.RankId != null && rank.Id == Model.RankId)
-                        {
-                            <option value="@rank.Id" selected>@rank.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@rank.Id">@rank.Name</option>
-                        }
-                    }
+                <select asp-for="RankId" class="form-control" asp-items="@Model.Ranks">
                 </select>
                 <span asp-validation-for="RankId" class="text-danger small"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="CountryId"></label>
-                <select asp-for="CountryId" class="form-control" id="country">
-                    @foreach (var country in Model.Countries)
-                    {
-                        if (country.Name == "Bulgaria" && Model.CountryId == null)
-                        {
-                            <option value="@country.Id" selected>@country.Name</option>
-                        }
-                        else if (Model.CountryId != null && Model.CountryId == country.Id)
-                        {
-                            <option value="@country.Id" selected>@country.Name</option>
-                        }
-                        else
-                        {
-                            <option value="@country.Id">@country.Name</option>
-                        }
-
-                    }
+                <select asp-for="CountryId" class="form-control" id="country" asp-items="@Model.Countries">
                 </select>
                 <span asp-validation-for="CountryId" class="text-danger small"></span>
             </div>

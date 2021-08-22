@@ -1,7 +1,6 @@
-﻿using HotelManagementSystem.Models.Countries;
-using HotelManagementSystem.Models.GuestRanks;
-using HotelManagementSystem.Validators;
+﻿using HotelManagementSystem.Validators;
 using HotelManagementSystem.Validators.Messages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,8 +10,8 @@ namespace HotelManagementSystem.Models.Guests
     {
         public EditGuestFormModel()
         {
-            this.Countries = new List<CountriesViewModel>();
-            this.Ranks = new List<RankViewModel>();
+            this.Countries = new List<SelectListItem>();
+            this.Ranks = new List<SelectListItem>();
         }
 
         [Required]
@@ -63,13 +62,13 @@ namespace HotelManagementSystem.Models.Guests
         [Required]
         public string RankId { get; set; }
 
-        public virtual IEnumerable<RankViewModel> Ranks { get; set; }
+        public virtual ICollection<SelectListItem> Ranks { get; set; }
 
         [CountryId]
         [Display(Name = "Country")]
         [Required]
         public string CountryId { get; set; }
 
-        public IEnumerable<CountriesViewModel> Countries { get; set; }
+        public ICollection<SelectListItem> Countries { get; set; }
     }
 }
