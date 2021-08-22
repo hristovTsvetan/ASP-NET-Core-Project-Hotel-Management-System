@@ -44,6 +44,17 @@ namespace HotelManagementSystem.Services
                     .ToList();
             }
 
+            var tPages = (int)Math.Ceiling((double)dbInvoices.Count() / query.ItemsPerPage);
+
+            if (query.CurrentPage > tPages)
+            {
+                query.CurrentPage = tPages;
+            }
+
+            if(query.CurrentPage <= 0)
+            {
+                query.CurrentPage = 1;
+            }
 
             var allInvoices = dbInvoices
                 .OrderByDescending(i => i.IssuedDate)
@@ -64,7 +75,7 @@ namespace HotelManagementSystem.Services
                 Invoices = allInvoices,
                 Search = query.Search,
                 CurrentPage = query.CurrentPage,
-                TotalPages = (int)Math.Ceiling((double)dbInvoices.Count() / query.ItemsPerPage),
+                TotalPages = tPages,
                 NextPage = query.NextPage,
                 PreviousPage = query.PreviousPage
             };

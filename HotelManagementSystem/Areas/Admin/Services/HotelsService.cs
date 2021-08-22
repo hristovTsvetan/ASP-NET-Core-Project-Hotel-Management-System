@@ -46,6 +46,18 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .OrderByDescending(h => h.Active)
                 .AsQueryable();
 
+            var tPages = (int)Math.Ceiling((double)allHotelsAsQuery.Count() / query.ItemsPerPage);
+
+            if(query.CurrentPage > tPages)
+            {
+                query.CurrentPage = tPages;
+            }
+
+            if(query.CurrentPage <= 0)
+            {
+                query.CurrentPage = 1;
+            }
+
             var allHotels = allHotelsAsQuery
                 .Skip((query.CurrentPage - 1) * query.ItemsPerPage)
                 .Take(query.ItemsPerPage)
@@ -69,7 +81,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 CurrentPage = query.CurrentPage,
                 NextPage = query.NextPage,
                 PreviousPage = query.PreviousPage,
-                TotalPages = (int)Math.Ceiling((double)allHotelsAsQuery.Count() / query.ItemsPerPage)
+                TotalPages = tPages
             };
 
             return currentHotelQuery;

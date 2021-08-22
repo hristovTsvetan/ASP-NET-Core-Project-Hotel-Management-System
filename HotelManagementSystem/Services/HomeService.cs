@@ -80,7 +80,8 @@ namespace HotelManagementSystem.Services
             return this.db
                 .Reservations
                 .Where(r => r.Status != ReservationStatus.Canceled &&
-                r.RoomReserveds.All(r => r.Room.Hotel == currentHotel))
+                r.RoomReserveds.All(r => r.Room.Hotel == currentHotel) &&
+                r.StartDate <= DateTime.Now.Date && r.EndDate >= DateTime.Now.Date)
                 .Count();
         }
 

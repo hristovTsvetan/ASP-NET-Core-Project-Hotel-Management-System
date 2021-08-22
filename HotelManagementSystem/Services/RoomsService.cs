@@ -38,6 +38,18 @@ namespace HotelManagementSystem.Services
                     r.RoomType.Name.ToLower().Contains(rooms.Search.ToLower()));
             }
 
+            var tPages = (int)Math.Ceiling((double)allRoomsDb.Count() / rooms.ItemsOnPage);
+
+            if(rooms.CurrentPage > tPages)
+            {
+                rooms.CurrentPage = tPages;
+            }
+
+            if(rooms.CurrentPage <= 0)
+            {
+                rooms.CurrentPage = 1;
+            }
+
             var allRooms = allRoomsDb
                 .Skip((rooms.CurrentPage - 1) * rooms.ItemsOnPage)
                 .Take(rooms.ItemsOnPage)
@@ -52,7 +64,7 @@ namespace HotelManagementSystem.Services
             var roomQueryModel = new ListRoomsQueryModel
             {
                 Rooms = allRooms,
-                TotalItems = (int)Math.Ceiling((double)allRoomsDb.Count() / rooms.ItemsOnPage),
+                TotalItems = tPages,
                 CurrentPage = rooms.CurrentPage,
                 PreviousPage = rooms.PreviousPage,
                 NextPage = rooms.NextPage

@@ -72,6 +72,17 @@ namespace HotelManagementSystem.Services
             dBase = Search(query, dBase);
             dBase = Sort(query, dBase);
 
+            var allPages = (int)Math.Ceiling((double)dBase.ToList().Count / query.ItemsPerPage);
+
+            if(query.CurrentPage > allPages)
+            {
+                query.CurrentPage = allPages;
+            }
+            if (query.CurrentPage <= 0) 
+            {
+                query.CurrentPage = 1;
+            }
+
             var allGuests = dBase
                 .Skip((query.CurrentPage - 1) * query.ItemsPerPage)
                 .Take(query.ItemsPerPage)

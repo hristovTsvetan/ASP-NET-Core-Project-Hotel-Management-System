@@ -8,7 +8,7 @@ namespace HotelManagementSystem.Areas.Admin.Models.Countries
         {
             this.Countries = new List<CountriesViewModel>();
             this.CurrentPage = 1;
-            this.ItemsPerPage = 5;
+            this.ItemsPerPage = 10;
 
         }
 

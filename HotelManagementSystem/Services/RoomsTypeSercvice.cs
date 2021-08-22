@@ -82,7 +82,17 @@ namespace HotelManagementSystem.Services
                 .Where(rt => rt.Deleted == false)
                 .AsQueryable();
 
+            var tPages = (int)Math.Ceiling((double)rtDb.ToList().Count / rTQuery.ItemsPerPage);
 
+            if (rTQuery.CurrentPage > tPages)
+            {
+                rTQuery.CurrentPage = tPages;
+            }
+
+            if(rTQuery.CurrentPage <= 0)
+            {
+                rTQuery.CurrentPage = 1;
+            }
 
             var allRoomTypes = rtDb
                 .Skip((rTQuery.CurrentPage - 1) * rTQuery.ItemsPerPage)
@@ -100,7 +110,7 @@ namespace HotelManagementSystem.Services
             var roomTypeQModel = new ListRoomTypeQueryModel
             {
                 CurrentPage = rTQuery.CurrentPage,
-                TotalPages = (int)Math.Ceiling((double)rtDb.ToList().Count / rTQuery.ItemsPerPage),
+                TotalPages = tPages,
                 RoomTypes = allRoomTypes
             };
 

@@ -44,6 +44,18 @@ namespace HotelManagementSystem.Areas.Admin.Services
                                c.Country.Name.ToLower().Contains(query.Search.ToLower()));
             }
 
+            var tPages = (int)Math.Ceiling((double)citiesQueryDb.Count() / query.ItemsPerPage);
+
+            if(query.CurrentPage > tPages)
+            {
+                query.CurrentPage = tPages;
+            }
+
+            if(query.CurrentPage <= 0)
+            {
+                query.CurrentPage = 1;
+            }
+
             var allCities = citiesQueryDb
                 .OrderBy(c => c.Name)
                 .Skip((query.CurrentPage - 1) * query.ItemsPerPage)
@@ -63,7 +75,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 NextPage = query.NextPage,
                 PreviousPage = query.PreviousPage,
                 Search = query.Search,
-                TotalPages = (int)Math.Ceiling((double)citiesQueryDb.Count() / query.ItemsPerPage)
+                TotalPages = tPages
             };
 
             return cQueryModel;

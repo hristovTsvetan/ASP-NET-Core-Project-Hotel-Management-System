@@ -40,7 +40,18 @@ namespace HotelManagementSystem.Areas.Admin.Services
                     .Where(c => c.Name.ToLower().Contains(query.Search.ToLower()));
             }
 
-            var dbCount = dbQuery.Count();
+
+            var tPages = (int)Math.Ceiling((double)dbQuery.Count() / query.ItemsPerPage);
+
+            if(query.CurrentPage > tPages)
+            {
+                query.CurrentPage = tPages;
+            }
+
+            if(query.CurrentPage <= 0)
+            {
+                query.CurrentPage = 1;
+            }
 
             var allCountries = dbQuery
                 .OrderBy(c => c.Name)
@@ -60,7 +71,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 CurrentPage = query.CurrentPage,
                 NextPage = query.NextPage,
                 PreviousPage = query.PreviousPage,
-                TotalPages = (int)Math.Ceiling((double)dbCount / query.ItemsPerPage)
+                TotalPages = tPages
             };
 
             return countriesQuery;

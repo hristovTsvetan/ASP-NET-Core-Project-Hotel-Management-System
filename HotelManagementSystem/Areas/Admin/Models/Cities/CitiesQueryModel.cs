@@ -8,7 +8,7 @@ namespace HotelManagementSystem.Areas.Admin.Models.Cities
         {
             this.Cities = new List<CitiesViewModel>();
             this.CurrentPage = 1;
-            this.ItemsPerPage = 5;
+            this.ItemsPerPage = 10;
 
         }
 

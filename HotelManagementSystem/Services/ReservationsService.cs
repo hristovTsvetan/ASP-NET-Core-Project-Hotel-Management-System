@@ -87,6 +87,19 @@ namespace HotelManagementSystem.Services
                     .ToList();
             }
 
+            var tPages = (int)Math.Ceiling((double)reservCol.Count() / res.ItemsPerPage);
+
+            if (res.CurrentPage > tPages)
+            {
+                res.CurrentPage = tPages;
+            }
+
+            if(res.CurrentPage <= 0)
+            {
+                res.CurrentPage = 1;
+            }
+
+
             var allReservations = reservCol
                 .OrderByDescending(r => r.CreatedOn)
                 .Skip((res.CurrentPage - 1) * res.ItemsPerPage)
@@ -96,7 +109,7 @@ namespace HotelManagementSystem.Services
             var reservetionsQueryModel = new ReservationsQueryModel
             {
                 Reservations = allReservations,
-                TotalPages = (int)Math.Ceiling((double)reservCol.Count() / res.ItemsPerPage),
+                TotalPages = tPages,
                 CurrentPage = res.CurrentPage,
                 PreviousPage = res.PreviousPage,
                 NextPage = res.NextPage,
