@@ -25,10 +25,14 @@
         <span asp-validation-for="PostalCode" class="text-danger small"></span>
     </div>
     <div class="form-group">
-    <label asp-for="CountryId"></label>
-    <select asp-for="CountryId" class="form-control" asp-items="@Model.Countries">
-    </select>
-    <span asp-validation-for="CountryId" class="text-danger small"></span>
+        <label asp-for="CountryId"></label>
+        <select asp-for="CountryId" class="form-control" asp-items="@Model.Countries">
+        </select>
+        <span asp-validation-for="CountryId" class="text-danger small"></span>
     </div>
     <input type="submit" value="Save" class="btn btn-warning col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
 </form>
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

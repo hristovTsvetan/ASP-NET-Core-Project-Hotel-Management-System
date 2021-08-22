@@ -12,14 +12,11 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>@ViewData["Title"] - Hotel Management System</title>
-    <!-- Favicon-->
-    <!--<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
     <link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <!-- <link href="css/styles.css" rel="stylesheet" /> -->
     <link href="~/css/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
     <section class="vh-100">
@@ -37,7 +34,7 @@
                         <div class="form-outline mb-4">
                             <input type="email" id="form3Example3" class="form-control form-control-lg"
                                    placeholder="Enter a valid email address" asp-for="Email" />
-                            <label class="form-label" for="form3Example3" asp-for="Email"></label><br/>
+                            <label class="form-label" for="form3Example3" asp-for="Email"></label><br />
                             <span asp-validation-for="Email" class="text-danger small"></span>
                         </div>
 
@@ -45,7 +42,7 @@
                         <div class="form-outline mb-3">
                             <input type="password" id="form3Example4" class="form-control form-control-lg"
                                    placeholder="Enter password" asp-for="Password" />
-                            <label class="form-label" for="form3Example4" asp-for="Password"></label><br/>
+                            <label class="form-label" for="form3Example4" asp-for="Password"></label><br />
                             <span asp-validation-for="Password" class="text-danger small"></span>
                         </div>
                         <div class="text-center text-lg-start mt-4 pt-2">
@@ -63,5 +60,6 @@
             </div>
         </div>
     </section>
+    <partial name="_ValidationScriptsPartial" />
 </body>
 </html>

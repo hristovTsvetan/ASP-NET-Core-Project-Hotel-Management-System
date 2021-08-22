@@ -9,12 +9,12 @@
     <form method="post" class="col-md-4 offset-md-4 col-sm-12">
         <div class="form-group">
             <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control"/>
+            <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger small"></span>
         </div>
         <div class="form-group">
             <label asp-for="Price"></label>
-            <input asp-for="Price" class="form-control"/>
+            <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger small"></span>
         </div>
         <div class="form-group">
@@ -24,10 +24,15 @@
         </div>
         <div class="form-group">
             <label asp-for="Image"></label>
-            <input asp-for="Image" class="form-control"/>
+            <input asp-for="Image" class="form-control" />
             <span asp-validation-for="Image" class="text-danger small"></span>
         </div>
-        <input type="submit" value="Save" class="btn btn-primary col-md-4 offset-md-4 col-sm-4 offset-sm-4" 
-               asp-controller="RoomTypes" asp-action="Add"/>
+        <input type="submit" value="Save" class="btn btn-primary col-md-4 offset-md-4 col-sm-4 offset-sm-4"
+               asp-controller="RoomTypes" asp-action="Add" />
     </form>
 </div>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

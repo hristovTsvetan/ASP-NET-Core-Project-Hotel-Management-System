@@ -1,9 +1,11 @@
 ﻿using DataLayer;
 using HotelManagementSystem.Models.AboutUs;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 
 namespace HotelManagementSystem.Services
 {
+    [Authorize]
     public class AboutUs : IAboutUs
     {
         private HotelManagementDbContext db;

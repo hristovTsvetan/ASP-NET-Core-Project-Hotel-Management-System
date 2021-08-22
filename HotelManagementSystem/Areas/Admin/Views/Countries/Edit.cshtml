@@ -1,4 +1,4 @@
-﻿@model EditCountryFormModel 
+﻿@model EditCountryFormModel
 
 @{
     ViewData["Title"] = "Edit country";
@@ -23,3 +23,8 @@
     <input type="hidden" asp-for="Id" />
     <input type="submit" value="Save" class="btn btn-warning col-md-4 offset-md-4 col-sm-4 offset-sm-4" />
 </form>
+
+@section scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
