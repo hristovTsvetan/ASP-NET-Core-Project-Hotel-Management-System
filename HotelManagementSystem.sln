@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelManagementSystem", "Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{F06FC694-60E8-4675-8819-849C3B4DCE36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelManagementSystem.Test", "HotelManagementSystem.Test\HotelManagementSystem.Test.csproj", "{D6042928-E92D-4589-8CE4-AC0703F13183}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F06FC694-60E8-4675-8819-849C3B4DCE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F06FC694-60E8-4675-8819-849C3B4DCE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F06FC694-60E8-4675-8819-849C3B4DCE36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6042928-E92D-4589-8CE4-AC0703F13183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6042928-E92D-4589-8CE4-AC0703F13183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6042928-E92D-4589-8CE4-AC0703F13183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6042928-E92D-4589-8CE4-AC0703F13183}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

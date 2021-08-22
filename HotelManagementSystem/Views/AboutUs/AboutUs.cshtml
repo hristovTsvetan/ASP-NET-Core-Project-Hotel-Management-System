@@ -1,0 +1,73 @@
+﻿@model AboutUsViewModel
+
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<h4 class="heading-margin text-center mt-5">About Our Company</h4>
+<div class="row">
+    <div class="col-6 offset-3">
+        <table class="table">
+            <tbody>
+                <tr class="table-primary">
+                    <td class="success text-center font-weight-bold">Company Name: </td>
+                    <td>@Model.CompanyName</td>
+                </tr>
+                <tr class="table-primary">
+                    <td class="success text-center font-weight-bold">Company Country </td>
+                    <td>@Model.CompanyCountry</td>
+                </tr>
+                <tr class="table-primary">
+                    <td class="success text-center font-weight-bold">Company City: </td>
+                    <td>@Model.CompanyCity</td>
+                </tr>
+                <tr class="table-primary">
+                    <td class="success text-center font-weight-bold">Company Address: </td>
+                    <td>@Model.CompanyAddress</td>
+                </tr>
+                <tr class="table-primary">
+                    <td class="success text-center font-weight-bold">Company Phone: </td>
+                    <td>@Model.CompanyPhone</td>
+                </tr>
+                <tr class="table-primary">
+                    <td class="success text-center font-weight-bold">Company Email: </td>
+                    <td>@Model.CompanyMail</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h4 class="heading-margin text-center mt-5">Active Hotel</h4>
+<div class="row">
+    <div class="col-6 offset-3">
+        <table class="table">
+            <tbody>
+                <tr class="table-success">
+                    <td class="text-center font-weight-bold">Hotel Name: </td>
+                    <td>@Model.HotelName</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="success text-center font-weight-bold">Hotel Country </td>
+                    <td>@Model.HotelCountry</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="success text-center font-weight-bold">Hotel City: </td>
+                    <td>@Model.HotelCity</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="success text-center font-weight-bold">Hotel Address: </td>
+                    <td>@Model.HotelAddress</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="success text-center font-weight-bold">Hotel Phone: </td>
+                    <td>@Model.HotelPhone</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="success text-center font-weight-bold">Hotel Email: </td>
+                    <td>@Model.HotelMail</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

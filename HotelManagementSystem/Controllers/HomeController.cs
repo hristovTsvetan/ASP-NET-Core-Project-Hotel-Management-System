@@ -11,19 +11,15 @@ namespace HotelManagementSystem.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly UserManager<User> user;
         private readonly IHomeService hService;
 
-        public HomeController(IHomeService homeService, UserManager<User> uManager)
+        public HomeController(IHomeService homeService)
         {
-            this.user = uManager;
             this.hService = homeService;
         }
 
         public IActionResult Home()
         {
-            var users = user.Users;
-
             var currentDashboard = this.hService.GetDashboardInfo();
 
             return View(currentDashboard);

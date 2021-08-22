@@ -1,6 +1,4 @@
 ﻿using HotelManagementSystem.Areas.Admin.Models.Cities;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Services
