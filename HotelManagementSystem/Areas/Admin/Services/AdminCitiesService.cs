@@ -102,6 +102,13 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .Any(c => c.Deleted == false && c.Name == name);
         }
 
+        public bool IsCityExistForAdd(string name)
+        {
+            return this.db
+                .Cities
+                .Any(c => c.Deleted == false && c.Name == name);
+        }
+
         public AddCityFormModel LoadCountries()
         {
             var allCountries = this.db

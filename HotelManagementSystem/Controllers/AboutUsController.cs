@@ -1,8 +1,10 @@
 ﻿using HotelManagementSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelManagementSystem.Controllers
 {
+    [Authorize]
     public class AboutUsController : Controller
     {
         private readonly IAboutUs aboutService;

@@ -7,7 +7,7 @@ namespace HotelManagementSystem.Areas.Admin.Models.Cities
     public class EditCityFormModel
     {
         [Required]
-        [IsCityNameExistWhenAdd]
+        [IsCityNameExistWhenEdit]
         [MinLength(3, ErrorMessage = ValidatorConstants.minLength)]
         [MaxLength(30, ErrorMessage = ValidatorConstants.maxLength)]
         public string Name { get; set; }

@@ -1,10 +1,8 @@
 ﻿using HotelManagementSystem.Areas.Admin.Services;
 using HotelManagementSystem.Areas.Admin.Validators.Messages;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Areas.Admin.Validators
 {
@@ -15,12 +13,15 @@ namespace HotelManagementSystem.Areas.Admin.Validators
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
-            var countryService = (ICountriesService)validationContext.GetService(typeof(ICountriesService));
+            var cityService = (IAdminCitiesService)validationContext.GetService(typeof(IAdminCitiesService));
 
+            var httpAccesor = (IHttpContextAccessor)validationContext.GetService(typeof(IHttpContextAccessor));
 
-            if (countryService.IsCountryExistForAdd(value?.ToString().Trim()))
+            string cityId = httpAccesor.HttpContext.Request.RouteValues.Values.Last().ToString();
+
+            if (cityService.IsCityExistForEdit(value?.ToString().Trim(), cityId))
             {
-                return new ValidationResult(ValidatorConstants.validateCountryNameErrMsg);
+                return new ValidationResult(ValidatorConstants.validateCityNameErrMsg);
             }
 
             return ValidationResult.Success;

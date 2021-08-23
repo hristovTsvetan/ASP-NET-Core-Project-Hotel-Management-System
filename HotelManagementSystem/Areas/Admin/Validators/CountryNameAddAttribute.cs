@@ -1,8 +1,6 @@
 ﻿using HotelManagementSystem.Areas.Admin.Services;
 using HotelManagementSystem.Areas.Admin.Validators.Messages;
-using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace HotelManagementSystem.Areas.Admin.Validators
 {

@@ -1,10 +1,9 @@
-﻿using Xunit;
-using MyTested.AspNetCore.Mvc;
-using System.Linq;
-using HotelManagementSystem.Models.Home;
-using Shouldly;
+﻿using DataLayer.Models;
 using HotelManagementSystem.Controllers;
-using DataLayer.Models;
+using HotelManagementSystem.Models.Home;
+using MyTested.AspNetCore.Mvc;
+using Shouldly;
+using Xunit;
 
 namespace HotelManagementSystem.Test.Controllers
 {
@@ -28,14 +27,15 @@ namespace HotelManagementSystem.Test.Controllers
         }
 
         [Fact]
-        public void HomeControllerShouldReturnView()
+        public void ShoulHaveAuthorizeAttribute()
         {
             MyController<HomeController>
                 .Instance()
-                .Calling(d => d.Home())
-                .ShouldReturn()
-                .View();
+                .ShouldHave()
+                .Attributes(attr => attr.RestrictingForAuthorizedRequests());
+
         }
+
 
         private Guest[] GetGuest()
         {

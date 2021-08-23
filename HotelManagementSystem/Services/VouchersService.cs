@@ -18,7 +18,7 @@ namespace HotelManagementSystem.Services
 
         public async Task AddVoucherAsync(AddVoucherFormModel vchr)
         {
-            var voucher = new Voucher
+            var voucher = new DataLayer.Models.Voucher
             {
                 Name = vchr.Name,
                 Discount = vchr.Discount,

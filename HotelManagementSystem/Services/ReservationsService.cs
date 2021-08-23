@@ -257,6 +257,7 @@ namespace HotelManagementSystem.Services
         {
             return this.db
                 .Vouchers
+                .Where(v => v.Active == true)
                 .Select(v => new SelectListItem
                 {
                     Text = v.Name,

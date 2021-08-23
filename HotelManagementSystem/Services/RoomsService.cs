@@ -208,7 +208,7 @@ namespace HotelManagementSystem.Services
             {
                 HotelName = currentHotel.Name,
                 HotelId = currentHotel.Id,
-                RoomTypes = this.GetRoomTypes()
+                RoomTypes = roomTypes
             };
 
             return room;

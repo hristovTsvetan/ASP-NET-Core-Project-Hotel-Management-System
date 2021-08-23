@@ -13,6 +13,8 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         bool IsCityExistForEdit(string name, string id);
 
+        bool IsCityExistForAdd(string name);
+
         Task Add(AddCityFormModel city);
 
         AddCityFormModel LoadCountries();
