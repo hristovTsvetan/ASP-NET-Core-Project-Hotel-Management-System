@@ -162,9 +162,18 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         public async Task Edit(EditHotelFormModel hotel)
         {
-            var currentHotel = this.db
+            var allHotels = this.db
                 .Hotels
+                .Where(h => h.Deleted == false)
                 .OrderBy(h => h.Name)
+                .ToList();
+
+            if(allHotels.Count <= 1 && hotel.ActiveSelection == "No")
+            {
+                return;
+            }
+
+            var currentHotel = allHotels
                 .FirstOrDefault(h => h.Id == hotel.Id);
 
             if(hotel.ActiveSelection == "Yes")
@@ -192,13 +201,14 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .OrderBy(h => h.Name)
                 .FirstOrDefault();
 
-            if(hotel.Id != activeHotel.Id)
-            {
-                activeHotel.Active = false;
+                if (hotel.Id != activeHotel.Id)
+                {
+                    activeHotel.Active = false;
 
-                this.db.Hotels.Update(activeHotel);
-                await this.db.SaveChangesAsync();
-            }
+                    this.db.Hotels.Update(activeHotel);
+                    await this.db.SaveChangesAsync();
+                }
+
         }
 
         public async Task Delete(string id)

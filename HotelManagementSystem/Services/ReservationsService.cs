@@ -28,10 +28,10 @@ namespace HotelManagementSystem.Services
                 Duration = reservation.EndDate.Subtract(reservation.StartDate).Days,
                 EndDate = reservation.EndDate,
                 Name = reservation.Name,
-                RoomReserveds = allReservedRooms.Select(r => new RoomReserved 
-                    {
-                        RoomId = r.Id
-                    }).ToList(),
+                RoomReserveds = allReservedRooms.Select(r => new RoomReserved
+                {
+                    RoomId = r.Id
+                }).ToList(),
                 StartDate = reservation.StartDate,
                 Status = ReservationStatus.Pending,
                 CreatedOn = DateTime.UtcNow,
@@ -77,7 +77,6 @@ namespace HotelManagementSystem.Services
                     Status = tempRes.Status.ToString(),
                     CreatedOn = tempRes.CreatedOn
                 });
-
             }
 
             if (!string.IsNullOrWhiteSpace(res.Search))
@@ -94,7 +93,7 @@ namespace HotelManagementSystem.Services
                 res.CurrentPage = tPages;
             }
 
-            if(res.CurrentPage <= 0)
+            if (res.CurrentPage <= 0)
             {
                 res.CurrentPage = 1;
             }
@@ -128,10 +127,10 @@ namespace HotelManagementSystem.Services
             var currentGuest = this.db
                 .Guests
                 .Where(g => g.IdentityCardId == guest.IdentityId)
-                .Select(g => new 
+                .Select(g => new
                 {
                     Id = g.Id,
-                    RankName = g.Rank.Name.ToString().ToLower() ,
+                    RankName = g.Rank.Name.ToString().ToLower(),
                     Discount = g.Rank.Discount,
                 })
                 .FirstOrDefault();
@@ -139,13 +138,13 @@ namespace HotelManagementSystem.Services
             var currentVoucher = this.db
                 .Vouchers.FirstOrDefault(v => v.Id == guest.VoucherId);
 
-            if(currentGuest.RankName != "regular")
+            if (currentGuest.RankName != "regular")
             {
                 currentReservation.Price = this.CalculatePrice(currentGuest.Discount, currentReservation.Price);
 
             }
 
-            if(currentVoucher != null && currentVoucher.Active == true)
+            if (currentVoucher != null && currentVoucher.Active == true)
             {
                 currentReservation.Price = this.CalculatePrice(currentVoucher.Discount, currentReservation.Price);
 
@@ -178,7 +177,7 @@ namespace HotelManagementSystem.Services
                 .Invoices.OrderBy(i => i.IssuedDate)
                 .FirstOrDefault(i => i.ReservationId == id);
 
-            if(invoiceForDelete != null)
+            if (invoiceForDelete != null)
             {
                 invoiceForDelete.Status = InvoiceStatus.Canceled;
 
