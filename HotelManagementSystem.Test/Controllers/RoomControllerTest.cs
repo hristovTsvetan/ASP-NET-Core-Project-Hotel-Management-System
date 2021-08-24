@@ -15,7 +15,7 @@ namespace HotelManagementSystem.Test.Controllers
         {
             MyController<RoomsController>
                 .Instance()
-                .WithData(GeneralMocking.GetHotelsWithRooms())
+                .WithData(GeneralMocking.GetActiveHotelWithRooms())
                 .Calling(rooms => rooms.All(With.Default<ListRoomsQueryModel>()))
                 .ShouldReturn()
                 .View(v => v.WithModelOfType<ListRoomsQueryModel>()

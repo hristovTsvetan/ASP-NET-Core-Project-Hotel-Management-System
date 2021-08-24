@@ -29,16 +29,16 @@ namespace HotelManagementSystem.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CompanyInfo(CompanyFormModel company)
         {
+            company = this.compService.GetCountries(company);
+
             if (!ModelState.IsValid)
             {
-                company = this.compService.GetCountries(company);
-
                 return this.View(company);
             }
 
             await this.compService.Update(company);
 
-            return this.RedirectToAction("Index", "Home");
+            return this.View(company);
         }
     }
 }

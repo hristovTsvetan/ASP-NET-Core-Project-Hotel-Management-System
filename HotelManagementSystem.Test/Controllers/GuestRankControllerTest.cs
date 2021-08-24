@@ -1,5 +1,4 @@
-﻿using DataLayer.Models;
-using HotelManagementSystem.Controllers;
+﻿using HotelManagementSystem.Controllers;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Test.Moq;
 using MyTested.AspNetCore.Mvc;

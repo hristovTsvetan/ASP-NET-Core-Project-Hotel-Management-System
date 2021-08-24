@@ -1,6 +1,9 @@
 ﻿using DataLayer.Models;
 using DataLayer.Models.Enums;
 using HotelManagementSystem.Areas.Admin.Models.Cities;
+using HotelManagementSystem.Areas.Admin.Models.Company;
+using HotelManagementSystem.Areas.Admin.Models.Countries;
+using HotelManagementSystem.Areas.Admin.Models.Hotels;
 using HotelManagementSystem.Models.GuestRanks;
 using HotelManagementSystem.Models.Guests;
 using HotelManagementSystem.Models.Rooms;
@@ -13,17 +16,72 @@ namespace HotelManagementSystem.Test.Moq
 {
     public class GeneralMocking
     {
-        public static Hotel GetHotelsWithRooms()
+        public static Hotel GetActiveHotelWithRooms()
         {
             return new Hotel
             {
+                Id = "TestId",
+                Name = "Sunny",
                 Active = true,
+                Address = "Po Box 101",
+                CityId = "TestCityId",
+                CompanyId = "TestCountryId",
+                Phone = "345345435",
+                Email = "hotel@hotel.bg",
                 Rooms = new[] {
                     new Room { Floor = 2, Number = "Room 101", RoomType = new RoomType{ Name = "Single" } },
                     new Room { Floor = 3, Number = "Room 102", RoomType = new RoomType{ Name = "Single" } },
                     new Room { Floor = 4, Number = "Room 103", RoomType = new RoomType{ Name = "Single" } },
                     new Room { Floor = 5, Number = "Room 104", RoomType = new RoomType{ Name = "Single" } }
                 }
+            };
+        }
+
+        public static Hotel GetInactivHotel()
+        {
+            return new Hotel
+            {
+                Id = "TestHotelId",
+                Deleted = false,
+                Name = "Sunny",
+                Address = "Po Box 101",
+                CityId = "TestId",
+                Phone = "345345435",
+                Email = "hotel@hotel.bg",
+                Rooms = new[] {
+                    new Room { Floor = 2, Number = "Room 101", RoomType = new RoomType{ Name = "Single" } },
+                    new Room { Floor = 3, Number = "Room 102", RoomType = new RoomType{ Name = "Single" } },
+                    new Room { Floor = 4, Number = "Room 103", RoomType = new RoomType{ Name = "Single" } },
+                    new Room { Floor = 5, Number = "Room 104", RoomType = new RoomType{ Name = "Single" } }
+                }
+            };
+        }
+
+        public static EditHotelFormModel EditHotelFormModel()
+        {
+            return new EditHotelFormModel
+            {
+                ActiveSelection = "Yes",
+                Id = "TestId",
+                Name = "Best One",
+                Address = "Po Box 110",
+                CityId = "TestCityId",
+                CountryId = "TestCountryId",
+                Phone = "345636546",
+                Email = "bestOne@hotel.bg",
+            };
+        }
+
+        public static AddHotelFormModel AddHotelFormModel()
+        {
+            return new AddHotelFormModel
+            {
+                Name = "Sunny Way",
+                Address = "Po Box 101",
+                Phone = "345345435",
+                Email = "hotel@hotel.bg",
+                CityId = "TestCityId",
+                CountryId = "TestCountryId"
             };
         }
 
@@ -69,7 +127,21 @@ namespace HotelManagementSystem.Test.Moq
                 Id = "TestId",
                 Name = "My company",
                 Address = "Po Box 101",
-                City = new City { Name = "Sofia", Country = new Country { Name = "Bulgaria" } },
+                City = new City { Id = "TestCityId", Name = "Sofia", Country = new Country { Id = "TestCountryId", Name = "Bulgaria" } },
+                Email = "company@company.bg",
+                Phone = "53326345345"
+            };
+        }
+
+        public static CompanyFormModel CompanyFormModel()
+        {
+            return new CompanyFormModel
+            {
+                Id = "TestId",
+                CityId = "TestCityId",
+                CountryId = "TestCountryId",
+                Name = "My company",
+                Address = "Po Box 101",
                 Email = "company@company.bg",
                 Phone = "53326345345"
             };
@@ -286,6 +358,23 @@ namespace HotelManagementSystem.Test.Moq
                 CountryId = "TestCountryId",
                 Name = "Varna",
                 PostalCode = "1000"
+            };
+        }
+
+        public static EditCountryFormModel EditCountryForm()
+        {
+            return new EditCountryFormModel
+            {
+                Id = "TestCountryId",
+                Name = "Norway",
+            };
+        }
+
+        public static AddCountryFormModel AddCountryForm()
+        {
+            return new AddCountryFormModel
+            {
+                Name = "Norway",
             };
         }
 
