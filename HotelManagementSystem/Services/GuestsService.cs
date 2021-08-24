@@ -75,11 +75,11 @@ namespace HotelManagementSystem.Services
 
             var allPages = (int)Math.Ceiling((double)dBase.ToList().Count / query.ItemsPerPage);
 
-            if(query.CurrentPage > allPages)
+            if (query.CurrentPage > allPages)
             {
                 query.CurrentPage = allPages;
             }
-            if (query.CurrentPage <= 0) 
+            if (query.CurrentPage <= 0)
             {
                 query.CurrentPage = 1;
             }
@@ -224,7 +224,7 @@ namespace HotelManagementSystem.Services
             await this.db.SaveChangesAsync();
         }
 
-        public async Task ChangeReservationStatus(string id)
+        private async Task ChangeReservationStatus(string id)
         {
             this.db.
                 Guests
@@ -233,16 +233,31 @@ namespace HotelManagementSystem.Services
 
             var reservations = this.db
                 .Reservations
-                .Where(r => r.GuestId == id && r.StartDate >= DateTime.Now.Date)
+                .Where(r => r.GuestId == id && r.EndDate >= DateTime.Now.Date)
                 .ToList();
 
-            foreach(var res in reservations)
+            var allInvoices = this.db
+                .Invoices
+                .Where(i => i.Status != InvoiceStatus.Canceled)
+                .ToList();
+
+            foreach (var res in reservations)
             {
                 res.Status = ReservationStatus.Canceled;
+                ChangeInvoiceStatus(res, allInvoices);
             }
 
             this.db.Reservations.UpdateRange(reservations);
             await this.db.SaveChangesAsync();
+        }
+
+        private void ChangeInvoiceStatus(Reservation res, IEnumerable<Invoice> invoices)
+        {
+            if (invoices.Any(a => a.ReservationId == res.Id))
+            {
+                var curInvoice = invoices.FirstOrDefault(i => i.ReservationId == res.Id);
+                curInvoice.Status = InvoiceStatus.Canceled;
+            }
         }
 
         public EditGuestFormModel GetGuest(string id)
@@ -274,7 +289,7 @@ namespace HotelManagementSystem.Services
 
         public bool IsIdentityNumExistExceptSelf(string identityNumber, string id)
         {
-            var dBase =this.db
+            var dBase = this.db
                 .Guests
                 .Where(g => g.Id != id && g.Deleted == false)
                 .AsQueryable();

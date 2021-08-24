@@ -34,7 +34,6 @@ namespace HotelManagementSystem.Services
                 allRoomsDb = allRoomsDb
                     .Where(r => r.Number.ToLower().Contains(rooms.Search.ToLower()) ||
                     r.Description.ToLower().Contains(rooms.Search.ToLower()) ||
-                    r.Hotel.Name.ToLower().Contains(rooms.Search.ToLower()) ||
                     r.RoomType.Name.ToLower().Contains(rooms.Search.ToLower()));
             }
 

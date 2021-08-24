@@ -21,8 +21,6 @@ namespace HotelManagementSystem.Services
 
         ICollection<SelectListItem> GetRanks();
 
-        Task ChangeReservationStatus(string id);
-
         Task Delete(string id);
 
         bool IsCountryExist(string countryId);

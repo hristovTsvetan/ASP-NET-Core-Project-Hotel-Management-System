@@ -41,7 +41,7 @@ namespace HotelManagementSystem.Models.Reservations
             if (string.IsNullOrWhiteSpace(this.Name) && !string.IsNullOrWhiteSpace(this.AddReservationButton))
             {
                 yield return new ValidationResult(
-                   "Should select one or more rooms for reservation!", new[] { nameof(this.Name) });
+                   "Should write name for reservation!", new[] { nameof(this.Name) });
             }
 
             if (this.SelectedRooms.Count == 0 && !string.IsNullOrWhiteSpace(this.AddReservationButton))
