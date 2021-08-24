@@ -48,12 +48,12 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
             var tPages = (int)Math.Ceiling((double)allHotelsAsQuery.Count() / query.ItemsPerPage);
 
-            if(query.CurrentPage > tPages)
+            if (query.CurrentPage > tPages)
             {
                 query.CurrentPage = tPages;
             }
 
-            if(query.CurrentPage <= 0)
+            if (query.CurrentPage <= 0)
             {
                 query.CurrentPage = 1;
             }
@@ -104,19 +104,38 @@ namespace HotelManagementSystem.Areas.Admin.Services
 
         public ICollection<SelectListItem> GetActiveList()
         {
-            return new[]
+            var allHotels = this.db
+                .Hotels
+                .Where(h => h.Deleted == false)
+                .ToList();
+
+            if (allHotels.Count() <= 1)
             {
-                new SelectListItem
+                return new[]
                 {
-                    Text = "Yes",
-                    Value = "Yes"
-                },
-                new SelectListItem
-                {
-                    Text = "No",
-                    Value = "No"
-                },
-            };
+                    new SelectListItem
+                    {
+                        Text = "Yes",
+                        Value = "Yes"
+                    }
+                };
+            }
+            else
+            {
+                return new[]
+                 {
+                        new SelectListItem
+                        {
+                            Text = "Yes",
+                            Value = "Yes"
+                        },
+                        new SelectListItem
+                        {
+                            Text = "No",
+                            Value = "No"
+                        },
+                 };
+            }
         }
 
         public ICollection<SelectListItem> GetCities()
@@ -168,7 +187,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .OrderBy(h => h.Name)
                 .ToList();
 
-            if(allHotels.Count <= 1 && hotel.ActiveSelection == "No")
+            if (allHotels.Count <= 1 && hotel.ActiveSelection == "No")
             {
                 return;
             }
@@ -176,7 +195,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
             var currentHotel = allHotels
                 .FirstOrDefault(h => h.Id == hotel.Id);
 
-            if(hotel.ActiveSelection == "Yes")
+            if (hotel.ActiveSelection == "Yes")
             {
                 await this.ChangeHotelStatus(hotel);
             }
@@ -201,13 +220,13 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .OrderBy(h => h.Name)
                 .FirstOrDefault();
 
-                if (hotel.Id != activeHotel.Id)
-                {
-                    activeHotel.Active = false;
+            if (hotel.Id != activeHotel.Id)
+            {
+                activeHotel.Active = false;
 
-                    this.db.Hotels.Update(activeHotel);
-                    await this.db.SaveChangesAsync();
-                }
+                this.db.Hotels.Update(activeHotel);
+                await this.db.SaveChangesAsync();
+            }
 
         }
 
@@ -217,7 +236,7 @@ namespace HotelManagementSystem.Areas.Admin.Services
                 .Hotels
                 .Any(h => h.Id == id && h.Active == true);
 
-            if(!isHotelActive)
+            if (!isHotelActive)
             {
                 var hotelForDelete = this.db
                     .Hotels
@@ -265,9 +284,9 @@ namespace HotelManagementSystem.Areas.Admin.Services
             }
 
             this.db.Rooms.UpdateRange(roomsForDelete);
-            await this.db.SaveChangesAsync ();
+            await this.db.SaveChangesAsync();
         }
     }
 
-    
+
 }
